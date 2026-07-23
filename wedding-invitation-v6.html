@@ -1,0 +1,2225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pradeep &amp; Niveditha — Wedding Invitation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Playfair+Display:wght@500;600;700&family=Alex+Brush&family=Cinzel:wght@600;700;900&family=Yatra+One&family=Jost:wght@300;400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --sky-top: #2f8fc2;
+      --sky-mid: #5fb9e3;
+      --sky-horizon: #cdeaf4;
+      --cream: #fdf5e2;
+      --cream-2: #f7ead0;
+      --gold: #c9962f;
+      --gold-deep: #8a5a1a;
+      --terracotta: #c2543b;
+      --navy: #132a52;
+      --navy-2: #1d3c72;
+      --leaf: #4f7a4a;
+      --ink: #2a2210;
+      --page-padding: 20px;
+    }
+
+    @font-face {
+      font-family: 'Lumitra';
+      src: url('fonts/LumitraRegular-LV2Vn.otf') format('opentype');
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'Kaivalya';
+      src: url('fonts/KaivalyaIkiikocom-0Wy9r.otf') format('opentype');
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'Chintaron';
+      src: url('ChintaronRegular-MAzen.ttf') format('truetype');
+      font-display: swap;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: 'Cormorant Garamond', serif;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .eyebrow {
+      font-family: 'Jost', sans-serif;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      font-size: 11px;
+      font-weight: 400;
+    }
+
+    .display {
+      font-family: 'Playfair Display', serif;
+    }
+
+    .script {
+      font-family: 'Alex Brush', cursive;
+    }
+
+    section {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(26px);
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+      transition:
+        opacity .85s ease,
+        transform .85s ease;
+    }
+
+    /* ===================== SKY BAND (hero + invite + names) ===================== */
+    .sky-band {
+      background: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-mid) 55%, var(--sky-horizon) 100%);
+      background-attachment: fixed;
+      padding-top: 0;
+    }
+
+    .invite-band {
+      position: relative;
+      padding: 90px 15px;
+      padding-bottom: 0;
+      overflow: hidden;
+      background: linear-gradient(180deg,
+          #f5d4dc 0%,
+          #f8e5e9 55%,
+          #fff5f7 100%);
+    }
+
+    .invite-scene {
+      position: relative;
+      height: 350px;
+      overflow: hidden;
+      width: 100vw;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .invite-temple.scene-visible {
+      opacity: 1;
+      transform:
+        translate(-50%, 0) scale(1);
+    }
+
+    .invite-temple {
+      position: absolute;
+      left: 50%;
+      width: 120%;
+      bottom: 0;
+      transform: translate(-50%, 60px) scale(.96);
+      opacity: 0;
+      transition:
+        opacity 1.8s ease,
+        transform 1.8s cubic-bezier(.22, .61, .36, 1);
+      z-index: 1;
+    }
+
+    .invite-mountains.scene-visible {
+      opacity: .60;
+      transform:
+        translate(-50%, 0) scale(1);
+    }
+
+    .invite-mountains {
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      width: 140%;
+      transform: translate(-50%, 60px) scale(.96);
+      opacity: 0;
+      transition:
+        opacity 1.2s ease,
+        transform 1.2s cubic-bezier(.22, .61, .36, 1);
+      z-index: 0;
+
+      mask-image: linear-gradient(to top,
+          transparent 0%,
+          black 18%,
+          black 100%);
+
+      -webkit-mask-image: linear-gradient(to top,
+          transparent 0%,
+          black 18%,
+          black 100%);
+    }
+
+    .sky-band .eyebrow {
+      color: var(--cream);
+      text-align: center;
+    }
+
+    .hero-sky {
+      overflow: hidden;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+
+    .hero-spacer {
+      min-height: calc(75vh - 166px);
+    }
+
+    .hero-clouds {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .hero-cloud {
+      position: absolute;
+      display: block;
+      width: auto;
+      max-width: none;
+      pointer-events: none;
+    }
+
+    .hero-cloud.far {
+      width: 165%;
+      top: 4%;
+      right: -88%;
+      opacity: 0.80;
+    }
+
+    .hero-cloud.near {
+      width: 155%;
+      top: 30%;
+      left: -84%;
+      /* opacity: 0.90; */
+    }
+
+    /* floating cloud strip decoration at top of sky sections */
+    .cloud-row {
+      display: flex;
+      justify-content: center;
+      gap: -10px;
+      margin-bottom: -6px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ===================== ARCH ILLUSTRATION ===================== */
+    .arch-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 340px;
+      margin: 0 auto;
+      filter: drop-shadow(0 18px 30px rgba(19, 42, 82, 0.25));
+    }
+
+    .arch-wrap svg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .arch-scene {
+      position: relative;
+      z-index: 1;
+    }
+
+    .arch-border {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .cloud-name-tag {
+      position: absolute;
+      top: 14%;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      text-align: center;
+      width: 78%;
+    }
+
+    .cloud-name-tag .names {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 22px;
+      color: var(--gold-deep);
+      letter-spacing: 0.02em;
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+    }
+
+    .cloud-name-tag .weds {
+      font-family: 'Jost', sans-serif;
+      font-size: 9px;
+      letter-spacing: 0.35em;
+      color: var(--gold-deep);
+      display: block;
+      margin: 2px 0;
+    }
+
+    .hero-title {
+      text-align: center;
+      padding: 46px 20px 6px;
+    }
+
+    .hero-title .amp-names {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 15vw;
+      color: var(--cream);
+      line-height: 1;
+      text-shadow: 0 2px 14px rgba(19, 42, 82, 0.35);
+    }
+
+    @media(min-width:520px) {
+      .hero-title .amp-names {
+        font-size: 56px;
+      }
+    }
+
+    .hero-title .script-amp {
+      font-family: 'Alex Brush', cursive;
+      color: var(--gold);
+      font-size: 1.5em;
+      display: inline-block;
+      margin: 0 6px;
+    }
+
+    .hero-title .date-line {
+      font-family: 'Jost', sans-serif;
+      letter-spacing: 0.28em;
+      font-size: 12.5px;
+      color: var(--cream);
+      text-transform: uppercase;
+      margin-top: 14px;
+      display: block;
+    }
+
+    .scroll-cue {
+      margin: 26px auto 0;
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(var(--cream), transparent);
+      animation: cue 2.2s ease-in-out infinite;
+    }
+
+    @keyframes cue {
+
+      0%,
+      100% {
+        opacity: 0.5;
+      }
+
+      50% {
+        opacity: 1;
+      }
+    }
+
+
+    /* ===================== HERO v2: name faded behind temple photo ===================== */
+    .hero-stage {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 6px;
+    }
+
+    .hero-name {
+      font-family: 'Lumitra', 'Yatra One', 'Cormorant Garamond', serif;
+      font-weight: 500;
+      text-transform: none;
+      font-size: clamp(56px, 19vw, 110px);
+      /* color: #D8B15A; */
+      color: #E8C76A;
+      letter-spacing: 0.06em;
+      line-height: 0.86;
+      text-align: center;
+      opacity: 1;
+      text-shadow:
+        0 3px 10px rgba(0, 0, 0, .35),
+        0 0 30px rgba(0, 0, 0, .25);
+      position: absolute;
+      width: 100%;
+    }
+
+    .hero-name.top {
+      z-index: 1;
+      top: -205px;
+      margin: 0;
+    }
+
+    .hero-name.bottom {
+      z-index: 1;
+      top: -52px;
+      margin: 0;
+    }
+
+    .hero-name.weds {
+      z-index: 1;
+      top: -116px;
+      margin: 0;
+      font-family: 'Jost', sans-serif;
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 0.34em;
+      line-height: 1;
+      text-transform: uppercase;
+      text-shadow: 0 1px 8px rgba(19, 42, 82, 0.72);
+    }
+
+    .arch-photo-wrap {
+      width: 100%;
+      margin: 70px -22px 0;
+      aspect-ratio: 700/980;
+    }
+
+    .arch-photo-wrap .temple-photo {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .arch-photo-wrap .frame-overlay {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+      pointer-events: none;
+    }
+
+    /* ===================== INVITE TEXT CARD ===================== */
+    .invite-card {
+      text-align: center;
+      width: 100%;
+      margin: 0;
+    }
+
+    .flourish {
+      width: 34px;
+      height: 34px;
+      margin: 0 auto 18px;
+      color: var(--cream);
+    }
+
+    .invite-card .blessing {
+      font-size: 14.5px;
+      color: #6B5876;
+      line-height: 1.9;
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      letter-spacing: 0.02em;
+      max-width: 280px;
+      margin: 0 auto 22px;
+    }
+
+    .invite-card .invite-word {
+      font-family: 'Playfair Display', serif;
+      font-size: 38px;
+      color: var(--gold);
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-shadow: 0 2px 10px rgba(19, 42, 82, 0.3);
+    }
+
+    /* ===================== COUNTDOWN ===================== */
+    .countdown-section {
+      padding: 0px 20px;
+      background:
+        linear-gradient(180deg,
+          #74145e 0%,
+          #380036 100%);
+      color: #fff;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Soft golden glow */
+
+    .countdown-section::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at top,
+          rgba(231, 194, 122, .18),
+          transparent 60%);
+      pointer-events: none;
+    }
+
+    /* Divider */
+
+    .divider-light .ln {
+      background: rgba(231, 194, 122, .45);
+    }
+
+    .divider-light .diamond {
+      background: #E7C27A;
+    }
+
+    /* Date */
+
+    .countdown-date {
+      display: inline-block;
+      padding: 8px 26px;
+      color: #E7C27A;
+      border-top: 1px solid rgba(231, 194, 122, .35);
+      border-bottom: 1px solid rgba(231, 194, 122, .35);
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+    }
+
+    /* Title */
+
+    .countdown-title {
+      margin: 20px 0 12px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(48px, 6vw, 72px);
+      font-weight: 500;
+      color: #FFF8F0;
+    }
+
+    /* Subtitle */
+
+    .countdown-subtitle {
+      max-width: 640px;
+      margin: auto;
+      color: rgba(255, 255, 255, .82);
+      font-size: 17px;
+      line-height: 1.8;
+    }
+
+    /* Countdown */
+
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 22px;
+      flex-wrap: wrap;
+      margin-top: 55px;
+    }
+
+    /* Boxes */
+
+    .countdown .box {
+      width: 120px;
+      padding: 24px 18px;
+      background: rgba(255, 255, 255, .08);
+      border: 1px solid rgba(231, 194, 122, .22);
+      border-radius: 18px;
+      backdrop-filter: blur(10px);
+      transition: .35s;
+    }
+
+    .countdown .box:hover {
+      transform: translateY(-6px);
+      background: rgba(255, 255, 255, .12);
+      border-color: #E7C27A;
+    }
+
+    /* Numbers */
+    .countdown .num {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 52px;
+      font-weight: 600;
+      color: #E7C27A;
+      line-height: 1;
+    }
+
+    /* Labels */
+
+    .countdown .lbl {
+      display: block;
+      margin-top: 12px;
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      font-size: 12px;
+      color: rgba(255, 255, 255, .8);
+    }
+
+    /* ===================== STORY ===================== */
+    .story-block {
+      margin-bottom: 38px;
+      text-align: center;
+    }
+
+    .story-block .story-mark {
+      color: var(--terracotta);
+      font-size: 12px;
+      letter-spacing: 0.3em;
+      font-family: 'Jost', sans-serif;
+      display: block;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    .story-block p {
+      font-size: 18px;
+      line-height: 1.75;
+      font-weight: 400;
+      color: var(--ink);
+    }
+
+    /* ===================== EVENTS (polaroid card on illustrated strip) ===================== */
+    .events-strip {
+      background: linear-gradient(180deg, var(--sky-mid), var(--sky-horizon));
+      background-attachment: fixed;
+      padding-bottom: 110px;
+    }
+
+    .ev-content {
+      padding: 18px;
+    }
+
+    .event-card.active {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+      z-index: 3;
+      pointer-events: auto;
+    }
+
+    .event-card.next {
+      opacity: .45;
+      transform: translateY(12px) scale(.97);
+      z-index: 2;
+    }
+
+    .event-card.prev {
+      opacity: .22;
+      transform: translateY(24px) scale(.94);
+      z-index: 1;
+    }
+
+    .event-card .ev-art {
+      width: 100%;
+      aspect-ratio: 4/3;
+      border-radius: 2px;
+      overflow: hidden;
+      margin: 0;
+      margin-bottom: 12px;
+    }
+
+    .event-card .ev-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 21px;
+      color: var(--navy);
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .event-card .ev-meta {
+      font-family: 'Jost', sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      color: #6b5a3a;
+      line-height: 1.8;
+      text-align: center;
+      margin-top: 4px;
+    }
+
+    .event-card .ev-meta b {
+      color: var(--terracotta);
+      font-weight: 500;
+    }
+
+    .functions-title {
+      margin-top: 100px;
+      position: static;
+      text-align: center;
+      font-family: 'Cinzel', serif;
+      font-size: 40px;
+      line-height: 1.4;
+      letter-spacing: 8px;
+      color: #e38603;
+      /* -webkit-text-stroke: 0.4px rgba(92, 56, 26, .65); */
+      text-shadow:
+        0 1px 1px rgba(80, 45, 20, .35),
+        0 3px 8px rgba(0, 0, 0, .18);
+      z-index: 30;
+      opacity: 0;
+      transform: translateY(20px);
+      transition:
+        opacity .8s ease,
+        transform .8s ease;
+    }
+
+    .function-content.show .functions-title {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: .15s;
+    }
+
+    .functions-section {
+      position: relative;
+      min-height: 100svh;
+      overflow: hidden;
+    }
+
+    .function-content {
+      position: absolute;
+      left: 50%;
+      top: 52%;
+      transform: translate(-50%, -50%) translateY(40px);
+
+      width: 100%;
+      max-width: 420px;
+
+      z-index: 20;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      opacity: 0;
+
+      transition:
+        opacity 1.1s ease,
+        transform 1.1s cubic-bezier(.22, .61, .36, 1);
+    }
+
+    .function-content.show {
+      opacity: 1;
+      transform: translate(-50%, -50%) translateY(0);
+    }
+
+    .functions-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background:
+        linear-gradient(180deg,
+          #F6B067 0%,
+          #F8C988 35%,
+          #F9E0BA 100%);
+    }
+
+    .arch-frame {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 8;
+      pointer-events: none;
+    }
+
+    .birds {
+      position: absolute;
+      inset: 0;
+      z-index: 6;
+      opacity: .75;
+      pointer-events: none;
+    }
+
+    .birds.show {
+      opacity: 1;
+    }
+
+    .section-tag {
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      font-size: 13px;
+      color: #7b5734;
+      margin-bottom: 24px;
+    }
+
+    .cards {
+      position: relative;
+      width: 320px;
+      height: 360px;
+    }
+
+    .card-wrapper {
+      opacity: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      padding-top: 100px;
+      padding-bottom: 60px;
+      gap: 20px;
+      transition:
+        opacity .9s ease,
+        transform .9s ease;
+      transform: translateY(25px);
+      transition-delay: .35s;
+    }
+
+    .function-content.show .card-wrapper {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .event-card {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 38px 32px;
+      background: #FFF8F1;
+      border: 2px solid #E6D4B6;
+      border-radius: 14px;
+      opacity: 0;
+      transform: translateX(40px) scale(.96);
+      z-index: 1;
+      pointer-events: none;
+      transition: all .45s ease;
+    }
+
+    /* Decorative top & bottom */
+
+    .event-card::before,
+    .event-card::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 70%;
+      height: 24px;
+      border: 2px solid #E6D4B6;
+      background: #FFF8F1;
+    }
+
+    .event-card::before {
+      top: -14px;
+      border-bottom: none;
+      border-radius: 0 0 100px 100px;
+    }
+
+    .event-card::after {
+      bottom: -14px;
+      border-top: none;
+      border-radius: 100px 100px 0 0;
+    }
+
+    .event-date {
+      font-family: "Jost", sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      color: #8E6B48;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .event-day {
+      font-size: clamp(14px, 1.5vw, 18px);
+      font-weight: 800;
+      /* letter-spacing: 0.3em; */
+      text-transform: uppercase;
+    }
+
+    .event-card p {
+      margin: 18px 0;
+      font-size: 21px;
+      color: #80654D;
+    }
+
+    .event-card h2 {
+      font-family: "Playfair Display", serif;
+      font-size: 44px;
+      font-weight: 600;
+      color: #5A3214;
+      margin: 0;
+    }
+
+    .event-card h3 {
+      margin-top: 12px;
+      font-size: 26px;
+      color: #6B3E1F;
+    }
+
+    .divider {
+      width: 70px;
+      height: 1px;
+      margin: 8px auto 10px;
+      background:
+        linear-gradient(to right,
+          transparent,
+          #B88C54,
+          transparent);
+    }
+
+
+    .ornament {
+      margin: 14px 0;
+      color: #B98B43;
+      letter-spacing: 8px;
+      font-size: 12px;
+    }
+
+    .nav-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255, 248, 241, .75);
+      color: #7A4D25;
+      font-size: 18px;
+      cursor: pointer;
+      transition: .3s;
+    }
+
+    .nav-btn:hover {
+      transform: scale(1.1);
+      background: #FFF;
+    }
+
+    .section-heading {
+      margin-bottom: 26px;
+      text-align: center;
+    }
+
+    .section-heading h4 {
+      font-family: "Cinzel", serif;
+      font-size: 24px;
+      letter-spacing: 5px;
+      color: #70461F;
+    }
+
+    .section-heading span {
+      display: none;
+    }
+
+    .dots {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 28px;
+    }
+
+    .dots span {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #C8A25E;
+      opacity: .35;
+    }
+
+    .dots .active {
+      opacity: 1;
+    }
+
+    .functions-bg::after {
+      content: "";
+      position: absolute;
+      width: 420px;
+      height: 420px;
+      left: 50%;
+      top: 35%;
+      transform: translateX(-50%);
+      background:
+        radial-gradient(rgba(255, 239, 196, .55),
+          transparent 70%);
+      animation: sunGlow 8s ease-in-out infinite;
+    }
+
+    @keyframes sunGlow {
+
+      0%,
+      100% {
+        opacity: .45;
+        transform:
+          translateX(-50%) scale(.95);
+      }
+
+      50% {
+        opacity: .75;
+        transform:
+          translateX(-50%) scale(1.06);
+      }
+    }
+
+    /* ===================== COUPLE MOMENT (illustrated silhouette) ===================== */
+    .moment-section {
+      background: linear-gradient(180deg, var(--sky-horizon), var(--cream) 70%);
+    }
+
+    .moment-illustration {
+      max-width: 280px;
+      margin: 0 auto 30px;
+    }
+
+    /* ===================== GALLERY (arch photo frames) ===================== */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .gal-frame {
+      aspect-ratio: 3/4;
+      border-radius: 40px 40px 4px 4px;
+      border: 2px solid var(--gold);
+      background: linear-gradient(160deg, var(--sky-mid), var(--sky-horizon));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Alex Brush', cursive;
+      color: rgba(19, 42, 82, 0.4);
+      font-size: 22px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .gal-frame::after {
+      content: "";
+      position: absolute;
+      inset: 3px;
+      border: 1px solid rgba(19, 42, 82, 0.25);
+      border-radius: 38px 38px 3px 3px;
+    }
+
+    /* ===================== LOCATION CTA ===================== */
+    .location-cta {
+      text-align: center;
+      padding-top: 70px;
+      padding-bottom: 70px;
+    }
+
+    .location-cta .pin-btn {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--terracotta);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 18px auto 0;
+      box-shadow: 0 10px 22px rgba(194, 84, 59, 0.4);
+      cursor: pointer;
+      border: none;
+    }
+
+    /* ===================== RSVP (navy Rajasthani pattern) ===================== */
+    .rsvp-section {
+      background-color: var(--navy);
+      background-image:
+        radial-gradient(circle at 20% 20%, rgba(201, 150, 47, 0.14) 0, transparent 40%),
+        radial-gradient(circle at 85% 75%, rgba(201, 150, 47, 0.12) 0, transparent 45%);
+      background-attachment: fixed, fixed;
+      padding-top: 80px;
+      padding-bottom: 90px;
+      position: relative;
+    }
+
+    .rsvp-section .section-title {
+      color: var(--cream);
+    }
+
+    .rsvp-section .section-lede {
+      color: rgba(253, 245, 226, 0.65);
+    }
+
+    .rsvp-section .divider {
+      color: var(--gold);
+    }
+
+    .rsvp-card {
+      border: 1px solid rgba(201, 150, 47, 0.5);
+      border-radius: 10px;
+      padding: 32px 24px;
+      text-align: center;
+      background: rgba(253, 245, 226, 0.04);
+    }
+
+    .rsvp-card input,
+    .rsvp-card select {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(201, 150, 47, 0.5);
+      color: var(--cream);
+      font-family: 'Jost', sans-serif;
+      font-size: 14px;
+      padding: 10px 4px;
+      margin-bottom: 20px;
+      outline: none;
+    }
+
+    .rsvp-card input::placeholder {
+      color: rgba(253, 245, 226, 0.4);
+    }
+
+    .rsvp-card option {
+      color: var(--ink);
+    }
+
+    .rsvp-btn {
+      font-family: 'Jost', sans-serif;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-size: 12px;
+      background: var(--gold);
+      color: var(--navy);
+      border: none;
+      padding: 14px 30px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .rsvp-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(201, 150, 47, 0.35);
+    }
+
+    .rsvp-btn:focus-visible,
+    a:focus-visible,
+    input:focus-visible,
+    .pin-btn:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 3px;
+    }
+
+    /* ===================== FOOTER ===================== */
+    footer {
+      text-align: center;
+      padding: 60px 24px 60px;
+      background: var(--navy);
+    }
+
+    footer .monogram {
+      font-family: 'Alex Brush', cursive;
+      font-size: 42px;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    footer p {
+      font-family: 'Jost', sans-serif;
+      font-size: 11.5px;
+      letter-spacing: 0.1em;
+      color: rgba(253, 245, 226, 0.5);
+    }
+
+    .ganesha {
+      display: block;
+      width: 90px;
+      margin: 0 auto 28px;
+      opacity: 0;
+      transform: translateY(30px) scale(.9);
+      transition: all 1.2s ease;
+    }
+
+    .reveal.in.ganesha {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .invite-title {
+      margin-top: 22px;
+      margin-bottom: 50px;
+      text-align: center;
+
+      font-family: 'Cinzel', serif;
+      font-size: 56px;
+      font-weight: 700;
+      letter-spacing: 8px;
+
+      color: #B67A3A;
+    }
+
+    .parents {
+      text-align: center;
+      padding-bottom: 20px;
+    }
+
+    .parents-name {
+      font-family: 'Playfair Display', serif;
+      color: #274b7a;
+      font-size: 23px;
+      font-weight: 600;
+      margin-bottom: 18px;
+    }
+
+    .invite-text {
+      font-family: 'Cormorant Garamond', serif;
+      color: #6B5876;
+      font-size: 23px;
+      line-height: 1.8;
+      margin-bottom: 26px;
+    }
+
+    .couple-name {
+      font-family: 'Cinzel', serif;
+      color: #B67A3A;
+      font-size: 50px;
+      letter-spacing: 5px;
+      margin: 10px 0;
+    }
+
+    .amp {
+      font-family: 'Alex Brush', cursive;
+      color: #B67A3A;
+      font-size: 42px;
+      margin: 8px 0;
+    }
+
+    .events-heading {
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      color: #7C5A74;
+      font-size: 34px;
+      font-weight: 600;
+    }
+
+    .invite-scene::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      /* background:
+        radial-gradient(circle at 20% 100%, #ecc1cd 0 20%, transparent 21%),
+        radial-gradient(circle at 60% 100%, #e9bcc9 0 24%, transparent 25%),
+        radial-gradient(circle at 95% 100%, #efc8d3 0 20%, transparent 21%); */
+      opacity: .55;
+      z-index: 0;
+    }
+
+    .invite-scene::after {
+      content: "";
+      position: absolute;
+      left: -20%;
+      bottom: -10px;
+      width: 140%;
+      height: 180px;
+      background:
+        radial-gradient(ellipse,
+          rgba(255, 255, 255, .4),
+          transparent 75%);
+      animation: mistTwo 14s ease-in-out infinite alternate;
+      z-index: 3;
+    }
+
+    /* ==========================================================
+   MOBILE RESPONSIVE
+   ========================================================== */
+
+    /* ---------- Small phones (320-359px) ---------- */
+    @media (max-width:359px) and (max-width:430px) {
+      /* section:not(.hero-sky) {
+        padding: 70px 18px;
+      } */
+
+      @media(max-width:768px) {
+        .nav-btn {
+          display: none;
+        }
+      }
+
+      .hero-spacer {
+        min-height: 60vh;
+      }
+
+      .hero-name.top {
+        top: -165px;
+      }
+
+      .hero-name.weds {
+        top: -95px;
+        font-size: 8px;
+      }
+
+      .hero-name.bottom {
+        top: -35px;
+      }
+
+      .hero-name {
+        font-size: 62px;
+      }
+
+      .arch-photo-wrap {
+        width: 112%;
+        margin-left: -6%;
+        margin-top: 55px;
+      }
+
+      .hero-cloud.far {
+        width: 170%;
+      }
+
+      .hero-cloud.near {
+        width: 165%;
+      }
+
+      .ganesha {
+        width: 68px;
+      }
+
+      .invite-title {
+        font-size: 42px;
+        letter-spacing: 5px;
+      }
+
+      .parents-name {
+        font-size: 20px;
+      }
+
+      .invite-text {
+        font-size: 20px;
+        line-height: 1.6;
+      }
+
+      .couple-name {
+        font-size: 40px;
+        letter-spacing: 3px;
+      }
+
+      .amp {
+        font-size: 34px;
+      }
+
+      .blessing {
+        font-size: 14px;
+      }
+
+      .invite-temple {
+        width: 145%;
+        bottom: 0;
+      }
+
+      .invite-mountains {
+        width: 170%;
+        bottom: 0;
+      }
+
+    }
+
+    /* ---------- Standard phones (360-430px) ---------- */
+
+    @media (min-width:360px) and (max-width:430px) {
+      /* section:not(.hero-sky) {
+        padding: 80px 20px;
+      } */
+
+      .hero-spacer {
+        min-height: 70vh;
+      }
+
+      .hero-name.top {
+        top: -190px;
+      }
+
+      .hero-name.weds {
+        top: -110px;
+      }
+
+      .hero-name.bottom {
+        top: -45px;
+      }
+
+      .arch-photo-wrap {
+        width: 108%;
+        margin-left: -4%;
+      }
+
+      .hero-cloud.far {
+        width: 155%;
+      }
+
+      .hero-cloud.near {
+        width: 150%;
+      }
+
+      .ganesha {
+        width: 80px;
+      }
+
+      .invite-title {
+        font-size: 50px;
+      }
+
+      .parents-name {
+        font-size: 22px;
+      }
+
+      .invite-text {
+        font-size: 22px;
+      }
+
+      .couple-name {
+        font-size: 46px;
+      }
+
+      .invite-temple {
+        bottom: 0;
+        width: 125%;
+      }
+
+      .invite-mountains {
+        width: 145%;
+        bottom: 0;
+      }
+    }
+
+    /* ---------- Large phones / Foldables ---------- */
+    @media (min-width:431px) and (max-width:767px) {
+
+      /* section:not(.hero-sky) {
+        padding: 90px 24px;
+      } */
+
+      .hero-name {
+        font-size: 90px;
+      }
+
+      .arch-photo-wrap {
+        width: 104%;
+      }
+
+      .hero-cloud.far {
+        width: 145%;
+      }
+
+      .hero-cloud.near {
+        width: 140%;
+      }
+
+      .invite-title {
+        font-size: 56px;
+      }
+
+      .couple-name {
+        font-size: 52px;
+      }
+    }
+
+
+
+    /* =====================================================
+   DESKTOP
+   ===================================================== */
+
+    @media (min-width:768px) {
+
+      section {
+        max-width: none;
+        width: 100%;
+        padding: 100px 0;
+      }
+
+      .hero-sky {
+
+        min-height: 100vh;
+      }
+
+      .hero-inner {
+
+        max-width: 720px;
+        margin: auto;
+        position: relative;
+      }
+
+      .arch-photo-wrap {
+        width: min(120vw, 1700px);
+        margin: 80px auto 0;
+      }
+
+      .hero-name {
+        font-size: 108px;
+      }
+
+      .hero-name.top {
+
+        top: -245px;
+      }
+
+      .hero-name.weds {
+        top: -135px;
+      }
+
+      .hero-name.bottom {
+        top: -60px;
+      }
+
+      .invite-card,
+      .events-strip,
+      .countdown-strip,
+      .location-strip,
+      .rsvp-strip {
+
+        max-width: 720px;
+        margin: auto;
+      }
+
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- shared SVG defs -->
+  <svg width="0" height="0" style="position:absolute">
+    <defs>
+      <clipPath id="archClip" clipPathUnits="objectBoundingBox" transform="scale(0.00333,0.0025)">
+        <path
+          d="M0,400 L0,175 C0,130 15,95 45,80 C60,72 68,60 72,42 C78,14 105,0 150,0 C195,0 222,14 228,42 C232,60 240,72 255,80 C285,95 300,130 300,175 L300,400 Z" />
+      </clipPath>
+    </defs>
+  </svg>
+
+  <!-- ============ HERO ============ -->
+  <section class="sky-band hero-sky" style="padding-bottom:0;">
+    <div class="hero-clouds" aria-hidden="true">
+      <img class="hero-cloud far" src="assets/cloud.png" alt="">
+      <img class="hero-cloud near" src="assets/cloud.png" alt="">
+    </div>
+    <div class="hero-spacer"></div>
+    <div class="hero-stage reveal in" style="margin-top:0;">
+      <div class="hero-name top">Pradeep</div>
+      <div class="hero-name weds">Weds</div>
+      <div class="hero-name bottom">Niveditha</div>
+      <div class="arch-photo-wrap">
+        <img class="temple-photo" src="assets/temple.png" alt="Temple riverside illustration">
+        <!-- <img class="frame-overlay" src="arch.svg" alt=""> -->
+      </div>
+    </div>
+    <div class="scroll-cue"></div>
+  </section>
+  <!-- ============ INVITATION ============ -->
+  <section class="invite-band invite-card">
+    <!-- Vinayagar -->
+    <img class="ganesha reveal" src="assets/vinayaga.png" alt="Lord Ganesha">
+
+    <p class="blessing reveal">
+      With the divine blessings of Lord Ganesha<br>
+      and the love of our beloved parents,<br>
+      we warmly invite you to join us<br>
+      as we begin a beautiful journey of togetherness.
+    </p>
+
+    <h1 class="invite-title reveal">
+      INVITE
+    </h1>
+
+    <div class="parents reveal">
+      <p class="parents-name">
+        Mr.S A Subramaniam & Mrs.S Suchitra
+      </p>
+      <p class="invite-text">
+        request the honour of your gracious presence<br>
+        at the wedding ceremony of their beloved son
+      </p>
+      <h2 class="couple-name">
+        PRADEEP
+      </h2>
+      <div class="amp">&</div>
+      <h2 class="couple-name">
+        NIVEDITHA
+      </h2>
+      <p class="invite-text">
+        beloved daughter of
+      </p>
+      <p class="parents-name">
+        Mr.N Amaran & Mrs.K Jothi
+      </p>
+    </div>
+
+    <div class="invite-scene">
+      <img src="assets/mountain.svg" class="invite-mountains" data-speed="0.03" alt="">
+      <img src="assets/output-onlinepngtools.png" class="invite-temple" data-speed="0.08" alt="">
+    </div>
+
+  </section>
+
+  <!-- ============ EVENTS ============ -->
+  <section class="functions-section">
+    <!-- Sky -->
+    <div class="functions-bg"></div>
+    <!-- Birds -->
+    <div class="birds">
+      <svg fill="none" height="150%" width="150%" viewBox="0 0 1920 1080" xmlns:xlink="http://www.w3.org/1999/xlink"
+        xmlns="http://www.w3.org/2000/svg">
+        <g visibility="hidden" id="i0">
+          <animate repeatCount="indefinite" begin="0s" calcMode="discrete" dur="9s"
+            values="hidden; visible; hidden; hidden" keyTimes="0; 0.25; 0.694; 1" attributeName="visibility" />
+          <g transform="translate(1421.776,1101.236)">
+            <animateMotion repeatCount="indefinite" dur="9s" begin="0s" calcMode="spline"
+              keyTimes="0; 0.316667; 0.483333; 0.651852; 1" keySplines="0 0 1 1; 0 0 1 1; 0 0 1 1; 0 0 1 1"
+              keyPoints="0; 0; 0.448; 1; 1"
+              path="M0 0 C-103.292 -89.042 -368.292 -366.042 -619.75 -534.25 C-871.208 -702.458 -1360.583 -930.083 -1508.75 -1009.25"
+              fill="freeze" />
+            <g transform="scale(1,2) translate(-1445.882,-394.895)">
+              <g id="i1" transform="matrix(1,0,0,1,1444.162,397.183)">
+                <path fill="#10031a" fill-rule="evenodd"
+                  d="M13.602,-14.704C14.869,-14.857,14.245,-14.4,14.201,-13.766C11.206,-10.148,9.098,-5.811,3.682,-4.161C4.182,-0.683,8.141,-1.463,9.695,0.721C8.53,5.996,3.578,1.806,1.17,0.605C-3.737,5.54,-7.229,11.626,-14.388,14.733C-11.46,8.646,-8.662,2.447,-5.235,-3.237C-5.47,-4.819,-8.104,-5.129,-7.083,-6.55C-0.2,-6.48,6.994,-11.772,13.602,-14.704Z">
+                  <animate repeatCount="indefinite" attributeName="d" dur="9s" begin="0s" calcMode="spline"
+                    values="M13.602,-14.704C14.869,-14.857,14.245,-14.4,14.201,-13.766C11.206,-10.148,9.098,-5.811,3.682,-4.161C4.182,-0.683,8.141,-1.463,9.695,0.721C8.53,5.996,3.578,1.806,1.17,0.605C-3.737,5.54,-7.229,11.626,-14.388,14.733C-11.46,8.646,-8.662,2.447,-5.235,-3.237C-5.47,-4.819,-8.104,-5.129,-7.083,-6.55C-0.2,-6.48,6.994,-11.772,13.602,-14.704Z; M13.602,-14.704C14.869,-14.857,14.245,-14.4,14.201,-13.766C11.206,-10.148,9.098,-5.811,3.682,-4.161C4.182,-0.683,8.141,-1.463,9.695,0.721C8.53,5.996,3.578,1.806,1.17,0.605C-3.737,5.54,-7.229,11.626,-14.388,14.733C-11.46,8.646,-8.662,2.447,-5.235,-3.237C-5.47,-4.819,-8.104,-5.129,-7.083,-6.55C-0.2,-6.48,6.994,-11.772,13.602,-14.704Z; M-0.46,-5.142C0.807,-5.295,1.807,-5.587,1.763,-4.953C2.026,-5.057,3.526,-3.933,3.682,-4.161C4.182,-0.683,9.203,-3.213,10.757,-1.029C9.592,4.246,3.578,1.806,1.17,0.605C-0.599,0.88,-2.099,1.004,-2.451,-0.08C-4.287,-0.933,-4.286,-2.495,-5.235,-3.237C-5.47,-4.819,-8.104,-5.129,-7.083,-6.55C-5.912,-7.433,-3.224,-5.746,-0.46,-5.142Z; M13.602,-14.704C14.869,-14.857,14.245,-14.4,14.201,-13.766C11.206,-10.148,9.098,-5.811,3.682,-4.161C4.182,-0.683,8.141,-1.463,9.695,0.721C8.53,5.996,3.578,1.806,1.17,0.605C-3.737,5.54,-7.229,11.626,-14.388,14.733C-11.46,8.646,-8.662,2.447,-5.235,-3.237C-5.47,-4.819,-8.104,-5.129,-7.083,-6.55C-0.2,-6.48,6.994,-11.772,13.602,-14.704Z; M-0.46,-5.142C0.807,-5.295,1.807,-5.587,1.763,-4.953C2.026,-5.057,3.526,-3.933,3.682,-4.161C4.182,-0.683,9.203,-3.213,10.757,-1.029C9.592,4.246,3.578,1.806,1.17,0.605C-0.599,0.88,-2.099,1.004,-2.451,-0.08C-4.287,-0.933,-4.286,-2.495,-5.235,-3.237C-5.47,-4.819,-8.104,-5.129,-7.083,-6.55C-5.912,-7.433,-3.224,-5.746,-0.46,-5.142Z; M13.602,-14.704C14.869,-14.857,14.245,-14.4,14.201,-13.766C11.206,-10.148,9.098,-5.811,3.682,-4.161C4.182,-0.683,8.141,-1.463,9.695,0.721C8.53,5.996,3.578,1.806,1.17,0.605C-3.737,5.54,-7.229,11.626,-14.388,14.733C-11.46,8.646,-8.662,2.447,-5.235,-3.237C-5.47,-4.819,-8.104,-5.129,-7.083,-6.55C-0.2,-6.48,6.994,-11.772,13.602,-14.704Z; M-0.46,-5.142C0.807,-5.295,1.807,-5.587,1.763,-4.953C2.026,-5.057,3.526,-3.933,3.682,-4.161C4.182,-0.683,9.203,-3.213,10.757,-1.029C9.592,4.246,3.578,1.806,1.17,0.605C-0.599,0.88,-2.099,1.004,-2.451,-0.08C-4.287,-0.933,-4.286,-2.495,-5.235,-3.237C-5.47,-4.819,-8.104,-5.129,-7.083,-6.55C-5.912,-7.433,-3.224,-5.746,-0.46,-5.142Z; M13.602,-14.704C14.869,-14.857,14.245,-14.4,14.201,-13.766C11.206,-10.148,9.098,-5.811,3.682,-4.161C4.182,-0.683,8.141,-1.463,9.695,0.721C8.53,5.996,3.578,1.806,1.17,0.605C-3.737,5.54,-7.229,11.626,-14.388,14.733C-11.46,8.646,-8.662,2.447,-5.235,-3.237C-5.47,-4.819,-8.104,-5.129,-7.083,-6.55C-0.2,-6.48,6.994,-11.772,13.602,-14.704Z; M-0.46,-5.142C0.807,-5.295,1.807,-5.587,1.763,-4.953C2.026,-5.057,3.526,-3.933,3.682,-4.161C4.182,-0.683,9.203,-3.213,10.757,-1.029C9.592,4.246,3.578,1.806,1.17,0.605C-0.599,0.88,-2.099,1.004,-2.451,-0.08C-4.287,-0.933,-4.286,-2.495,-5.235,-3.237C-5.47,-4.819,-8.104,-5.129,-7.083,-6.55C-5.912,-7.433,-3.224,-5.746,-0.46,-5.142Z; M13.602,-14.704C14.869,-14.857,14.245,-14.4,14.201,-13.766C11.206,-10.148,9.098,-5.811,3.682,-4.161C4.182,-0.683,8.141,-1.463,9.695,0.721C8.53,5.996,3.578,1.806,1.17,0.605C-3.737,5.54,-7.229,11.626,-14.388,14.733C-11.46,8.646,-8.662,2.447,-5.235,-3.237C-5.47,-4.819,-8.104,-5.129,-7.083,-6.55C-0.2,-6.48,6.994,-11.772,13.602,-14.704Z; M13.602,-14.704C14.869,-14.857,14.245,-14.4,14.201,-13.766C11.206,-10.148,9.098,-5.811,3.682,-4.161C4.182,-0.683,8.141,-1.463,9.695,0.721C8.53,5.996,3.578,1.806,1.17,0.605C-3.737,5.54,-7.229,11.626,-14.388,14.733C-11.46,8.646,-8.662,2.447,-5.235,-3.237C-5.47,-4.819,-8.104,-5.129,-7.083,-6.55C-0.2,-6.48,6.994,-11.772,13.602,-14.704Z"
+                    keyTimes="0; 0.25; 0.305556; 0.361112; 0.416666; 0.472222; 0.527778; 0.583334; 0.638888; 0.694444; 1"
+                    keySplines="0 0 1 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1"
+                    fill="freeze" />
+                </path>
+              </g>
+            </g>
+          </g>
+        </g>
+        <g visibility="visible" id="i2">
+          <animate repeatCount="indefinite" begin="0s" calcMode="discrete" dur="9s" values="visible; hidden; hidden"
+            keyTimes="0; 0.444; 1" attributeName="visibility" />
+          <g transform="translate(1945.5,268)">
+            <animateMotion repeatCount="indefinite" dur="9s" begin="0s" calcMode="spline"
+              keyTimes="0; 0.072222; 0.342593; 1" keySplines="0 0 1 1; 0 0 1 1; 0 0 1 1" keyPoints="0; 0; 1; 1"
+              path="M0 0 C-239.667 86.667 -474 296.333 -2062 136" fill="freeze" />
+            <g transform="rotate(0)">
+              <animateTransform repeatCount="indefinite" type="rotate" attributeName="transform" dur="9s" begin="0s"
+                calcMode="spline" values="0; 0; 37.33; 37.33" keyTimes="0; 0.072222; 0.342593; 1"
+                keySplines="0 0 1 1; 0 0 1 1; 0 0 1 1" fill="freeze" />
+              <g transform="scale(1,2) translate(-1346.78,-254.492)">
+                <g id="i3" transform="matrix(1,0,0,1,1346.78,254.823)">
+                  <path fill="#10031a" fill-rule="evenodd"
+                    d="M-17.28,-8.323C-3.856,-5.074,4.978,-2.669,17.28,-4.31C9.195,-1.056,3.294,8.323,-6.146,7.625C-4.356,5.925,-1.514,5.083,-1.004,2.344C-5.631,-0.397,-10.994,-2.232,-14.959,-5.791C-15.803,-6.548,-16.583,-7.384,-17.28,-8.323Z">
+                    <animate repeatCount="indefinite" attributeName="d" dur="9s" begin="0s" calcMode="spline"
+                      values="M-17.28,-8.323C-3.856,-5.074,4.978,-2.669,17.28,-4.31C9.195,-1.056,3.294,8.323,-6.146,7.625C-4.356,5.925,-1.514,5.083,-1.004,2.344C-5.631,-0.397,-10.994,-2.232,-14.959,-5.791C-15.803,-6.548,-16.583,-7.384,-17.28,-8.323Z; M-8.78,5.49C-4.092,-0.26,4.978,-2.669,17.28,-4.31C9.195,-1.056,3.294,8.323,-6.146,7.625C-4.356,5.925,-1.514,5.083,-1.004,2.344C-4.967,4.678,-7.803,13.332,-11.768,9.775C-12.613,9.017,-10.593,7.115,-8.78,5.49Z; M-17.28,-8.323C-3.856,-5.074,4.978,-2.669,17.28,-4.31C9.195,-1.056,3.294,8.323,-6.146,7.625C-4.356,5.925,-1.514,5.083,-1.004,2.344C-5.631,-0.397,-10.994,-2.232,-14.959,-5.791C-15.803,-6.548,-16.583,-7.384,-17.28,-8.323Z; M-8.78,5.49C-4.092,-0.26,4.978,-2.669,17.28,-4.31C9.195,-1.056,3.294,8.323,-6.146,7.625C-4.356,5.925,-1.514,5.083,-1.004,2.344C-4.967,4.678,-7.803,13.332,-11.768,9.775C-12.613,9.017,-10.593,7.115,-8.78,5.49Z; M-17.28,-8.323C-3.856,-5.074,4.978,-2.669,17.28,-4.31C9.195,-1.056,3.294,8.323,-6.146,7.625C-4.356,5.925,-1.514,5.083,-1.004,2.344C-5.631,-0.397,-10.994,-2.232,-14.959,-5.791C-15.803,-6.548,-16.583,-7.384,-17.28,-8.323Z; M-8.78,5.49C-4.092,-0.26,4.978,-2.669,17.28,-4.31C9.195,-1.056,3.294,8.323,-6.146,7.625C-4.356,5.925,-1.514,5.083,-1.004,2.344C-4.967,4.678,-7.803,13.332,-11.768,9.775C-12.613,9.017,-10.593,7.115,-8.78,5.49Z; M-17.28,-8.323C-3.856,-5.074,4.978,-2.669,17.28,-4.31C9.195,-1.056,3.294,8.323,-6.146,7.625C-4.356,5.925,-1.514,5.083,-1.004,2.344C-5.631,-0.397,-10.994,-2.232,-14.959,-5.791C-15.803,-6.548,-16.583,-7.384,-17.28,-8.323Z; M-8.78,5.49C-4.092,-0.26,4.978,-2.669,17.28,-4.31C9.195,-1.056,3.294,8.323,-6.146,7.625C-4.356,5.925,-1.514,5.083,-1.004,2.344C-4.967,4.678,-7.803,13.332,-11.768,9.775C-12.613,9.017,-10.593,7.115,-8.78,5.49Z; M-17.28,-8.323C-3.856,-5.074,4.978,-2.669,17.28,-4.31C9.195,-1.056,3.294,8.323,-6.146,7.625C-4.356,5.925,-1.514,5.083,-1.004,2.344C-5.631,-0.397,-10.994,-2.232,-14.959,-5.791C-15.803,-6.548,-16.583,-7.384,-17.28,-8.323Z; M-8.78,5.49C-4.092,-0.26,4.978,-2.669,17.28,-4.31C9.195,-1.056,3.294,8.323,-6.146,7.625C-4.356,5.925,-1.514,5.083,-1.004,2.344C-4.967,4.678,-7.803,13.332,-11.768,9.775C-12.613,9.017,-10.593,7.115,-8.78,5.49Z; M-17.28,-8.323C-3.856,-5.074,4.978,-2.669,17.28,-4.31C9.195,-1.056,3.294,8.323,-6.146,7.625C-4.356,5.925,-1.514,5.083,-1.004,2.344C-5.631,-0.397,-10.994,-2.232,-14.959,-5.791C-15.803,-6.548,-16.583,-7.384,-17.28,-8.323Z; M-8.78,5.49C-4.092,-0.26,4.978,-2.669,17.28,-4.31C9.195,-1.056,3.294,8.323,-6.146,7.625C-4.356,5.925,-1.514,5.083,-1.004,2.344C-4.967,4.678,-7.803,13.332,-11.768,9.775C-12.613,9.017,-10.593,7.115,-8.78,5.49Z; M-17.28,-8.323C-3.856,-5.074,4.978,-2.669,17.28,-4.31C9.195,-1.056,3.294,8.323,-6.146,7.625C-4.356,5.925,-1.514,5.083,-1.004,2.344C-5.631,-0.397,-10.994,-2.232,-14.959,-5.791C-15.803,-6.548,-16.583,-7.384,-17.28,-8.323Z; M-8.78,5.49C-4.092,-0.26,4.978,-2.669,17.28,-4.31C9.195,-1.056,3.294,8.323,-6.146,7.625C-4.356,5.925,-1.514,5.083,-1.004,2.344C-4.967,4.678,-7.803,13.332,-11.768,9.775C-12.613,9.017,-10.593,7.115,-8.78,5.49Z; M-17.28,-8.323C-3.856,-5.074,4.978,-2.669,17.28,-4.31C9.195,-1.056,3.294,8.323,-6.146,7.625C-4.356,5.925,-1.514,5.083,-1.004,2.344C-5.631,-0.397,-10.994,-2.232,-14.959,-5.791C-15.803,-6.548,-16.583,-7.384,-17.28,-8.323Z; M-8.78,5.49C-4.092,-0.26,4.978,-2.669,17.28,-4.31C9.195,-1.056,3.294,8.323,-6.146,7.625C-4.356,5.925,-1.514,5.083,-1.004,2.344C-4.967,4.678,-7.803,13.332,-11.768,9.775C-12.613,9.017,-10.593,7.115,-8.78,5.49Z; M-17.28,-8.323C-3.856,-5.074,4.978,-2.669,17.28,-4.31C9.195,-1.056,3.294,8.323,-6.146,7.625C-4.356,5.925,-1.514,5.083,-1.004,2.344C-5.631,-0.397,-10.994,-2.232,-14.959,-5.791C-15.803,-6.548,-16.583,-7.384,-17.28,-8.323Z; M-17.28,-8.323C-3.856,-5.074,4.978,-2.669,17.28,-4.31C9.195,-1.056,3.294,8.323,-6.146,7.625C-4.356,5.925,-1.514,5.083,-1.004,2.344C-5.631,-0.397,-10.994,-2.232,-14.959,-5.791C-15.803,-6.548,-16.583,-7.384,-17.28,-8.323Z"
+                      keyTimes="0; 0.025927; 0.055557; 0.081481; 0.111111; 0.137038; 0.166667; 0.192592; 0.222222; 0.251852; 0.277778; 0.303703; 0.333333; 0.362963; 0.388889; 0.414814; 0.444444; 1"
+                      keySplines="0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1"
+                      fill="freeze" />
+                  </path>
+                </g>
+              </g>
+            </g>
+          </g>
+        </g>
+        <g visibility="visible" id="i4">
+          <animate repeatCount="indefinite" begin="0s" calcMode="discrete" dur="9s" values="visible; hidden; hidden"
+            keyTimes="0; 0.444; 1" attributeName="visibility" />
+          <g transform="translate(2109.625,872.023)">
+            <animateTransform repeatCount="indefinite" type="translate" attributeName="transform" dur="9s" begin="0s"
+              calcMode="spline" values="2109.625 872.023; -98.375 119.023; -98.375 119.023" keyTimes="0; 0.444444; 1"
+              keySplines="0 0 1 1; 0 0 1 1" fill="freeze" />
+            <g transform="rotate(-16.324) scale(1,2) translate(-1207.509,-27.603)">
+              <g id="i5" transform="matrix(1,0,0,1,1200.884,18.738)">
+                <path fill="#10031a" fill-rule="evenodd"
+                  d="M26.784,-18.086C21.896,-8.525,9.21,-5.304,7.449,6.808C7.8,11.699,13.389,10.13,13.987,14.714C10.555,17.146,8.725,18.085,3.81,17.679C-0.314,4.482,-12.923,7.587,-26.784,7.497C-21.076,-2.708,-5.183,5.453,1.111,0.788C4.348,-9.821,12.641,-16.331,26.784,-18.086Z">
+                  <animate repeatCount="indefinite" attributeName="d" dur="9s" begin="0s" calcMode="spline"
+                    values="M26.784,-18.086C21.896,-8.525,9.21,-5.304,7.449,6.808C7.8,11.699,13.389,10.13,13.987,14.714C10.555,17.146,8.725,18.085,3.81,17.679C-0.314,4.482,-12.923,7.587,-26.784,7.497C-21.076,-2.708,-5.183,5.453,1.111,0.788C4.348,-9.821,12.641,-16.331,26.784,-18.086Z; M26.597,6.414C21.709,15.975,9.21,-5.304,7.449,6.808C7.8,11.699,13.389,10.13,13.987,14.714C10.555,17.146,8.725,18.085,3.81,17.679C-0.314,4.482,-1.822,10.2,-13.347,20.622C-6.634,-5.363,-5.183,5.453,1.111,0.788C4.348,-9.821,12.992,5.825,26.597,6.414Z; M26.784,-18.086C21.896,-8.525,9.21,-5.304,7.449,6.808C7.8,11.699,13.389,10.13,13.987,14.714C10.555,17.146,8.725,18.085,3.81,17.679C-0.314,4.482,-12.923,7.587,-26.784,7.497C-21.076,-2.708,-5.183,5.453,1.111,0.788C4.348,-9.821,12.641,-16.331,26.784,-18.086Z; M26.597,6.414C21.709,15.975,9.21,-5.304,7.449,6.808C7.8,11.699,13.389,10.13,13.987,14.714C10.555,17.146,8.725,18.085,3.81,17.679C-0.314,4.482,-1.822,10.2,-13.347,20.622C-6.634,-5.363,-5.183,5.453,1.111,0.788C4.348,-9.821,12.992,5.825,26.597,6.414Z; M26.784,-18.086C21.896,-8.525,9.21,-5.304,7.449,6.808C7.8,11.699,13.389,10.13,13.987,14.714C10.555,17.146,8.725,18.085,3.81,17.679C-0.314,4.482,-12.923,7.587,-26.784,7.497C-21.076,-2.708,-5.183,5.453,1.111,0.788C4.348,-9.821,12.641,-16.331,26.784,-18.086Z; M26.597,6.414C21.709,15.975,9.21,-5.304,7.449,6.808C7.8,11.699,13.389,10.13,13.987,14.714C10.555,17.146,8.725,18.085,3.81,17.679C-0.314,4.482,-1.822,10.2,-13.347,20.622C-6.634,-5.363,-5.183,5.453,1.111,0.788C4.348,-9.821,12.992,5.825,26.597,6.414Z; M26.784,-18.086C21.896,-8.525,9.21,-5.304,7.449,6.808C7.8,11.699,13.389,10.13,13.987,14.714C10.555,17.146,8.725,18.085,3.81,17.679C-0.314,4.482,-12.923,7.587,-26.784,7.497C-21.076,-2.708,-5.183,5.453,1.111,0.788C4.348,-9.821,12.641,-16.331,26.784,-18.086Z; M26.597,6.414C21.709,15.975,9.21,-5.304,7.449,6.808C7.8,11.699,13.389,10.13,13.987,14.714C10.555,17.146,8.725,18.085,3.81,17.679C-0.314,4.482,-1.822,10.2,-13.347,20.622C-6.634,-5.363,-5.183,5.453,1.111,0.788C4.348,-9.821,12.992,5.825,26.597,6.414Z; M26.784,-18.086C21.896,-8.525,9.21,-5.304,7.449,6.808C7.8,11.699,13.389,10.13,13.987,14.714C10.555,17.146,8.725,18.085,3.81,17.679C-0.314,4.482,-12.923,7.587,-26.784,7.497C-21.076,-2.708,-5.183,5.453,1.111,0.788C4.348,-9.821,12.641,-16.331,26.784,-18.086Z; M26.784,-18.086C21.896,-8.525,9.21,-5.304,7.449,6.808C7.8,11.699,13.389,10.13,13.987,14.714C10.555,17.146,8.725,18.085,3.81,17.679C-0.314,4.482,-12.923,7.587,-26.784,7.497C-21.076,-2.708,-5.183,5.453,1.111,0.788C4.348,-9.821,12.641,-16.331,26.784,-18.086Z"
+                    keyTimes="0; 0.055556; 0.111111; 0.166667; 0.222222; 0.277778; 0.333333; 0.388889; 0.444444; 1"
+                    keySplines="0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0 0 1 1"
+                    fill="freeze" />
+                </path>
+              </g>
+            </g>
+          </g>
+        </g>
+        <g visibility="hidden" id="i6">
+          <animate repeatCount="indefinite" begin="0s" calcMode="discrete" dur="9s"
+            values="hidden; visible; hidden; hidden" keyTimes="0; 0.422; 0.867; 1" attributeName="visibility" />
+          <g transform="translate(2109.625,872.023)">
+            <animateTransform repeatCount="indefinite" type="translate" attributeName="transform" dur="9s" begin="0s"
+              calcMode="spline" values="2109.625 872.023; 2109.625 872.023; -98.375 119.023; -98.375 119.023"
+              keyTimes="0; 0.422222; 0.866667; 1" keySplines="0 0 1 1; 0 0 1 1; 0 0 1 1" fill="freeze" />
+            <g transform="rotate(-16.324) scale(1,2) translate(-1207.509,-27.603)">
+              <g id="i5" transform="matrix(1,0,0,1,1200.884,18.738)">
+                <path fill="#10031a" fill-rule="evenodd"
+                  d="M26.784,-18.086C21.896,-8.525,9.21,-5.304,7.449,6.808C7.8,11.699,13.389,10.13,13.987,14.714C10.555,17.146,8.725,18.085,3.81,17.679C-0.314,4.482,-12.923,7.587,-26.784,7.497C-21.076,-2.708,-5.183,5.453,1.111,0.788C4.348,-9.821,12.641,-16.331,26.784,-18.086Z">
+                  <animate repeatCount="indefinite" attributeName="d" dur="9s" begin="0s" calcMode="spline"
+                    values="M26.784,-18.086C21.896,-8.525,9.21,-5.304,7.449,6.808C7.8,11.699,13.389,10.13,13.987,14.714C10.555,17.146,8.725,18.085,3.81,17.679C-0.314,4.482,-12.923,7.587,-26.784,7.497C-21.076,-2.708,-5.183,5.453,1.111,0.788C4.348,-9.821,12.641,-16.331,26.784,-18.086Z; M26.784,-18.086C21.896,-8.525,9.21,-5.304,7.449,6.808C7.8,11.699,13.389,10.13,13.987,14.714C10.555,17.146,8.725,18.085,3.81,17.679C-0.314,4.482,-12.923,7.587,-26.784,7.497C-21.076,-2.708,-5.183,5.453,1.111,0.788C4.348,-9.821,12.641,-16.331,26.784,-18.086Z; M26.597,6.414C21.709,15.975,9.21,-5.304,7.449,6.808C7.8,11.699,13.389,10.13,13.987,14.714C10.555,17.146,8.725,18.085,3.81,17.679C-0.314,4.482,-1.822,10.2,-13.347,20.622C-6.634,-5.363,-5.183,5.453,1.111,0.788C4.348,-9.821,12.992,5.825,26.597,6.414Z; M26.784,-18.086C21.896,-8.525,9.21,-5.304,7.449,6.808C7.8,11.699,13.389,10.13,13.987,14.714C10.555,17.146,8.725,18.085,3.81,17.679C-0.314,4.482,-12.923,7.587,-26.784,7.497C-21.076,-2.708,-5.183,5.453,1.111,0.788C4.348,-9.821,12.641,-16.331,26.784,-18.086Z; M26.597,6.414C21.709,15.975,9.21,-5.304,7.449,6.808C7.8,11.699,13.389,10.13,13.987,14.714C10.555,17.146,8.725,18.085,3.81,17.679C-0.314,4.482,-1.822,10.2,-13.347,20.622C-6.634,-5.363,-5.183,5.453,1.111,0.788C4.348,-9.821,12.992,5.825,26.597,6.414Z; M26.784,-18.086C21.896,-8.525,9.21,-5.304,7.449,6.808C7.8,11.699,13.389,10.13,13.987,14.714C10.555,17.146,8.725,18.085,3.81,17.679C-0.314,4.482,-12.923,7.587,-26.784,7.497C-21.076,-2.708,-5.183,5.453,1.111,0.788C4.348,-9.821,12.641,-16.331,26.784,-18.086Z; M26.597,6.414C21.709,15.975,9.21,-5.304,7.449,6.808C7.8,11.699,13.389,10.13,13.987,14.714C10.555,17.146,8.725,18.085,3.81,17.679C-0.314,4.482,-1.822,10.2,-13.347,20.622C-6.634,-5.363,-5.183,5.453,1.111,0.788C4.348,-9.821,12.992,5.825,26.597,6.414Z; M26.784,-18.086C21.896,-8.525,9.21,-5.304,7.449,6.808C7.8,11.699,13.389,10.13,13.987,14.714C10.555,17.146,8.725,18.085,3.81,17.679C-0.314,4.482,-12.923,7.587,-26.784,7.497C-21.076,-2.708,-5.183,5.453,1.111,0.788C4.348,-9.821,12.641,-16.331,26.784,-18.086Z; M26.597,6.414C21.709,15.975,9.21,-5.304,7.449,6.808C7.8,11.699,13.389,10.13,13.987,14.714C10.555,17.146,8.725,18.085,3.81,17.679C-0.314,4.482,-1.822,10.2,-13.347,20.622C-6.634,-5.363,-5.183,5.453,1.111,0.788C4.348,-9.821,12.992,5.825,26.597,6.414Z; M26.784,-18.086C21.896,-8.525,9.21,-5.304,7.449,6.808C7.8,11.699,13.389,10.13,13.987,14.714C10.555,17.146,8.725,18.085,3.81,17.679C-0.314,4.482,-12.923,7.587,-26.784,7.497C-21.076,-2.708,-5.183,5.453,1.111,0.788C4.348,-9.821,12.641,-16.331,26.784,-18.086Z; M26.784,-18.086C21.896,-8.525,9.21,-5.304,7.449,6.808C7.8,11.699,13.389,10.13,13.987,14.714C10.555,17.146,8.725,18.085,3.81,17.679C-0.314,4.482,-12.923,7.587,-26.784,7.497C-21.076,-2.708,-5.183,5.453,1.111,0.788C4.348,-9.821,12.641,-16.331,26.784,-18.086Z"
+                    keyTimes="0; 0.422222; 0.477778; 0.533333; 0.588889; 0.644444; 0.7; 0.755556; 0.811111; 0.866667; 1"
+                    keySplines="0 0 1 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0 0 1 1"
+                    fill="freeze" />
+                </path>
+              </g>
+            </g>
+          </g>
+        </g>
+        <g visibility="hidden" id="i7">
+          <animate repeatCount="indefinite" begin="0s" calcMode="discrete" dur="9s"
+            values="hidden; visible; hidden; hidden" keyTimes="0; 0.156; 0.6; 1" attributeName="visibility" />
+          <g transform="translate(1289.25,1120.162)">
+            <animateTransform repeatCount="indefinite" type="translate" attributeName="transform" dur="9s" begin="0s"
+              calcMode="spline" values="1289.25 1120.162; 1289.25 1120.162; -84.75 45.162; -84.75 45.162"
+              keyTimes="0; 0.155556; 0.459259; 1" keySplines="0 0 1 1; 0 0 1 1; 0 0 1 1" fill="freeze" />
+            <g transform="scale(1,2) translate(-927.053,-161.162)">
+              <g id="i8" transform="matrix(1,0,0,1,929.803,180.58)">
+                <path fill="#10031a" fill-rule="evenodd"
+                  d="M8.472,-11.603C10.617,-7.16,16.993,-7.886,18.927,-3.182C12.064,3.396,5.645,-4.059,0.441,-6.028C-8.534,1.653,-12.995,12.977,-22.68,20.088C-19.17,8,-17.431,-5.515,-8.968,-13.61C-8.55,-16.946,-10.757,-17.077,-10.604,-20.088C0.739,-18.36,16.593,-19.351,22.68,-13.064C17.881,-14.761,13.622,-13.536,8.472,-11.603Z">
+                  <animate repeatCount="indefinite" attributeName="d" dur="9s" begin="0s" calcMode="spline"
+                    values="M8.472,-11.603C10.617,-7.16,16.993,-7.886,18.927,-3.182C12.064,3.396,5.645,-4.059,0.441,-6.028C-8.534,1.653,-12.995,12.977,-22.68,20.088C-19.17,8,-17.431,-5.515,-8.968,-13.61C-8.55,-16.946,-10.757,-17.077,-10.604,-20.088C0.739,-18.36,16.593,-19.351,22.68,-13.064C17.881,-14.761,13.622,-13.536,8.472,-11.603Z; M8.472,-11.603C10.617,-7.16,16.993,-7.886,18.927,-3.182C12.064,3.396,5.645,-4.059,0.441,-6.028C-8.534,1.653,-12.995,12.977,-22.68,20.088C-19.17,8,-17.431,-5.515,-8.968,-13.61C-8.55,-16.946,-10.757,-17.077,-10.604,-20.088C0.739,-18.36,16.593,-19.351,22.68,-13.064C17.881,-14.761,13.622,-13.536,8.472,-11.603Z; M8.472,-11.603C10.617,-7.16,16.993,-7.886,18.927,-3.182C12.064,3.396,5.645,-4.059,0.441,-6.028C-5.678,-7.706,-19.303,-12.205,-26.93,-12.287C-8.053,-17.83,-9.365,-15.393,-8.843,-15.047C-10.178,-16.205,-10.757,-17.077,-10.604,-20.088C0.739,-18.36,12.572,-33.331,21.43,-38.314C20.072,-35.956,13.622,-13.536,8.472,-11.603Z; M8.472,-11.603C10.617,-7.16,16.993,-7.886,18.927,-3.182C12.064,3.396,5.645,-4.059,0.441,-6.028C-8.534,1.653,-12.995,12.977,-22.68,20.088C-19.17,8,-17.431,-5.515,-8.968,-13.61C-8.55,-16.946,-10.757,-17.077,-10.604,-20.088C0.739,-18.36,16.593,-19.351,22.68,-13.064C17.881,-14.761,13.622,-13.536,8.472,-11.603Z; M8.472,-11.603C10.617,-7.16,16.993,-7.886,18.927,-3.182C12.064,3.396,5.645,-4.059,0.441,-6.028C-5.678,-7.706,-19.303,-12.205,-26.93,-12.287C-8.053,-17.83,-9.365,-15.393,-8.843,-15.047C-10.178,-16.205,-10.757,-17.077,-10.604,-20.088C0.739,-18.36,12.572,-33.331,21.43,-38.314C20.072,-35.956,13.622,-13.536,8.472,-11.603Z; M8.472,-11.603C10.617,-7.16,16.993,-7.886,18.927,-3.182C12.064,3.396,5.645,-4.059,0.441,-6.028C-8.534,1.653,-12.995,12.977,-22.68,20.088C-19.17,8,-17.431,-5.515,-8.968,-13.61C-8.55,-16.946,-10.757,-17.077,-10.604,-20.088C0.739,-18.36,16.593,-19.351,22.68,-13.064C17.881,-14.761,13.622,-13.536,8.472,-11.603Z; M8.472,-11.603C10.617,-7.16,16.993,-7.886,18.927,-3.182C12.064,3.396,5.645,-4.059,0.441,-6.028C-5.678,-7.706,-19.303,-12.205,-26.93,-12.287C-8.053,-17.83,-9.365,-15.393,-8.843,-15.047C-10.178,-16.205,-10.757,-17.077,-10.604,-20.088C0.739,-18.36,12.572,-33.331,21.43,-38.314C20.072,-35.956,13.622,-13.536,8.472,-11.603Z; M8.472,-11.603C10.617,-7.16,16.993,-7.886,18.927,-3.182C12.064,3.396,5.645,-4.059,0.441,-6.028C-8.534,1.653,-12.995,12.977,-22.68,20.088C-19.17,8,-17.431,-5.515,-8.968,-13.61C-8.55,-16.946,-10.757,-17.077,-10.604,-20.088C0.739,-18.36,16.593,-19.351,22.68,-13.064C17.881,-14.761,13.622,-13.536,8.472,-11.603Z; M8.472,-11.603C10.617,-7.16,16.993,-7.886,18.927,-3.182C12.064,3.396,5.645,-4.059,0.441,-6.028C-5.678,-7.706,-19.303,-12.205,-26.93,-12.287C-8.053,-17.83,-9.365,-15.393,-8.843,-15.047C-10.178,-16.205,-10.757,-17.077,-10.604,-20.088C0.739,-18.36,12.572,-33.331,21.43,-38.314C20.072,-35.956,13.622,-13.536,8.472,-11.603Z; M8.472,-11.603C10.617,-7.16,16.993,-7.886,18.927,-3.182C12.064,3.396,5.645,-4.059,0.441,-6.028C-8.534,1.653,-12.995,12.977,-22.68,20.088C-19.17,8,-17.431,-5.515,-8.968,-13.61C-8.55,-16.946,-10.757,-17.077,-10.604,-20.088C0.739,-18.36,16.593,-19.351,22.68,-13.064C17.881,-14.761,13.622,-13.536,8.472,-11.603Z; M8.472,-11.603C10.617,-7.16,16.993,-7.886,18.927,-3.182C12.064,3.396,5.645,-4.059,0.441,-6.028C-8.534,1.653,-12.995,12.977,-22.68,20.088C-19.17,8,-17.431,-5.515,-8.968,-13.61C-8.55,-16.946,-10.757,-17.077,-10.604,-20.088C0.739,-18.36,16.593,-19.351,22.68,-13.064C17.881,-14.761,13.622,-13.536,8.472,-11.603Z"
+                    keyTimes="0; 0.155556; 0.211111; 0.266667; 0.322222; 0.377778; 0.433333; 0.488889; 0.544444; 0.6; 1"
+                    keySplines="0 0 1 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0 0 1 1"
+                    fill="freeze" />
+                </path>
+              </g>
+            </g>
+          </g>
+        </g>
+        <g visibility="visible" id="i9">
+          <animate repeatCount="indefinite" begin="0s" calcMode="discrete" dur="9s" values="visible; hidden; hidden"
+            keyTimes="0; 0.444; 1" attributeName="visibility" />
+          <g transform="translate(1852.968,1124.544)">
+            <animateMotion repeatCount="indefinite" dur="9s" begin="0s" calcMode="spline"
+              keyTimes="0; 0.111111; 0.277778; 0.424074; 1"
+              keySplines="0 0 1 1; 0.167 0.167 0.719 1; 0.223 0 0.833 0.833; 0 0 1 1" keyPoints="0; 0; 0.336; 1; 1"
+              path="M0 0 C-52.204 -80.886 -187.149 -410.287 -471.136 -412 C-755.123 -413.713 -1502.219 -92.272 -1703.924 -10.279"
+              fill="freeze" />
+            <g transform="rotate(0)">
+              <animateTransform repeatCount="indefinite" type="rotate" attributeName="transform" dur="9s" begin="0s"
+                calcMode="spline" values="0; 0; -6.449; -74.518; -74.518" keyTimes="0; 0.111111; 0.222222; 0.294444; 1"
+                keySplines="0 0 1 1; 0 0 1 1; 0 0 1 1; 0 0 1 1" fill="freeze" />
+              <g transform="scale(1,2) translate(-482.832,-230.544)">
+                <g id="i10" transform="matrix(1,0,0,1,485.12,231.958)">
+                  <path fill="#10031a" fill-rule="evenodd"
+                    d="M27.156,-13.712C16.636,-16.906,5.092,-12.48,0.194,-6.129C1.854,-2.119,6.916,-2.304,8.651,1.611C7.488,2.688,5.955,3.466,5.158,4.845C-2.297,3.225,-8.722,-3.492,-16.156,2.267C-21.26,6.227,-18.1,13.297,-23.007,19.254C-25.638,11.774,-27.156,-1.946,-22.816,-6.614C-20.587,-6.824,-20.2,-8.534,-17.237,-8.152C-14.861,-9.204,-19.489,-12.115,-16.875,-13.929C-13.091,-15.036,-13.301,-11.216,-9.111,-12.821C-5.49,-13.638,-6.028,-17.835,-3.072,-19.194C7.742,-18.279,20.093,-19.254,27.156,-13.712Z">
+                    <animate repeatCount="indefinite" attributeName="d" dur="9s" begin="0s" calcMode="spline"
+                      values="M27.156,-13.712C16.636,-16.906,5.092,-12.48,0.194,-6.129C1.854,-2.119,6.916,-2.304,8.651,1.611C7.488,2.688,5.955,3.466,5.158,4.845C-2.297,3.225,-8.722,-3.492,-16.156,2.267C-21.26,6.227,-18.1,13.297,-23.007,19.254C-25.638,11.774,-27.156,-1.946,-22.816,-6.614C-20.587,-6.824,-20.2,-8.534,-17.237,-8.152C-14.861,-9.204,-19.489,-12.115,-16.875,-13.929C-13.091,-15.036,-13.301,-11.216,-9.111,-12.821C-5.49,-13.638,-6.028,-17.835,-3.072,-19.194C7.742,-18.279,20.093,-19.254,27.156,-13.712Z; M13.406,7.225C1.631,-0.834,0.38,-3.771,-0.431,-3.192C0.943,-0.834,4.229,-0.616,5.964,3.299C4.801,4.376,4.755,4.104,1.596,3.72C-5.859,2.1,-4.416,-1.677,-6.844,0.392C-8.12,1.479,5.13,5.667,6.993,11.254C-2.62,2.792,-21.093,-1.696,-16.753,-6.364C-16.745,-7.896,-16.245,-6.271,-16.424,-8.402C-16.682,-9.521,-19.489,-12.115,-16.875,-13.929C-13.091,-15.036,-13.426,-9.716,-9.236,-11.321C-5.615,-12.138,-7.057,-11.896,-3.884,-10.694C6.005,-6.521,6.343,1.683,13.406,7.225Z; M27.156,-13.712C16.636,-16.906,5.092,-12.48,0.194,-6.129C1.854,-2.119,6.916,-2.304,8.651,1.611C7.488,2.688,5.955,3.466,5.158,4.845C-2.297,3.225,-8.722,-3.492,-16.156,2.267C-21.26,6.227,-18.1,13.297,-23.007,19.254C-25.638,11.774,-27.156,-1.946,-22.816,-6.614C-20.587,-6.824,-20.2,-8.534,-17.237,-8.152C-14.861,-9.204,-19.489,-12.115,-16.875,-13.929C-13.091,-15.036,-13.301,-11.216,-9.111,-12.821C-5.49,-13.638,-6.028,-17.835,-3.072,-19.194C7.742,-18.279,20.093,-19.254,27.156,-13.712Z; M13.406,7.225C1.631,-0.834,0.38,-3.771,-0.431,-3.192C0.943,-0.834,4.229,-0.616,5.964,3.299C4.801,4.376,4.755,4.104,1.596,3.72C-5.859,2.1,-4.416,-1.677,-6.844,0.392C-8.12,1.479,5.13,5.667,6.993,11.254C-2.62,2.792,-21.093,-1.696,-16.753,-6.364C-16.745,-7.896,-16.245,-6.271,-16.424,-8.402C-16.682,-9.521,-19.489,-12.115,-16.875,-13.929C-13.091,-15.036,-13.426,-9.716,-9.236,-11.321C-5.615,-12.138,-7.057,-11.896,-3.884,-10.694C6.005,-6.521,6.343,1.683,13.406,7.225Z; M27.156,-13.712C16.636,-16.906,5.092,-12.48,0.194,-6.129C1.854,-2.119,6.916,-2.304,8.651,1.611C7.488,2.688,5.955,3.466,5.158,4.845C-2.297,3.225,-8.722,-3.492,-16.156,2.267C-21.26,6.227,-18.1,13.297,-23.007,19.254C-25.638,11.774,-27.156,-1.946,-22.816,-6.614C-20.587,-6.824,-20.2,-8.534,-17.237,-8.152C-14.861,-9.204,-19.489,-12.115,-16.875,-13.929C-13.091,-15.036,-13.301,-11.216,-9.111,-12.821C-5.49,-13.638,-6.028,-17.835,-3.072,-19.194C7.742,-18.279,20.093,-19.254,27.156,-13.712Z; M13.406,7.225C1.631,-0.834,0.38,-3.771,-0.431,-3.192C0.943,-0.834,4.229,-0.616,5.964,3.299C4.801,4.376,4.755,4.104,1.596,3.72C-5.859,2.1,-4.416,-1.677,-6.844,0.392C-8.12,1.479,5.13,5.667,6.993,11.254C-2.62,2.792,-21.093,-1.696,-16.753,-6.364C-16.745,-7.896,-16.245,-6.271,-16.424,-8.402C-16.682,-9.521,-19.489,-12.115,-16.875,-13.929C-13.091,-15.036,-13.426,-9.716,-9.236,-11.321C-5.615,-12.138,-7.057,-11.896,-3.884,-10.694C6.005,-6.521,6.343,1.683,13.406,7.225Z; M27.156,-13.712C16.636,-16.906,5.092,-12.48,0.194,-6.129C1.854,-2.119,6.916,-2.304,8.651,1.611C7.488,2.688,5.955,3.466,5.158,4.845C-2.297,3.225,-8.722,-3.492,-16.156,2.267C-21.26,6.227,-18.1,13.297,-23.007,19.254C-25.638,11.774,-27.156,-1.946,-22.816,-6.614C-20.587,-6.824,-20.2,-8.534,-17.237,-8.152C-14.861,-9.204,-19.489,-12.115,-16.875,-13.929C-13.091,-15.036,-13.301,-11.216,-9.111,-12.821C-5.49,-13.638,-6.028,-17.835,-3.072,-19.194C7.742,-18.279,20.093,-19.254,27.156,-13.712Z; M13.406,7.225C1.631,-0.834,0.38,-3.771,-0.431,-3.192C0.943,-0.834,4.229,-0.616,5.964,3.299C4.801,4.376,4.755,4.104,1.596,3.72C-5.859,2.1,-4.416,-1.677,-6.844,0.392C-8.12,1.479,5.13,5.667,6.993,11.254C-2.62,2.792,-21.093,-1.696,-16.753,-6.364C-16.745,-7.896,-16.245,-6.271,-16.424,-8.402C-16.682,-9.521,-19.489,-12.115,-16.875,-13.929C-13.091,-15.036,-13.426,-9.716,-9.236,-11.321C-5.615,-12.138,-7.057,-11.896,-3.884,-10.694C6.005,-6.521,6.343,1.683,13.406,7.225Z; M27.156,-13.712C16.636,-16.906,5.092,-12.48,0.194,-6.129C1.854,-2.119,6.916,-2.304,8.651,1.611C7.488,2.688,5.955,3.466,5.158,4.845C-2.297,3.225,-8.722,-3.492,-16.156,2.267C-21.26,6.227,-18.1,13.297,-23.007,19.254C-25.638,11.774,-27.156,-1.946,-22.816,-6.614C-20.587,-6.824,-20.2,-8.534,-17.237,-8.152C-14.861,-9.204,-19.489,-12.115,-16.875,-13.929C-13.091,-15.036,-13.301,-11.216,-9.111,-12.821C-5.49,-13.638,-6.028,-17.835,-3.072,-19.194C7.742,-18.279,20.093,-19.254,27.156,-13.712Z; M13.406,7.225C1.631,-0.834,0.38,-3.771,-0.431,-3.192C0.943,-0.834,4.229,-0.616,5.964,3.299C4.801,4.376,4.755,4.104,1.596,3.72C-5.859,2.1,-4.416,-1.677,-6.844,0.392C-8.12,1.479,5.13,5.667,6.993,11.254C-2.62,2.792,-21.093,-1.696,-16.753,-6.364C-16.745,-7.896,-16.245,-6.271,-16.424,-8.402C-16.682,-9.521,-19.489,-12.115,-16.875,-13.929C-13.091,-15.036,-13.426,-9.716,-9.236,-11.321C-5.615,-12.138,-7.057,-11.896,-3.884,-10.694C6.005,-6.521,6.343,1.683,13.406,7.225Z; M27.156,-13.712C16.636,-16.906,5.092,-12.48,0.194,-6.129C1.854,-2.119,6.916,-2.304,8.651,1.611C7.488,2.688,5.955,3.466,5.158,4.845C-2.297,3.225,-8.722,-3.492,-16.156,2.267C-21.26,6.227,-18.1,13.297,-23.007,19.254C-25.638,11.774,-27.156,-1.946,-22.816,-6.614C-20.587,-6.824,-20.2,-8.534,-17.237,-8.152C-14.861,-9.204,-19.489,-12.115,-16.875,-13.929C-13.091,-15.036,-13.301,-11.216,-9.111,-12.821C-5.49,-13.638,-6.028,-17.835,-3.072,-19.194C7.742,-18.279,20.093,-19.254,27.156,-13.712Z; M13.406,7.225C1.631,-0.834,0.38,-3.771,-0.431,-3.192C0.943,-0.834,4.229,-0.616,5.964,3.299C4.801,4.376,4.755,4.104,1.596,3.72C-5.859,2.1,-4.416,-1.677,-6.844,0.392C-8.12,1.479,5.13,5.667,6.993,11.254C-2.62,2.792,-21.093,-1.696,-16.753,-6.364C-16.745,-7.896,-16.245,-6.271,-16.424,-8.402C-16.682,-9.521,-19.489,-12.115,-16.875,-13.929C-13.091,-15.036,-13.426,-9.716,-9.236,-11.321C-5.615,-12.138,-7.057,-11.896,-3.884,-10.694C6.005,-6.521,6.343,1.683,13.406,7.225Z; M27.156,-13.712C16.636,-16.906,5.092,-12.48,0.194,-6.129C1.854,-2.119,6.916,-2.304,8.651,1.611C7.488,2.688,5.955,3.466,5.158,4.845C-2.297,3.225,-8.722,-3.492,-16.156,2.267C-21.26,6.227,-18.1,13.297,-23.007,19.254C-25.638,11.774,-27.156,-1.946,-22.816,-6.614C-20.587,-6.824,-20.2,-8.534,-17.237,-8.152C-14.861,-9.204,-19.489,-12.115,-16.875,-13.929C-13.091,-15.036,-13.301,-11.216,-9.111,-12.821C-5.49,-13.638,-6.028,-17.835,-3.072,-19.194C7.742,-18.279,20.093,-19.254,27.156,-13.712Z; M13.406,7.225C1.631,-0.834,0.38,-3.771,-0.431,-3.192C0.943,-0.834,4.229,-0.616,5.964,3.299C4.801,4.376,4.755,4.104,1.596,3.72C-5.859,2.1,-4.416,-1.677,-6.844,0.392C-8.12,1.479,5.13,5.667,6.993,11.254C-2.62,2.792,-21.093,-1.696,-16.753,-6.364C-16.745,-7.896,-16.245,-6.271,-16.424,-8.402C-16.682,-9.521,-19.489,-12.115,-16.875,-13.929C-13.091,-15.036,-13.426,-9.716,-9.236,-11.321C-5.615,-12.138,-7.057,-11.896,-3.884,-10.694C6.005,-6.521,6.343,1.683,13.406,7.225Z; M27.156,-13.712C16.636,-16.906,5.092,-12.48,0.194,-6.129C1.854,-2.119,6.916,-2.304,8.651,1.611C7.488,2.688,5.955,3.466,5.158,4.845C-2.297,3.225,-8.722,-3.492,-16.156,2.267C-21.26,6.227,-18.1,13.297,-23.007,19.254C-25.638,11.774,-27.156,-1.946,-22.816,-6.614C-20.587,-6.824,-20.2,-8.534,-17.237,-8.152C-14.861,-9.204,-19.489,-12.115,-16.875,-13.929C-13.091,-15.036,-13.301,-11.216,-9.111,-12.821C-5.49,-13.638,-6.028,-17.835,-3.072,-19.194C7.742,-18.279,20.093,-19.254,27.156,-13.712Z; M13.406,7.225C1.631,-0.834,0.38,-3.771,-0.431,-3.192C0.943,-0.834,4.229,-0.616,5.964,3.299C4.801,4.376,4.755,4.104,1.596,3.72C-5.859,2.1,-4.416,-1.677,-6.844,0.392C-8.12,1.479,5.13,5.667,6.993,11.254C-2.62,2.792,-21.093,-1.696,-16.753,-6.364C-16.745,-7.896,-16.245,-6.271,-16.424,-8.402C-16.682,-9.521,-19.489,-12.115,-16.875,-13.929C-13.091,-15.036,-13.426,-9.716,-9.236,-11.321C-5.615,-12.138,-7.057,-11.896,-3.884,-10.694C6.005,-6.521,6.343,1.683,13.406,7.225Z; M27.156,-13.712C16.636,-16.906,5.092,-12.48,0.194,-6.129C1.854,-2.119,6.916,-2.304,8.651,1.611C7.488,2.688,5.955,3.466,5.158,4.845C-2.297,3.225,-8.722,-3.492,-16.156,2.267C-21.26,6.227,-18.1,13.297,-23.007,19.254C-25.638,11.774,-27.156,-1.946,-22.816,-6.614C-20.587,-6.824,-20.2,-8.534,-17.237,-8.152C-14.861,-9.204,-19.489,-12.115,-16.875,-13.929C-13.091,-15.036,-13.301,-11.216,-9.111,-12.821C-5.49,-13.638,-6.028,-17.835,-3.072,-19.194C7.742,-18.279,20.093,-19.254,27.156,-13.712Z; M13.406,7.225C1.631,-0.834,0.38,-3.771,-0.431,-3.192C0.943,-0.834,4.229,-0.616,5.964,3.299C4.801,4.376,4.755,4.104,1.596,3.72C-5.859,2.1,-4.416,-1.677,-6.844,0.392C-8.12,1.479,5.13,5.667,6.993,11.254C-2.62,2.792,-21.093,-1.696,-16.753,-6.364C-16.745,-7.896,-16.245,-6.271,-16.424,-8.402C-16.682,-9.521,-19.489,-12.115,-16.875,-13.929C-13.091,-15.036,-13.426,-9.716,-9.236,-11.321C-5.615,-12.138,-7.057,-11.896,-3.884,-10.694C6.005,-6.521,6.343,1.683,13.406,7.225Z; M27.156,-13.712C16.636,-16.906,5.092,-12.48,0.194,-6.129C1.854,-2.119,6.916,-2.304,8.651,1.611C7.488,2.688,5.955,3.466,5.158,4.845C-2.297,3.225,-8.722,-3.492,-16.156,2.267C-21.26,6.227,-18.1,13.297,-23.007,19.254C-25.638,11.774,-27.156,-1.946,-22.816,-6.614C-20.587,-6.824,-20.2,-8.534,-17.237,-8.152C-14.861,-9.204,-19.489,-12.115,-16.875,-13.929C-13.091,-15.036,-13.301,-11.216,-9.111,-12.821C-5.49,-13.638,-6.028,-17.835,-3.072,-19.194C7.742,-18.279,20.093,-19.254,27.156,-13.712Z; M13.406,7.225C1.631,-0.834,0.38,-3.771,-0.431,-3.192C0.943,-0.834,4.229,-0.616,5.964,3.299C4.801,4.376,4.755,4.104,1.596,3.72C-5.859,2.1,-4.416,-1.677,-6.844,0.392C-8.12,1.479,5.13,5.667,6.993,11.254C-2.62,2.792,-21.093,-1.696,-16.753,-6.364C-16.745,-7.896,-16.245,-6.271,-16.424,-8.402C-16.682,-9.521,-19.489,-12.115,-16.875,-13.929C-13.091,-15.036,-13.426,-9.716,-9.236,-11.321C-5.615,-12.138,-7.057,-11.896,-3.884,-10.694C6.005,-6.521,6.343,1.683,13.406,7.225Z; M13.406,7.225C1.631,-0.834,0.38,-3.771,-0.431,-3.192C0.943,-0.834,4.229,-0.616,5.964,3.299C4.801,4.376,4.755,4.104,1.596,3.72C-5.859,2.1,-4.416,-1.677,-6.844,0.392C-8.12,1.479,5.13,5.667,6.993,11.254C-2.62,2.792,-21.093,-1.696,-16.753,-6.364C-16.745,-7.896,-16.245,-6.271,-16.424,-8.402C-16.682,-9.521,-19.489,-12.115,-16.875,-13.929C-13.091,-15.036,-13.426,-9.716,-9.236,-11.321C-5.615,-12.138,-7.057,-11.896,-3.884,-10.694C6.005,-6.521,6.343,1.683,13.406,7.225Z"
+                      keyTimes="0; 0.018519; 0.037037; 0.053704; 0.07037; 0.087037; 0.1; 0.116667; 0.133333; 0.15; 0.162963; 0.17963; 0.2; 0.216667; 0.235185; 0.251852; 0.268518; 0.285185; 0.298148; 0.314815; 1"
+                      keySplines="0.333 0 0.667 1; 0.167 0 0.667 1; 0.167 0 0.667 1; 0.167 0 0.667 1; 0.167 0 0.667 1; 0.167 0 0.667 1; 0.167 0 0.667 1; 0.167 0 0.667 1; 0.167 0 0.667 1; 0.167 0 0.667 1; 0.167 0 0.667 1; 0.167 0 0.667 1; 0.167 0 0.667 1; 0.167 0 0.667 1; 0.167 0 0.667 1; 0.167 0 0.667 1; 0.167 0 0.667 1; 0.167 0 0.667 1; 0.167 0 0.667 1; 0 0 1 1"
+                      fill="freeze" />
+                  </path>
+                </g>
+              </g>
+            </g>
+          </g>
+        </g>
+        <g visibility="visible" id="i11">
+          <animate repeatCount="indefinite" begin="0s" calcMode="discrete" dur="9s" values="visible; hidden; hidden"
+            keyTimes="0; 0.444; 1" attributeName="visibility" />
+          <g transform="translate(1247.073,1178.394)">
+            <animateMotion repeatCount="indefinite" dur="9s" begin="0s" calcMode="spline" keyTimes="0; 0.314815; 1"
+              keySplines="0 0 1 1; 0 0 1 1" keyPoints="0; 1; 1" path="M0 0 C-202.5 -750.25 -619.5 -1077 -1339 -1181"
+              fill="freeze" />
+            <g transform="scale(1,2) translate(-21.073,-164.894)">
+              <g id="i12" transform="matrix(1,0,0,1,18.499,165.46)">
+                <path fill="#10031a" fill-rule="evenodd"
+                  d="M17.523,-8.856C17.013,-8.164,17.185,-7.755,18.144,-7.88C15.344,-4.031,10.067,-2.184,6.576,1.107C7.404,3.183,10.156,2.895,10.667,5.359C9.959,6.041,8.626,6.216,8.248,7.166C6.036,6.793,5.135,4.81,3.698,3.481C-1.63,3.055,-6.244,6.523,-11.497,7.65C-13.592,8.109,-11.226,6.316,-12.741,5.703C-14.399,6.868,-7.333,2.295,-9.894,2.731C-4.781,-0.659,-9.582,0.728,-2.507,-1.07C-1.618,-1.97,-3.453,-2.998,-2.31,-4.208C-0.51,-4.485,-0.435,-2.648,0.996,-2.473C4.757,-6.014,10.988,-7.559,17.523,-8.856Z">
+                  <animate repeatCount="indefinite" attributeName="d" dur="9s" begin="0s" calcMode="spline"
+                    values="M17.523,-8.856C17.013,-8.164,17.185,-7.755,18.144,-7.88C15.344,-4.031,10.067,-2.184,6.576,1.107C7.404,3.183,10.156,2.895,10.667,5.359C9.959,6.041,8.626,6.216,8.248,7.166C6.036,6.793,5.135,4.81,3.698,3.481C-1.63,3.055,-6.244,6.523,-11.497,7.65C-13.592,8.109,-11.226,6.316,-12.741,5.703C-14.399,6.868,-7.333,2.295,-9.894,2.731C-4.781,-0.659,-9.582,0.728,-2.507,-1.07C-1.618,-1.97,-3.453,-2.998,-2.31,-4.208C-0.51,-4.485,-0.435,-2.648,0.996,-2.473C4.757,-6.014,10.988,-7.559,17.523,-8.856Z; M17.523,-8.856C17.013,-8.164,17.185,-7.755,18.144,-7.88C15.344,-4.031,10.067,-2.184,6.576,1.107C7.404,3.183,10.156,2.895,10.667,5.359C9.959,6.041,8.626,6.216,8.248,7.166C6.036,6.793,5.135,4.81,3.698,3.481C-1.63,3.055,-6.244,6.523,-11.497,7.65C-13.592,8.109,-11.226,6.316,-12.741,5.703C-14.399,6.868,-7.333,2.295,-9.894,2.731C-4.781,-0.659,-9.582,0.728,-2.507,-1.07C-1.618,-1.97,-3.453,-2.998,-2.31,-4.208C-0.51,-4.485,-0.435,-2.648,0.996,-2.473C4.757,-6.014,10.988,-7.559,17.523,-8.856Z; M17.523,-8.856C17.013,-8.164,17.185,-7.755,18.144,-7.88C15.344,-4.031,10.067,-2.184,6.576,1.107C7.404,3.183,10.156,2.895,10.667,5.359C9.959,6.041,8.626,6.216,8.248,7.166C6.036,6.793,5.135,4.81,3.698,3.481C-1.63,3.055,-6.244,6.523,-11.497,7.65C-13.592,8.109,-11.226,6.316,-12.741,5.703C-14.399,6.868,-7.333,2.295,-9.894,2.731C-4.781,-0.659,-9.582,0.728,-2.507,-1.07C-1.618,-1.97,-3.453,-2.998,-2.31,-4.208C-0.51,-4.485,-0.435,-2.648,0.996,-2.473C4.757,-6.014,10.988,-7.559,17.523,-8.856Z; M17.523,-8.856C17.013,-8.164,17.185,-7.755,18.144,-7.88C15.344,-4.031,10.067,-2.184,6.576,1.107C7.404,3.183,10.156,2.895,10.667,5.359C9.959,6.041,8.626,6.216,8.248,7.166C6.036,6.793,5.135,4.81,3.698,3.481C-1.63,3.055,-6.244,6.523,-11.497,7.65C-13.592,8.109,-11.226,6.316,-12.741,5.703C-14.399,6.868,-7.333,2.295,-9.894,2.731C-4.781,-0.659,-9.582,0.728,-2.507,-1.07C-1.618,-1.97,-3.453,-2.998,-2.31,-4.208C-0.51,-4.485,-0.435,-2.648,0.996,-2.473C4.757,-6.014,10.988,-7.559,17.523,-8.856Z; M17.523,-8.856C17.013,-8.164,17.185,-7.755,18.144,-7.88C15.344,-4.031,10.067,-2.184,6.576,1.107C7.404,3.183,10.156,2.895,10.667,5.359C9.959,6.041,8.626,6.216,8.248,7.166C6.036,6.793,5.135,4.81,3.698,3.481C-1.63,3.055,-6.244,6.523,-11.497,7.65C-13.592,8.109,-11.226,6.316,-12.741,5.703C-14.399,6.868,-7.333,2.295,-9.894,2.731C-4.781,-0.659,-9.582,0.728,-2.507,-1.07C-1.618,-1.97,-3.453,-2.998,-2.31,-4.208C-0.51,-4.485,-0.435,-2.648,0.996,-2.473C4.757,-6.014,10.988,-7.559,17.523,-8.856Z; M17.523,-8.856C17.013,-8.164,17.185,-7.755,18.144,-7.88C15.344,-4.031,10.067,-2.184,6.576,1.107C7.404,3.183,10.156,2.895,10.667,5.359C9.959,6.041,8.626,6.216,8.248,7.166C6.036,6.793,5.135,4.81,3.698,3.481C-1.63,3.055,-6.244,6.523,-11.497,7.65C-13.592,8.109,-11.226,6.316,-12.741,5.703C-14.399,6.868,-7.333,2.295,-9.894,2.731C-4.781,-0.659,-9.582,0.728,-2.507,-1.07C-1.618,-1.97,-3.453,-2.998,-2.31,-4.208C-0.51,-4.485,-0.435,-2.648,0.996,-2.473C4.757,-6.014,10.988,-7.559,17.523,-8.856Z; M17.523,-8.856C17.013,-8.164,17.185,-7.755,18.144,-7.88C15.344,-4.031,10.067,-2.184,6.576,1.107C7.404,3.183,10.156,2.895,10.667,5.359C9.959,6.041,8.626,6.216,8.248,7.166C6.036,6.793,5.135,4.81,3.698,3.481C-1.63,3.055,-6.244,6.523,-11.497,7.65C-13.592,8.109,-11.226,6.316,-12.741,5.703C-14.399,6.868,-7.333,2.295,-9.894,2.731C-4.781,-0.659,-9.582,0.728,-2.507,-1.07C-1.618,-1.97,-3.453,-2.998,-2.31,-4.208C-0.51,-4.485,-0.435,-2.648,0.996,-2.473C4.757,-6.014,10.988,-7.559,17.523,-8.856Z; M17.523,-8.856C17.013,-8.164,17.185,-7.755,18.144,-7.88C15.344,-4.031,10.067,-2.184,6.576,1.107C7.404,3.183,10.156,2.895,10.667,5.359C9.959,6.041,8.626,6.216,8.248,7.166C6.036,6.793,5.135,4.81,3.698,3.481C-1.63,3.055,-6.244,6.523,-11.497,7.65C-13.592,8.109,-11.226,6.316,-12.741,5.703C-14.399,6.868,-7.333,2.295,-9.894,2.731C-4.781,-0.659,-9.582,0.728,-2.507,-1.07C-1.618,-1.97,-3.453,-2.998,-2.31,-4.208C-0.51,-4.485,-0.435,-2.648,0.996,-2.473C4.757,-6.014,10.988,-7.559,17.523,-8.856Z; M17.523,-8.856C17.013,-8.164,17.185,-7.755,18.144,-7.88C15.344,-4.031,10.067,-2.184,6.576,1.107C7.404,3.183,10.156,2.895,10.667,5.359C9.959,6.041,8.626,6.216,8.248,7.166C6.036,6.793,5.135,4.81,3.698,3.481C-1.63,3.055,-6.244,6.523,-11.497,7.65C-13.592,8.109,-11.226,6.316,-12.741,5.703C-14.399,6.868,-7.333,2.295,-9.894,2.731C-4.781,-0.659,-9.582,0.728,-2.507,-1.07C-1.618,-1.97,-3.453,-2.998,-2.31,-4.208C-0.51,-4.485,-0.435,-2.648,0.996,-2.473C4.757,-6.014,10.988,-7.559,17.523,-8.856Z; M17.523,-8.856C17.013,-8.164,17.185,-7.755,18.144,-7.88C15.344,-4.031,10.067,-2.184,6.576,1.107C7.404,3.183,10.156,2.895,10.667,5.359C9.959,6.041,8.626,6.216,8.248,7.166C6.036,6.793,5.135,4.81,3.698,3.481C-1.63,3.055,-6.244,6.523,-11.497,7.65C-13.592,8.109,-11.226,6.316,-12.741,5.703C-14.399,6.868,-7.333,2.295,-9.894,2.731C-4.781,-0.659,-9.582,0.728,-2.507,-1.07C-1.618,-1.97,-3.453,-2.998,-2.31,-4.208C-0.51,-4.485,-0.435,-2.648,0.996,-2.473C4.757,-6.014,10.988,-7.559,17.523,-8.856Z"
+                    keyTimes="0; 0.055556; 0.111111; 0.166667; 0.222222; 0.277778; 0.333333; 0.388889; 0.444444; 1"
+                    keySplines="0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0 0 1 1"
+                    fill="freeze" />
+                </path>
+              </g>
+            </g>
+          </g>
+        </g>
+        <g visibility="hidden" id="i13">
+          <animate repeatCount="indefinite" begin="0s" calcMode="discrete" dur="9s"
+            values="hidden; visible; hidden; hidden" keyTimes="0; 0.52; 0.965; 1" attributeName="visibility" />
+          <g transform="translate(498.224,1101.236)">
+            <animateMotion repeatCount="indefinite" dur="9s" begin="0s" calcMode="spline"
+              keyTimes="0; 0.587037; 0.753704; 0.922222; 1" keySplines="0 0 1 1; 0 0 1 1; 0 0 1 1; 0 0 1 1"
+              keyPoints="0; 0; 0.448; 1; 1"
+              path="M0 0 C103.292 -89.042 368.292 -366.042 619.75 -534.25 C871.208 -702.458 1360.583 -930.083 1508.75 -1009.25"
+              fill="freeze" />
+            <g transform="scale(-1,2) translate(-1445.882,-394.895)">
+              <g id="i1" transform="matrix(1,0,0,1,1444.162,397.183)">
+                <path fill="#10031a" fill-rule="evenodd"
+                  d="M13.602,-14.704C14.869,-14.857,14.245,-14.4,14.201,-13.766C11.206,-10.148,9.098,-5.811,3.682,-4.161C4.182,-0.683,8.141,-1.463,9.695,0.721C8.53,5.996,3.578,1.806,1.17,0.605C-3.737,5.54,-7.229,11.626,-14.388,14.733C-11.46,8.646,-8.662,2.447,-5.235,-3.237C-5.47,-4.819,-8.104,-5.129,-7.083,-6.55C-0.2,-6.48,6.994,-11.772,13.602,-14.704Z">
+                  <animate repeatCount="indefinite" attributeName="d" dur="9s" begin="0s" calcMode="spline"
+                    values="M13.602,-14.704C14.869,-14.857,14.245,-14.4,14.201,-13.766C11.206,-10.148,9.098,-5.811,3.682,-4.161C4.182,-0.683,8.141,-1.463,9.695,0.721C8.53,5.996,3.578,1.806,1.17,0.605C-3.737,5.54,-7.229,11.626,-14.388,14.733C-11.46,8.646,-8.662,2.447,-5.235,-3.237C-5.47,-4.819,-8.104,-5.129,-7.083,-6.55C-0.2,-6.48,6.994,-11.772,13.602,-14.704Z; M13.602,-14.704C14.869,-14.857,14.245,-14.4,14.201,-13.766C11.206,-10.148,9.098,-5.811,3.682,-4.161C4.182,-0.683,8.141,-1.463,9.695,0.721C8.53,5.996,3.578,1.806,1.17,0.605C-3.737,5.54,-7.229,11.626,-14.388,14.733C-11.46,8.646,-8.662,2.447,-5.235,-3.237C-5.47,-4.819,-8.104,-5.129,-7.083,-6.55C-0.2,-6.48,6.994,-11.772,13.602,-14.704Z; M-0.46,-5.142C0.807,-5.295,1.807,-5.587,1.763,-4.953C2.026,-5.057,3.526,-3.933,3.682,-4.161C4.182,-0.683,9.203,-3.213,10.757,-1.029C9.592,4.246,3.578,1.806,1.17,0.605C-0.599,0.88,-2.099,1.004,-2.451,-0.08C-4.287,-0.933,-4.286,-2.495,-5.235,-3.237C-5.47,-4.819,-8.104,-5.129,-7.083,-6.55C-5.912,-7.433,-3.224,-5.746,-0.46,-5.142Z; M13.602,-14.704C14.869,-14.857,14.245,-14.4,14.201,-13.766C11.206,-10.148,9.098,-5.811,3.682,-4.161C4.182,-0.683,8.141,-1.463,9.695,0.721C8.53,5.996,3.578,1.806,1.17,0.605C-3.737,5.54,-7.229,11.626,-14.388,14.733C-11.46,8.646,-8.662,2.447,-5.235,-3.237C-5.47,-4.819,-8.104,-5.129,-7.083,-6.55C-0.2,-6.48,6.994,-11.772,13.602,-14.704Z; M-0.46,-5.142C0.807,-5.295,1.807,-5.587,1.763,-4.953C2.026,-5.057,3.526,-3.933,3.682,-4.161C4.182,-0.683,9.203,-3.213,10.757,-1.029C9.592,4.246,3.578,1.806,1.17,0.605C-0.599,0.88,-2.099,1.004,-2.451,-0.08C-4.287,-0.933,-4.286,-2.495,-5.235,-3.237C-5.47,-4.819,-8.104,-5.129,-7.083,-6.55C-5.912,-7.433,-3.224,-5.746,-0.46,-5.142Z; M13.602,-14.704C14.869,-14.857,14.245,-14.4,14.201,-13.766C11.206,-10.148,9.098,-5.811,3.682,-4.161C4.182,-0.683,8.141,-1.463,9.695,0.721C8.53,5.996,3.578,1.806,1.17,0.605C-3.737,5.54,-7.229,11.626,-14.388,14.733C-11.46,8.646,-8.662,2.447,-5.235,-3.237C-5.47,-4.819,-8.104,-5.129,-7.083,-6.55C-0.2,-6.48,6.994,-11.772,13.602,-14.704Z; M-0.46,-5.142C0.807,-5.295,1.807,-5.587,1.763,-4.953C2.026,-5.057,3.526,-3.933,3.682,-4.161C4.182,-0.683,9.203,-3.213,10.757,-1.029C9.592,4.246,3.578,1.806,1.17,0.605C-0.599,0.88,-2.099,1.004,-2.451,-0.08C-4.287,-0.933,-4.286,-2.495,-5.235,-3.237C-5.47,-4.819,-8.104,-5.129,-7.083,-6.55C-5.912,-7.433,-3.224,-5.746,-0.46,-5.142Z; M13.602,-14.704C14.869,-14.857,14.245,-14.4,14.201,-13.766C11.206,-10.148,9.098,-5.811,3.682,-4.161C4.182,-0.683,8.141,-1.463,9.695,0.721C8.53,5.996,3.578,1.806,1.17,0.605C-3.737,5.54,-7.229,11.626,-14.388,14.733C-11.46,8.646,-8.662,2.447,-5.235,-3.237C-5.47,-4.819,-8.104,-5.129,-7.083,-6.55C-0.2,-6.48,6.994,-11.772,13.602,-14.704Z; M-0.46,-5.142C0.807,-5.295,1.807,-5.587,1.763,-4.953C2.026,-5.057,3.526,-3.933,3.682,-4.161C4.182,-0.683,9.203,-3.213,10.757,-1.029C9.592,4.246,3.578,1.806,1.17,0.605C-0.599,0.88,-2.099,1.004,-2.451,-0.08C-4.287,-0.933,-4.286,-2.495,-5.235,-3.237C-5.47,-4.819,-8.104,-5.129,-7.083,-6.55C-5.912,-7.433,-3.224,-5.746,-0.46,-5.142Z; M13.602,-14.704C14.869,-14.857,14.245,-14.4,14.201,-13.766C11.206,-10.148,9.098,-5.811,3.682,-4.161C4.182,-0.683,8.141,-1.463,9.695,0.721C8.53,5.996,3.578,1.806,1.17,0.605C-3.737,5.54,-7.229,11.626,-14.388,14.733C-11.46,8.646,-8.662,2.447,-5.235,-3.237C-5.47,-4.819,-8.104,-5.129,-7.083,-6.55C-0.2,-6.48,6.994,-11.772,13.602,-14.704Z; M13.602,-14.704C14.869,-14.857,14.245,-14.4,14.201,-13.766C11.206,-10.148,9.098,-5.811,3.682,-4.161C4.182,-0.683,8.141,-1.463,9.695,0.721C8.53,5.996,3.578,1.806,1.17,0.605C-3.737,5.54,-7.229,11.626,-14.388,14.733C-11.46,8.646,-8.662,2.447,-5.235,-3.237C-5.47,-4.819,-8.104,-5.129,-7.083,-6.55C-0.2,-6.48,6.994,-11.772,13.602,-14.704Z"
+                    keyTimes="0; 0.52037; 0.575926; 0.631482; 0.687036; 0.742592; 0.798148; 0.853704; 0.909258; 0.964814; 1"
+                    keySplines="0 0 1 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1"
+                    fill="freeze" />
+                </path>
+              </g>
+            </g>
+          </g>
+        </g>
+        <g visibility="hidden" id="i14">
+          <animate repeatCount="indefinite" begin="0s" calcMode="discrete" dur="9s"
+            values="hidden; visible; hidden; hidden" keyTimes="0; 0.415; 0.859; 1" attributeName="visibility" />
+          <g transform="translate(-25.5,268)">
+            <animateMotion repeatCount="indefinite" dur="9s" begin="0s" calcMode="spline"
+              keyTimes="0; 0.487037; 0.757407; 1" keySplines="0 0 1 1; 0 0 1 1; 0 0 1 1" keyPoints="0; 0; 1; 1"
+              path="M0 0 C239.667 86.667 474 296.333 2062 136" fill="freeze" />
+            <g transform="rotate(0)">
+              <animateTransform repeatCount="indefinite" type="rotate" attributeName="transform" dur="9s" begin="0s"
+                calcMode="spline" values="0; 0; -37.33; -37.33" keyTimes="0; 0.487037; 0.757407; 1"
+                keySplines="0 0 1 1; 0 0 1 1; 0 0 1 1" fill="freeze" />
+              <g transform="scale(-1,2) translate(-1346.78,-254.492)">
+                <g id="i3" transform="matrix(1,0,0,1,1346.78,254.823)">
+                  <path fill="#10031a" fill-rule="evenodd"
+                    d="M-17.28,-8.323C-3.856,-5.074,4.978,-2.669,17.28,-4.31C9.195,-1.056,3.294,8.323,-6.146,7.625C-4.356,5.925,-1.514,5.083,-1.004,2.344C-5.631,-0.397,-10.994,-2.232,-14.959,-5.791C-15.803,-6.548,-16.583,-7.384,-17.28,-8.323Z">
+                    <animate repeatCount="indefinite" attributeName="d" dur="9s" begin="0s" calcMode="spline"
+                      values="M-17.28,-8.323C-3.856,-5.074,4.978,-2.669,17.28,-4.31C9.195,-1.056,3.294,8.323,-6.146,7.625C-4.356,5.925,-1.514,5.083,-1.004,2.344C-5.631,-0.397,-10.994,-2.232,-14.959,-5.791C-15.803,-6.548,-16.583,-7.384,-17.28,-8.323Z; M-17.28,-8.323C-3.856,-5.074,4.978,-2.669,17.28,-4.31C9.195,-1.056,3.294,8.323,-6.146,7.625C-4.356,5.925,-1.514,5.083,-1.004,2.344C-5.631,-0.397,-10.994,-2.232,-14.959,-5.791C-15.803,-6.548,-16.583,-7.384,-17.28,-8.323Z; M-8.78,5.49C-4.092,-0.26,4.978,-2.669,17.28,-4.31C9.195,-1.056,3.294,8.323,-6.146,7.625C-4.356,5.925,-1.514,5.083,-1.004,2.344C-4.967,4.678,-7.803,13.332,-11.768,9.775C-12.613,9.017,-10.593,7.115,-8.78,5.49Z; M-17.28,-8.323C-3.856,-5.074,4.978,-2.669,17.28,-4.31C9.195,-1.056,3.294,8.323,-6.146,7.625C-4.356,5.925,-1.514,5.083,-1.004,2.344C-5.631,-0.397,-10.994,-2.232,-14.959,-5.791C-15.803,-6.548,-16.583,-7.384,-17.28,-8.323Z; M-8.78,5.49C-4.092,-0.26,4.978,-2.669,17.28,-4.31C9.195,-1.056,3.294,8.323,-6.146,7.625C-4.356,5.925,-1.514,5.083,-1.004,2.344C-4.967,4.678,-7.803,13.332,-11.768,9.775C-12.613,9.017,-10.593,7.115,-8.78,5.49Z; M-17.28,-8.323C-3.856,-5.074,4.978,-2.669,17.28,-4.31C9.195,-1.056,3.294,8.323,-6.146,7.625C-4.356,5.925,-1.514,5.083,-1.004,2.344C-5.631,-0.397,-10.994,-2.232,-14.959,-5.791C-15.803,-6.548,-16.583,-7.384,-17.28,-8.323Z; M-8.78,5.49C-4.092,-0.26,4.978,-2.669,17.28,-4.31C9.195,-1.056,3.294,8.323,-6.146,7.625C-4.356,5.925,-1.514,5.083,-1.004,2.344C-4.967,4.678,-7.803,13.332,-11.768,9.775C-12.613,9.017,-10.593,7.115,-8.78,5.49Z; M-17.28,-8.323C-3.856,-5.074,4.978,-2.669,17.28,-4.31C9.195,-1.056,3.294,8.323,-6.146,7.625C-4.356,5.925,-1.514,5.083,-1.004,2.344C-5.631,-0.397,-10.994,-2.232,-14.959,-5.791C-15.803,-6.548,-16.583,-7.384,-17.28,-8.323Z; M-8.78,5.49C-4.092,-0.26,4.978,-2.669,17.28,-4.31C9.195,-1.056,3.294,8.323,-6.146,7.625C-4.356,5.925,-1.514,5.083,-1.004,2.344C-4.967,4.678,-7.803,13.332,-11.768,9.775C-12.613,9.017,-10.593,7.115,-8.78,5.49Z; M-17.28,-8.323C-3.856,-5.074,4.978,-2.669,17.28,-4.31C9.195,-1.056,3.294,8.323,-6.146,7.625C-4.356,5.925,-1.514,5.083,-1.004,2.344C-5.631,-0.397,-10.994,-2.232,-14.959,-5.791C-15.803,-6.548,-16.583,-7.384,-17.28,-8.323Z; M-8.78,5.49C-4.092,-0.26,4.978,-2.669,17.28,-4.31C9.195,-1.056,3.294,8.323,-6.146,7.625C-4.356,5.925,-1.514,5.083,-1.004,2.344C-4.967,4.678,-7.803,13.332,-11.768,9.775C-12.613,9.017,-10.593,7.115,-8.78,5.49Z; M-17.28,-8.323C-3.856,-5.074,4.978,-2.669,17.28,-4.31C9.195,-1.056,3.294,8.323,-6.146,7.625C-4.356,5.925,-1.514,5.083,-1.004,2.344C-5.631,-0.397,-10.994,-2.232,-14.959,-5.791C-15.803,-6.548,-16.583,-7.384,-17.28,-8.323Z; M-8.78,5.49C-4.092,-0.26,4.978,-2.669,17.28,-4.31C9.195,-1.056,3.294,8.323,-6.146,7.625C-4.356,5.925,-1.514,5.083,-1.004,2.344C-4.967,4.678,-7.803,13.332,-11.768,9.775C-12.613,9.017,-10.593,7.115,-8.78,5.49Z; M-17.28,-8.323C-3.856,-5.074,4.978,-2.669,17.28,-4.31C9.195,-1.056,3.294,8.323,-6.146,7.625C-4.356,5.925,-1.514,5.083,-1.004,2.344C-5.631,-0.397,-10.994,-2.232,-14.959,-5.791C-15.803,-6.548,-16.583,-7.384,-17.28,-8.323Z; M-8.78,5.49C-4.092,-0.26,4.978,-2.669,17.28,-4.31C9.195,-1.056,3.294,8.323,-6.146,7.625C-4.356,5.925,-1.514,5.083,-1.004,2.344C-4.967,4.678,-7.803,13.332,-11.768,9.775C-12.613,9.017,-10.593,7.115,-8.78,5.49Z; M-17.28,-8.323C-3.856,-5.074,4.978,-2.669,17.28,-4.31C9.195,-1.056,3.294,8.323,-6.146,7.625C-4.356,5.925,-1.514,5.083,-1.004,2.344C-5.631,-0.397,-10.994,-2.232,-14.959,-5.791C-15.803,-6.548,-16.583,-7.384,-17.28,-8.323Z; M-8.78,5.49C-4.092,-0.26,4.978,-2.669,17.28,-4.31C9.195,-1.056,3.294,8.323,-6.146,7.625C-4.356,5.925,-1.514,5.083,-1.004,2.344C-4.967,4.678,-7.803,13.332,-11.768,9.775C-12.613,9.017,-10.593,7.115,-8.78,5.49Z; M-17.28,-8.323C-3.856,-5.074,4.978,-2.669,17.28,-4.31C9.195,-1.056,3.294,8.323,-6.146,7.625C-4.356,5.925,-1.514,5.083,-1.004,2.344C-5.631,-0.397,-10.994,-2.232,-14.959,-5.791C-15.803,-6.548,-16.583,-7.384,-17.28,-8.323Z; M-17.28,-8.323C-3.856,-5.074,4.978,-2.669,17.28,-4.31C9.195,-1.056,3.294,8.323,-6.146,7.625C-4.356,5.925,-1.514,5.083,-1.004,2.344C-5.631,-0.397,-10.994,-2.232,-14.959,-5.791C-15.803,-6.548,-16.583,-7.384,-17.28,-8.323Z"
+                      keyTimes="0; 0.414815; 0.440741; 0.470371; 0.496296; 0.525926; 0.551852; 0.581482; 0.607407; 0.637037; 0.666667; 0.692593; 0.718518; 0.748148; 0.777778; 0.803704; 0.829629; 0.859259; 1"
+                      keySplines="0 0 1 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1"
+                      fill="freeze" />
+                  </path>
+                </g>
+              </g>
+            </g>
+          </g>
+        </g>
+        <g visibility="hidden" id="i15">
+          <animate repeatCount="indefinite" begin="0s" calcMode="discrete" dur="9s"
+            values="hidden; visible; hidden; hidden" keyTimes="0; 0.52; 0.965; 1" attributeName="visibility" />
+          <g transform="translate(-189.625,872.023)">
+            <animateTransform repeatCount="indefinite" type="translate" attributeName="transform" dur="9s" begin="0s"
+              calcMode="spline" values="-189.625 872.023; -189.625 872.023; 2018.375 119.023; 2018.375 119.023"
+              keyTimes="0; 0.52037; 0.964815; 1" keySplines="0 0 1 1; 0 0 1 1; 0 0 1 1" fill="freeze" />
+            <g transform="rotate(16.324) scale(-1,2) translate(-1207.509,-27.603)">
+              <g id="i5" transform="matrix(1,0,0,1,1200.884,18.738)">
+                <path fill="#10031a" fill-rule="evenodd"
+                  d="M26.784,-18.086C21.896,-8.525,9.21,-5.304,7.449,6.808C7.8,11.699,13.389,10.13,13.987,14.714C10.555,17.146,8.725,18.085,3.81,17.679C-0.314,4.482,-12.923,7.587,-26.784,7.497C-21.076,-2.708,-5.183,5.453,1.111,0.788C4.348,-9.821,12.641,-16.331,26.784,-18.086Z">
+                  <animate repeatCount="indefinite" attributeName="d" dur="9s" begin="0s" calcMode="spline"
+                    values="M26.784,-18.086C21.896,-8.525,9.21,-5.304,7.449,6.808C7.8,11.699,13.389,10.13,13.987,14.714C10.555,17.146,8.725,18.085,3.81,17.679C-0.314,4.482,-12.923,7.587,-26.784,7.497C-21.076,-2.708,-5.183,5.453,1.111,0.788C4.348,-9.821,12.641,-16.331,26.784,-18.086Z; M26.784,-18.086C21.896,-8.525,9.21,-5.304,7.449,6.808C7.8,11.699,13.389,10.13,13.987,14.714C10.555,17.146,8.725,18.085,3.81,17.679C-0.314,4.482,-12.923,7.587,-26.784,7.497C-21.076,-2.708,-5.183,5.453,1.111,0.788C4.348,-9.821,12.641,-16.331,26.784,-18.086Z; M26.597,6.414C21.709,15.975,9.21,-5.304,7.449,6.808C7.8,11.699,13.389,10.13,13.987,14.714C10.555,17.146,8.725,18.085,3.81,17.679C-0.314,4.482,-1.822,10.2,-13.347,20.622C-6.634,-5.363,-5.183,5.453,1.111,0.788C4.348,-9.821,12.992,5.825,26.597,6.414Z; M26.784,-18.086C21.896,-8.525,9.21,-5.304,7.449,6.808C7.8,11.699,13.389,10.13,13.987,14.714C10.555,17.146,8.725,18.085,3.81,17.679C-0.314,4.482,-12.923,7.587,-26.784,7.497C-21.076,-2.708,-5.183,5.453,1.111,0.788C4.348,-9.821,12.641,-16.331,26.784,-18.086Z; M26.597,6.414C21.709,15.975,9.21,-5.304,7.449,6.808C7.8,11.699,13.389,10.13,13.987,14.714C10.555,17.146,8.725,18.085,3.81,17.679C-0.314,4.482,-1.822,10.2,-13.347,20.622C-6.634,-5.363,-5.183,5.453,1.111,0.788C4.348,-9.821,12.992,5.825,26.597,6.414Z; M26.784,-18.086C21.896,-8.525,9.21,-5.304,7.449,6.808C7.8,11.699,13.389,10.13,13.987,14.714C10.555,17.146,8.725,18.085,3.81,17.679C-0.314,4.482,-12.923,7.587,-26.784,7.497C-21.076,-2.708,-5.183,5.453,1.111,0.788C4.348,-9.821,12.641,-16.331,26.784,-18.086Z; M26.597,6.414C21.709,15.975,9.21,-5.304,7.449,6.808C7.8,11.699,13.389,10.13,13.987,14.714C10.555,17.146,8.725,18.085,3.81,17.679C-0.314,4.482,-1.822,10.2,-13.347,20.622C-6.634,-5.363,-5.183,5.453,1.111,0.788C4.348,-9.821,12.992,5.825,26.597,6.414Z; M26.784,-18.086C21.896,-8.525,9.21,-5.304,7.449,6.808C7.8,11.699,13.389,10.13,13.987,14.714C10.555,17.146,8.725,18.085,3.81,17.679C-0.314,4.482,-12.923,7.587,-26.784,7.497C-21.076,-2.708,-5.183,5.453,1.111,0.788C4.348,-9.821,12.641,-16.331,26.784,-18.086Z; M26.597,6.414C21.709,15.975,9.21,-5.304,7.449,6.808C7.8,11.699,13.389,10.13,13.987,14.714C10.555,17.146,8.725,18.085,3.81,17.679C-0.314,4.482,-1.822,10.2,-13.347,20.622C-6.634,-5.363,-5.183,5.453,1.111,0.788C4.348,-9.821,12.992,5.825,26.597,6.414Z; M26.784,-18.086C21.896,-8.525,9.21,-5.304,7.449,6.808C7.8,11.699,13.389,10.13,13.987,14.714C10.555,17.146,8.725,18.085,3.81,17.679C-0.314,4.482,-12.923,7.587,-26.784,7.497C-21.076,-2.708,-5.183,5.453,1.111,0.788C4.348,-9.821,12.641,-16.331,26.784,-18.086Z; M26.784,-18.086C21.896,-8.525,9.21,-5.304,7.449,6.808C7.8,11.699,13.389,10.13,13.987,14.714C10.555,17.146,8.725,18.085,3.81,17.679C-0.314,4.482,-12.923,7.587,-26.784,7.497C-21.076,-2.708,-5.183,5.453,1.111,0.788C4.348,-9.821,12.641,-16.331,26.784,-18.086Z"
+                    keyTimes="0; 0.52037; 0.575926; 0.631481; 0.687037; 0.742593; 0.798148; 0.853704; 0.909259; 0.964815; 1"
+                    keySplines="0 0 1 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0 0 1 1"
+                    fill="freeze" />
+                </path>
+              </g>
+            </g>
+          </g>
+        </g>
+        <g visibility="hidden" id="i16">
+          <animate repeatCount="indefinite" begin="0s" calcMode="discrete" dur="9s"
+            values="hidden; visible; hidden; hidden" keyTimes="0; 0.337; 0.781; 1" attributeName="visibility" />
+          <g transform="translate(630.75,1120.162)">
+            <animateTransform repeatCount="indefinite" type="translate" attributeName="transform" dur="9s" begin="0s"
+              calcMode="spline" values="630.75 1120.162; 630.75 1120.162; 2004.75 45.162; 2004.75 45.162"
+              keyTimes="0; 0.337037; 0.640741; 1" keySplines="0 0 1 1; 0 0 1 1; 0 0 1 1" fill="freeze" />
+            <g transform="scale(-1,2) translate(-927.053,-161.162)">
+              <g id="i8" transform="matrix(1,0,0,1,929.803,180.58)">
+                <path fill="#10031a" fill-rule="evenodd"
+                  d="M8.472,-11.603C10.617,-7.16,16.993,-7.886,18.927,-3.182C12.064,3.396,5.645,-4.059,0.441,-6.028C-8.534,1.653,-12.995,12.977,-22.68,20.088C-19.17,8,-17.431,-5.515,-8.968,-13.61C-8.55,-16.946,-10.757,-17.077,-10.604,-20.088C0.739,-18.36,16.593,-19.351,22.68,-13.064C17.881,-14.761,13.622,-13.536,8.472,-11.603Z">
+                  <animate repeatCount="indefinite" attributeName="d" dur="9s" begin="0s" calcMode="spline"
+                    values="M8.472,-11.603C10.617,-7.16,16.993,-7.886,18.927,-3.182C12.064,3.396,5.645,-4.059,0.441,-6.028C-8.534,1.653,-12.995,12.977,-22.68,20.088C-19.17,8,-17.431,-5.515,-8.968,-13.61C-8.55,-16.946,-10.757,-17.077,-10.604,-20.088C0.739,-18.36,16.593,-19.351,22.68,-13.064C17.881,-14.761,13.622,-13.536,8.472,-11.603Z; M8.472,-11.603C10.617,-7.16,16.993,-7.886,18.927,-3.182C12.064,3.396,5.645,-4.059,0.441,-6.028C-8.534,1.653,-12.995,12.977,-22.68,20.088C-19.17,8,-17.431,-5.515,-8.968,-13.61C-8.55,-16.946,-10.757,-17.077,-10.604,-20.088C0.739,-18.36,16.593,-19.351,22.68,-13.064C17.881,-14.761,13.622,-13.536,8.472,-11.603Z; M8.472,-11.603C10.617,-7.16,16.993,-7.886,18.927,-3.182C12.064,3.396,5.645,-4.059,0.441,-6.028C-5.678,-7.706,-19.303,-12.205,-26.93,-12.287C-8.053,-17.83,-9.365,-15.393,-8.843,-15.047C-10.178,-16.205,-10.757,-17.077,-10.604,-20.088C0.739,-18.36,12.572,-33.331,21.43,-38.314C20.072,-35.956,13.622,-13.536,8.472,-11.603Z; M8.472,-11.603C10.617,-7.16,16.993,-7.886,18.927,-3.182C12.064,3.396,5.645,-4.059,0.441,-6.028C-8.534,1.653,-12.995,12.977,-22.68,20.088C-19.17,8,-17.431,-5.515,-8.968,-13.61C-8.55,-16.946,-10.757,-17.077,-10.604,-20.088C0.739,-18.36,16.593,-19.351,22.68,-13.064C17.881,-14.761,13.622,-13.536,8.472,-11.603Z; M8.472,-11.603C10.617,-7.16,16.993,-7.886,18.927,-3.182C12.064,3.396,5.645,-4.059,0.441,-6.028C-5.678,-7.706,-19.303,-12.205,-26.93,-12.287C-8.053,-17.83,-9.365,-15.393,-8.843,-15.047C-10.178,-16.205,-10.757,-17.077,-10.604,-20.088C0.739,-18.36,12.572,-33.331,21.43,-38.314C20.072,-35.956,13.622,-13.536,8.472,-11.603Z; M8.472,-11.603C10.617,-7.16,16.993,-7.886,18.927,-3.182C12.064,3.396,5.645,-4.059,0.441,-6.028C-8.534,1.653,-12.995,12.977,-22.68,20.088C-19.17,8,-17.431,-5.515,-8.968,-13.61C-8.55,-16.946,-10.757,-17.077,-10.604,-20.088C0.739,-18.36,16.593,-19.351,22.68,-13.064C17.881,-14.761,13.622,-13.536,8.472,-11.603Z; M8.472,-11.603C10.617,-7.16,16.993,-7.886,18.927,-3.182C12.064,3.396,5.645,-4.059,0.441,-6.028C-5.678,-7.706,-19.303,-12.205,-26.93,-12.287C-8.053,-17.83,-9.365,-15.393,-8.843,-15.047C-10.178,-16.205,-10.757,-17.077,-10.604,-20.088C0.739,-18.36,12.572,-33.331,21.43,-38.314C20.072,-35.956,13.622,-13.536,8.472,-11.603Z; M8.472,-11.603C10.617,-7.16,16.993,-7.886,18.927,-3.182C12.064,3.396,5.645,-4.059,0.441,-6.028C-8.534,1.653,-12.995,12.977,-22.68,20.088C-19.17,8,-17.431,-5.515,-8.968,-13.61C-8.55,-16.946,-10.757,-17.077,-10.604,-20.088C0.739,-18.36,16.593,-19.351,22.68,-13.064C17.881,-14.761,13.622,-13.536,8.472,-11.603Z; M8.472,-11.603C10.617,-7.16,16.993,-7.886,18.927,-3.182C12.064,3.396,5.645,-4.059,0.441,-6.028C-5.678,-7.706,-19.303,-12.205,-26.93,-12.287C-8.053,-17.83,-9.365,-15.393,-8.843,-15.047C-10.178,-16.205,-10.757,-17.077,-10.604,-20.088C0.739,-18.36,12.572,-33.331,21.43,-38.314C20.072,-35.956,13.622,-13.536,8.472,-11.603Z; M8.472,-11.603C10.617,-7.16,16.993,-7.886,18.927,-3.182C12.064,3.396,5.645,-4.059,0.441,-6.028C-8.534,1.653,-12.995,12.977,-22.68,20.088C-19.17,8,-17.431,-5.515,-8.968,-13.61C-8.55,-16.946,-10.757,-17.077,-10.604,-20.088C0.739,-18.36,16.593,-19.351,22.68,-13.064C17.881,-14.761,13.622,-13.536,8.472,-11.603Z; M8.472,-11.603C10.617,-7.16,16.993,-7.886,18.927,-3.182C12.064,3.396,5.645,-4.059,0.441,-6.028C-8.534,1.653,-12.995,12.977,-22.68,20.088C-19.17,8,-17.431,-5.515,-8.968,-13.61C-8.55,-16.946,-10.757,-17.077,-10.604,-20.088C0.739,-18.36,16.593,-19.351,22.68,-13.064C17.881,-14.761,13.622,-13.536,8.472,-11.603Z"
+                    keyTimes="0; 0.337037; 0.392593; 0.448148; 0.503704; 0.559259; 0.614815; 0.67037; 0.725926; 0.781481; 1"
+                    keySplines="0 0 1 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0 0 1 1"
+                    fill="freeze" />
+                </path>
+              </g>
+            </g>
+          </g>
+        </g>
+        <g visibility="hidden" id="i17">
+          <animate repeatCount="indefinite" begin="0s" calcMode="discrete" dur="9s"
+            values="hidden; visible; hidden; hidden" keyTimes="0; 0.52; 0.965; 1" attributeName="visibility" />
+          <g transform="translate(672.927,1178.394)">
+            <animateMotion repeatCount="indefinite" dur="9s" begin="0s" calcMode="spline"
+              keyTimes="0; 0.52037; 0.835185; 1" keySplines="0 0 1 1; 0 0 1 1; 0 0 1 1" keyPoints="0; 0; 1; 1"
+              path="M0 0 C202.5 -750.25 619.5 -1077 1339 -1181" fill="freeze" />
+            <g transform="scale(-1,2) translate(-21.073,-164.894)">
+              <g id="i12" transform="matrix(1,0,0,1,18.499,165.46)">
+                <path fill="#10031a" fill-rule="evenodd"
+                  d="M17.523,-8.856C17.013,-8.164,17.185,-7.755,18.144,-7.88C15.344,-4.031,10.067,-2.184,6.576,1.107C7.404,3.183,10.156,2.895,10.667,5.359C9.959,6.041,8.626,6.216,8.248,7.166C6.036,6.793,5.135,4.81,3.698,3.481C-1.63,3.055,-6.244,6.523,-11.497,7.65C-13.592,8.109,-11.226,6.316,-12.741,5.703C-14.399,6.868,-7.333,2.295,-9.894,2.731C-4.781,-0.659,-9.582,0.728,-2.507,-1.07C-1.618,-1.97,-3.453,-2.998,-2.31,-4.208C-0.51,-4.485,-0.435,-2.648,0.996,-2.473C4.757,-6.014,10.988,-7.559,17.523,-8.856Z">
+                  <animate repeatCount="indefinite" attributeName="d" dur="9s" begin="0s" calcMode="spline"
+                    values="M17.523,-8.856C17.013,-8.164,17.185,-7.755,18.144,-7.88C15.344,-4.031,10.067,-2.184,6.576,1.107C7.404,3.183,10.156,2.895,10.667,5.359C9.959,6.041,8.626,6.216,8.248,7.166C6.036,6.793,5.135,4.81,3.698,3.481C-1.63,3.055,-6.244,6.523,-11.497,7.65C-13.592,8.109,-11.226,6.316,-12.741,5.703C-14.399,6.868,-7.333,2.295,-9.894,2.731C-4.781,-0.659,-9.582,0.728,-2.507,-1.07C-1.618,-1.97,-3.453,-2.998,-2.31,-4.208C-0.51,-4.485,-0.435,-2.648,0.996,-2.473C4.757,-6.014,10.988,-7.559,17.523,-8.856Z; M17.523,-8.856C17.013,-8.164,17.185,-7.755,18.144,-7.88C15.344,-4.031,10.067,-2.184,6.576,1.107C7.404,3.183,10.156,2.895,10.667,5.359C9.959,6.041,8.626,6.216,8.248,7.166C6.036,6.793,5.135,4.81,3.698,3.481C-1.63,3.055,-6.244,6.523,-11.497,7.65C-13.592,8.109,-11.226,6.316,-12.741,5.703C-14.399,6.868,-7.333,2.295,-9.894,2.731C-4.781,-0.659,-9.582,0.728,-2.507,-1.07C-1.618,-1.97,-3.453,-2.998,-2.31,-4.208C-0.51,-4.485,-0.435,-2.648,0.996,-2.473C4.757,-6.014,10.988,-7.559,17.523,-8.856Z; M17.523,-8.856C17.013,-8.164,17.185,-7.755,18.144,-7.88C15.344,-4.031,10.067,-2.184,6.576,1.107C7.404,3.183,10.156,2.895,10.667,5.359C9.959,6.041,8.626,6.216,8.248,7.166C6.036,6.793,5.135,4.81,3.698,3.481C-1.63,3.055,-6.244,6.523,-11.497,7.65C-13.592,8.109,-11.226,6.316,-12.741,5.703C-14.399,6.868,-7.333,2.295,-9.894,2.731C-4.781,-0.659,-9.582,0.728,-2.507,-1.07C-1.618,-1.97,-3.453,-2.998,-2.31,-4.208C-0.51,-4.485,-0.435,-2.648,0.996,-2.473C4.757,-6.014,10.988,-7.559,17.523,-8.856Z; M17.523,-8.856C17.013,-8.164,17.185,-7.755,18.144,-7.88C15.344,-4.031,10.067,-2.184,6.576,1.107C7.404,3.183,10.156,2.895,10.667,5.359C9.959,6.041,8.626,6.216,8.248,7.166C6.036,6.793,5.135,4.81,3.698,3.481C-1.63,3.055,-6.244,6.523,-11.497,7.65C-13.592,8.109,-11.226,6.316,-12.741,5.703C-14.399,6.868,-7.333,2.295,-9.894,2.731C-4.781,-0.659,-9.582,0.728,-2.507,-1.07C-1.618,-1.97,-3.453,-2.998,-2.31,-4.208C-0.51,-4.485,-0.435,-2.648,0.996,-2.473C4.757,-6.014,10.988,-7.559,17.523,-8.856Z; M17.523,-8.856C17.013,-8.164,17.185,-7.755,18.144,-7.88C15.344,-4.031,10.067,-2.184,6.576,1.107C7.404,3.183,10.156,2.895,10.667,5.359C9.959,6.041,8.626,6.216,8.248,7.166C6.036,6.793,5.135,4.81,3.698,3.481C-1.63,3.055,-6.244,6.523,-11.497,7.65C-13.592,8.109,-11.226,6.316,-12.741,5.703C-14.399,6.868,-7.333,2.295,-9.894,2.731C-4.781,-0.659,-9.582,0.728,-2.507,-1.07C-1.618,-1.97,-3.453,-2.998,-2.31,-4.208C-0.51,-4.485,-0.435,-2.648,0.996,-2.473C4.757,-6.014,10.988,-7.559,17.523,-8.856Z; M17.523,-8.856C17.013,-8.164,17.185,-7.755,18.144,-7.88C15.344,-4.031,10.067,-2.184,6.576,1.107C7.404,3.183,10.156,2.895,10.667,5.359C9.959,6.041,8.626,6.216,8.248,7.166C6.036,6.793,5.135,4.81,3.698,3.481C-1.63,3.055,-6.244,6.523,-11.497,7.65C-13.592,8.109,-11.226,6.316,-12.741,5.703C-14.399,6.868,-7.333,2.295,-9.894,2.731C-4.781,-0.659,-9.582,0.728,-2.507,-1.07C-1.618,-1.97,-3.453,-2.998,-2.31,-4.208C-0.51,-4.485,-0.435,-2.648,0.996,-2.473C4.757,-6.014,10.988,-7.559,17.523,-8.856Z; M17.523,-8.856C17.013,-8.164,17.185,-7.755,18.144,-7.88C15.344,-4.031,10.067,-2.184,6.576,1.107C7.404,3.183,10.156,2.895,10.667,5.359C9.959,6.041,8.626,6.216,8.248,7.166C6.036,6.793,5.135,4.81,3.698,3.481C-1.63,3.055,-6.244,6.523,-11.497,7.65C-13.592,8.109,-11.226,6.316,-12.741,5.703C-14.399,6.868,-7.333,2.295,-9.894,2.731C-4.781,-0.659,-9.582,0.728,-2.507,-1.07C-1.618,-1.97,-3.453,-2.998,-2.31,-4.208C-0.51,-4.485,-0.435,-2.648,0.996,-2.473C4.757,-6.014,10.988,-7.559,17.523,-8.856Z; M17.523,-8.856C17.013,-8.164,17.185,-7.755,18.144,-7.88C15.344,-4.031,10.067,-2.184,6.576,1.107C7.404,3.183,10.156,2.895,10.667,5.359C9.959,6.041,8.626,6.216,8.248,7.166C6.036,6.793,5.135,4.81,3.698,3.481C-1.63,3.055,-6.244,6.523,-11.497,7.65C-13.592,8.109,-11.226,6.316,-12.741,5.703C-14.399,6.868,-7.333,2.295,-9.894,2.731C-4.781,-0.659,-9.582,0.728,-2.507,-1.07C-1.618,-1.97,-3.453,-2.998,-2.31,-4.208C-0.51,-4.485,-0.435,-2.648,0.996,-2.473C4.757,-6.014,10.988,-7.559,17.523,-8.856Z; M17.523,-8.856C17.013,-8.164,17.185,-7.755,18.144,-7.88C15.344,-4.031,10.067,-2.184,6.576,1.107C7.404,3.183,10.156,2.895,10.667,5.359C9.959,6.041,8.626,6.216,8.248,7.166C6.036,6.793,5.135,4.81,3.698,3.481C-1.63,3.055,-6.244,6.523,-11.497,7.65C-13.592,8.109,-11.226,6.316,-12.741,5.703C-14.399,6.868,-7.333,2.295,-9.894,2.731C-4.781,-0.659,-9.582,0.728,-2.507,-1.07C-1.618,-1.97,-3.453,-2.998,-2.31,-4.208C-0.51,-4.485,-0.435,-2.648,0.996,-2.473C4.757,-6.014,10.988,-7.559,17.523,-8.856Z; M17.523,-8.856C17.013,-8.164,17.185,-7.755,18.144,-7.88C15.344,-4.031,10.067,-2.184,6.576,1.107C7.404,3.183,10.156,2.895,10.667,5.359C9.959,6.041,8.626,6.216,8.248,7.166C6.036,6.793,5.135,4.81,3.698,3.481C-1.63,3.055,-6.244,6.523,-11.497,7.65C-13.592,8.109,-11.226,6.316,-12.741,5.703C-14.399,6.868,-7.333,2.295,-9.894,2.731C-4.781,-0.659,-9.582,0.728,-2.507,-1.07C-1.618,-1.97,-3.453,-2.998,-2.31,-4.208C-0.51,-4.485,-0.435,-2.648,0.996,-2.473C4.757,-6.014,10.988,-7.559,17.523,-8.856Z; M17.523,-8.856C17.013,-8.164,17.185,-7.755,18.144,-7.88C15.344,-4.031,10.067,-2.184,6.576,1.107C7.404,3.183,10.156,2.895,10.667,5.359C9.959,6.041,8.626,6.216,8.248,7.166C6.036,6.793,5.135,4.81,3.698,3.481C-1.63,3.055,-6.244,6.523,-11.497,7.65C-13.592,8.109,-11.226,6.316,-12.741,5.703C-14.399,6.868,-7.333,2.295,-9.894,2.731C-4.781,-0.659,-9.582,0.728,-2.507,-1.07C-1.618,-1.97,-3.453,-2.998,-2.31,-4.208C-0.51,-4.485,-0.435,-2.648,0.996,-2.473C4.757,-6.014,10.988,-7.559,17.523,-8.856Z"
+                    keyTimes="0; 0.52037; 0.575926; 0.631481; 0.687037; 0.742593; 0.798148; 0.853704; 0.909259; 0.964815; 1"
+                    keySplines="0 0 1 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0.333 0 0.667 1; 0 0 1 1"
+                    fill="freeze" />
+                </path>
+              </g>
+            </g>
+          </g>
+        </g>
+      </svg>
+    </div>
+
+    <!-- Fixed Arch -->
+    <img src="assets/arch-event-1.png" class="arch-frame" alt="">
+    <div class="function-content">
+      <h2 class="functions-title">
+        JOIN<br> US<br> FOR
+      </h2>
+      <div class="card-wrapper">
+        <button class="nav-btn prev">&#10094;</button>
+        <div class="cards">
+          <div class="event-card active">
+            <span class="event-date">
+              12 September 2026
+            </span>
+            <h2>Engagement</h2>
+            <div class="ornament">✦ ✦ ✦</div>
+            <p class="event-day">Saturday</p>
+            <h3>4:00 PM – 6:30 PM</h3>
+          </div>
+          <div class="event-card">
+            <span class="event-date">
+              12 September 2026
+            </span>
+            <h2>Reception</h2>
+            <div class="ornament">✦ ✦ ✦</div>
+            <p class="event-day">Saturday</p>
+            <h3>7:00 PM onwards</h3>
+          </div>
+          <div class="event-card">
+            <span class="event-date">
+              13 September 2026
+            </span>
+            <h2>Wedding</h2>
+            <div class="ornament">✦ ✦ ✦</div>
+            <p class="event-day">Sunday</p>
+            <h3>9:00 AM – 10:30 AM</h3>
+          </div>
+        </div>
+        <button class="nav-btn next">&#10095;</button>
+      </div>
+      <div class="dots">
+        <span class="active"></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ COUNTDOWN ============ -->
+  <section class="countdown-section">
+
+    <div class="divider reveal divider-light">
+      <span class="ln"></span>
+      <span class="diamond"></span>
+      <span class="ln"></span>
+    </div>
+
+    <span class="countdown-date reveal">
+      13 September 2026
+    </span>
+
+    <h2 class="countdown-title reveal">
+      Until Forever
+    </h2>
+
+    <p class="countdown-subtitle reveal">
+      Every sunrise brings us one step closer to the moment our hearts become one.
+    </p>
+
+    <div class="countdown reveal" id="countdown">
+      <div class="box">
+        <span class="num" id="cd-days">00</span>
+        <span class="lbl">Days</span>
+      </div>
+
+      <div class="box">
+        <span class="num" id="cd-hours">00</span>
+        <span class="lbl">Hours</span>
+      </div>
+
+      <div class="box">
+        <span class="num" id="cd-mins">00</span>
+        <span class="lbl">Minutes</span>
+      </div>
+
+      <div class="box">
+        <span class="num" id="cd-secs">00</span>
+        <span class="lbl">Seconds</span>
+      </div>
+    </div>
+
+     <div class="countdown-icon reveal">
+        <img src="assets/weddingfloral.svg" alt="">
+    </div>
+
+  </section>
+
+  <!-- ============ STORY ============ -->
+  <section class="cream-section">
+    <div class="divider reveal"><span class="ln"></span><span class="diamond"></span><span class="ln"></span></div>
+    <h2 class="section-title reveal">Our Story</h2>
+    <p class="section-lede reveal">A short thread through how we got here.</p>
+
+    <div class="story-block reveal">
+      <span class="story-mark">Where it began</span>
+      <p>A chance introduction at a mutual friend's gathering turned into hours of conversation neither of us
+        expected.
+      </p>
+    </div>
+    <div class="story-block reveal">
+      <span class="story-mark">Where it grew</span>
+      <p>Years of small rituals — Sunday calls, shared playlists, cities visited together — quietly became a life we
+        were building.</p>
+    </div>
+    <div class="story-block reveal">
+      <span class="story-mark">Where it leads</span>
+      <p>Now, with our families' blessings, we begin the next chapter — and we'd love for you to be there when we do.
+      </p>
+    </div>
+  </section>
+  <!-- ============ COUPLE MOMENT ============ -->
+  <section class="moment-section">
+    <div class="moment-illustration reveal">
+      <div class="pl-layer" data-speed="0.3">
+        <svg viewBox="0 0 280 220" xmlns="http://www.w3.org/2000/svg" width="100%">
+          <rect width="280" height="220" rx="8" fill="#6fc3e6" />
+          <rect y="170" width="280" height="50" fill="#8fcbe0" />
+          <g fill="#c2543b">
+            <path d="M40,160 L60,60 L80,160 Z" />
+          </g>
+          <g fill="#13294f">
+            <path d="M200,160 L220,50 L240,160 Z" />
+          </g>
+          <!-- couple silhouettes -->
+          <g fill="#13294f">
+            <circle cx="120" cy="110" r="16" />
+            <path d="M104,130 q16,-10 32,0 l0,40 l-32,0 Z" />
+            <circle cx="160" cy="112" r="15" />
+            <path d="M146,130 q14,-8 28,0 l0,38 l-28,0 Z" />
+          </g>
+          <g fill="#c9962f">
+            <circle cx="140" cy="60" r="3" />
+          </g>
+        </svg>
+      </div>
+    </div>
+    <div class="divider reveal"><span class="ln"></span><span class="diamond"></span><span class="ln"></span></div>
+    <h2 class="section-title reveal">Moments</h2>
+    <p class="section-lede reveal">A few frames from along the way — replace with your own photos.</p>
+    <div class="gallery reveal">
+      <div class="gal-frame">A</div>
+      <div class="gal-frame">♥</div>
+      <div class="gal-frame">K</div>
+      <div class="gal-frame">K</div>
+      <div class="gal-frame">♥</div>
+      <div class="gal-frame">A</div>
+    </div>
+  </section>
+
+  <!-- ============ LOCATION ============ -->
+  <section class="cream-section location-cta">
+    <div class="divider reveal"><span class="ln"></span><span class="diamond"></span><span class="ln"></span></div>
+    <h2 class="section-title reveal">Find Us Here</h2>
+    <button class="pin-btn reveal" type="button"
+      onclick="window.open('https://maps.app.goo.gl/iqhitwtjopmdMjoG8', '_blank')" aria-label="See the location">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+        <path d="M12 21s7-7.2 7-12A7 7 0 0 0 5 9c0 4.8 7 12 7 12Z" stroke="#fdf5e2" stroke-width="1.6" />
+        <circle cx="12" cy="9" r="2.4" stroke="#fdf5e2" stroke-width="1.6" />
+      </svg>
+    </button>
+    <p class="section-lede reveal"
+      style="margin-top:14px; font-size:12px; letter-spacing:0.15em; text-transform:uppercase;">See the location</p>
+  </section>
+
+  <!-- ============ RSVP ============ -->
+  <section class="rsvp-section">
+    <div class="divider reveal"><span class="ln"></span><span class="diamond"></span><span class="ln"></span></div>
+    <h2 class="section-title reveal">Please RSVP</h2>
+    <p class="section-lede reveal">Kindly let us know by the 1st of November.</p>
+    <div class="rsvp-card reveal">
+      <input type="text" placeholder="Your full name">
+      <input type="email" placeholder="Email address">
+      <select>
+        <option value="" disabled selected>Will you be joining us?</option>
+        <option>Joyfully accepts</option>
+        <option>Regretfully declines</option>
+      </select>
+      <button class="rsvp-btn" type="button"
+        onclick="alert('This is a design preview — connect this button to your form service of choice.')">Send
+        RSVP</button>
+    </div>
+  </section>
+
+  <footer>
+    <div class="monogram reveal">Pradeep &amp; Niveditha</div>
+    <p class="reveal">With love &amp; gratitude</p>
+  </footer>
+</body>
+
+<script>
+  const cards = document.querySelectorAll(".event-card");
+  const dots = document.querySelectorAll(".dots span");
+  let current = 0;
+  function showCard(index) {
+    cards.forEach(card => {
+      card.classList.remove("active", "next", "prev");
+    });
+    dots.forEach(dot => dot.classList.remove("active"));
+    cards[index].classList.add("active");
+    const next = (index + 1) % cards.length;
+    const prev = (index - 1 + cards.length) % cards.length;
+    cards[next].classList.add("next");
+    cards[prev].classList.add("prev");
+    dots[index].classList.add("active");
+  }
+
+  document.querySelector(".next").onclick = () => {
+    current++;
+    if (current >= cards.length)
+      current = 0;
+    showCard(current);
+
+  }
+  document.querySelector(".prev").onclick = () => {
+    current--;
+    if (current < 0)
+      current = cards.length - 1;
+    showCard(current);
+
+  }
+  const section = document.querySelector(".functions-section");
+  const birds = document.querySelector(".birds");
+  const functionContent = document.querySelector(".function-content");
+  const observer = new IntersectionObserver((entries) => {
+
+    const entry = entries[0];
+
+    if (entry.isIntersecting) {
+      functionContent.classList.add("show");
+      birds.classList.add("show");
+    }
+
+    if (entry.intersectionRatio === 0) {
+      functionContent.classList.remove("show");
+      birds.classList.remove("show");
+    }
+
+  }, {
+    threshold: 0
+  });
+
+  observer.observe(section);
+  // ---- Scroll-linked parallax for hero illustration layers ----
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const heroNames = document.querySelectorAll('.hero-name');
+  const heroTemple = document.querySelector('.arch-photo-wrap');
+  const heroClouds = Array.from(document.querySelectorAll('.hero-cloud')).map(el => ({
+    el,
+    opacity: parseFloat(getComputedStyle(el).opacity)
+  }));
+  let ticking = false;
+  function applyParallax() {
+    const y = window.scrollY;
+    // ---------------- HERO (UNCHANGED) ----------------
+    if (heroTemple) {
+      heroTemple.style.transform = `translate3d(0, ${y * 0.42}px, 0)`;
+    }
+    heroNames.forEach((name) => {
+      name.style.transform = `translate3d(0, ${y * 0.7}px, 0)`;
+      if (heroTemple) {
+        const nameRect = name.getBoundingClientRect();
+        const templeTop = heroTemple.getBoundingClientRect().top;
+        const fadeDistance = Math.max(nameRect.height * 3, 190);
+        const coverProgress = Math.min(
+          1,
+          Math.max(0, (nameRect.top - templeTop) / fadeDistance)
+        );
+        name.style.opacity = (1 - coverProgress).toFixed(3);
+      }
+    });
+
+    const hero = document.querySelector(".hero-sky");
+    const heroHeight = hero.offsetHeight;
+    const cloudFadeStart = heroHeight * 0.65;
+    const cloudFadeEnd = heroHeight * 0.95;
+    const cloudOffset = y * 0.70;
+    const t = Math.min(
+      1,
+      Math.max(0, (y - cloudFadeStart) / (cloudFadeEnd - cloudFadeStart))
+    );
+
+    const cloudFade = 1 - t;
+    heroClouds.forEach(({ el, opacity }) => {
+      el.style.transform = `translate3d(0, ${cloudOffset}px, 0)`;
+      el.style.opacity = (opacity * cloudFade).toFixed(3);
+    });
+    // ---------------- INVITATION ----------------
+    const invite = document.querySelector(".invite-band");
+    if (invite) {
+      const rect = invite.getBoundingClientRect();
+      const progress = Math.max(
+        0,
+        Math.min(window.innerHeight, window.innerHeight - rect.top)
+      );
+    }
+    ticking = false;
+  }
+  function onScroll() {
+    if (!ticking) {
+      requestAnimationFrame(applyParallax);
+      ticking = true;
+    }
+  }
+  if (!prefersReducedMotion) {
+    window.addEventListener('scroll', onScroll, { passive: true });
+    applyParallax();
+  }
+
+  const revealEls = document.querySelectorAll(".reveal");
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("in");
+      } else {
+        entry.target.classList.remove("in");
+      }
+    });
+  }, {
+    threshold: 0.15
+  });
+  revealEls.forEach(el => io.observe(el));
+
+  const inviteSection = document.querySelector(".invite-band");
+  const temple = document.querySelector(".invite-temple");
+  const mountains = document.querySelector(".invite-mountains");
+  const sceneObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        temple.classList.add("scene-visible");
+        mountains.classList.add("scene-visible");
+      } else {
+        temple.classList.remove("scene-visible");
+        mountains.classList.remove("scene-visible");
+      }
+    });
+  }, {
+    threshold: .35
+  });
+
+  sceneObserver.observe(temple);
+
+  const weddingDate = new Date('2026-09-13T09:00:00');
+  function updateCountdown() {
+    const now = new Date();
+    let diff = weddingDate - now;
+    if (diff < 0) diff = 0;
+    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const m = Math.floor((diff / (1000 * 60)) % 60);
+    const s = Math.floor((diff / 1000) % 60);
+    document.getElementById('cd-days').textContent = String(d).padStart(2, '0');
+    document.getElementById('cd-hours').textContent = String(h).padStart(2, '0');
+    document.getElementById('cd-mins').textContent = String(m).padStart(2, '0');
+    document.getElementById('cd-secs').textContent = String(s).padStart(2, '0');
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+</script>
+
+</html>
