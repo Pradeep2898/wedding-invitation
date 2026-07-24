@@ -955,59 +955,59 @@
         }
       }
 
-      /* ===========================
-   STORY SECTION
-=========================== */
+      /* =========================== STORY SECTION =========================== */
       .story-section {
         position: relative;
         background: #f8f2e7;
         overflow: hidden;
-        padding: 70px 24px 60px;
+        padding: 70px 0px 24px 24px;
       }
 
-      .story-container {
-        position: relative;
+      .story-top {
+        max-width: 700px;
+        margin: 0 auto 70px;
+        text-align: center;
+      }
+
+      .story-bottom {
+        display: grid;
+        grid-template-columns: 55% 45%;
+        align-items: start; /* <-- was: start. This makes both columns equal height */
         max-width: 1200px;
-        margin: 45px auto 0;
-        padding-top: 160px;
-        min-height: 720px; /* reserves space for temple */
+        margin: 0 auto;
+        gap: 0;
       }
 
       .story-left {
-        width: 58%;
         position: relative;
         z-index: 2;
+        width: auto;
       }
 
       .story-right {
-        position: absolute;
-        right: -120px;
-        bottom: 0;
-        top: 120px;
-        width: 55%;
-        display: flex;
-        justify-content: flex-end;
-        align-items: flex-end;
-        pointer-events: none;
-        overflow: visible;
+        position: relative;
+        overflow: hidden; /* crops whatever doesn't fit */
+        z-index: 1;
+        height: 100%; /* fills the row height set by story-left */
       }
 
       .story-temple {
-        width: 100%;
-        max-width: none;
+        position: absolute;
+        inset: 0;
+        background-image: url("assets/story-temple.png");
+        background-size: cover;
+        background-position: top left; /* anchor: shows roof+door from the top down */
+        background-repeat: no-repeat;
         opacity: 0;
-        transform: translateX(120px) scale(0.96);
+        transform: translateX(80px);
+        transition:
+          opacity 1.2s ease,
+          transform 1.2s cubic-bezier(0.22, 0.61, 0.36, 1);
       }
 
-      .story-temple img {
-        display: block;
-        width: 100%;
-        height: auto;
-      }
-
-      .story-temple.show {
+      .story-section.show .story-temple {
         opacity: 1;
-        transform: translateX(0) scale(1);
+        transform: translateX(0);
       }
 
       .story-block {
@@ -1018,19 +1018,9 @@
         margin-bottom: 0;
       }
 
-      .story-section.show .story-temple {
-        opacity: 1;
-        transform: translateX(0);
-      }
-
       .story-block.reveal {
-        opacity: 0;
         transform: none;
         transition: opacity 0.8s ease;
-      }
-
-      .story-section.show .story-block.reveal {
-        opacity: 1;
       }
 
       .story-title {
@@ -1085,6 +1075,7 @@
         max-width: 280px;
         margin: 0 auto 30px;
       }
+
       /* ===================== GALLERY (arch photo frames) ===================== */
       .gallery {
         display: grid;
@@ -1267,12 +1258,10 @@
         margin-top: 22px;
         margin-bottom: 50px;
         text-align: center;
-
         font-family: "Cinzel", serif;
         font-size: 56px;
         font-weight: 700;
         letter-spacing: 8px;
-
         color: #b67a3a;
       }
 
@@ -1325,9 +1314,9 @@
         position: absolute;
         inset: 0;
         /* background:
-        radial-gradient(circle at 20% 100%, #ecc1cd 0 20%, transparent 21%),
-        radial-gradient(circle at 60% 100%, #e9bcc9 0 24%, transparent 25%),
-        radial-gradient(circle at 95% 100%, #efc8d3 0 20%, transparent 21%); */
+            radial-gradient(circle at 20% 100%, #ecc1cd 0 20%, transparent 21%),
+            radial-gradient(circle at 60% 100%, #e9bcc9 0 24%, transparent 25%),
+            radial-gradient(circle at 95% 100%, #efc8d3 0 20%, transparent 21%); */
         opacity: 0.55;
         z-index: 0;
       }
@@ -1348,15 +1337,13 @@
         z-index: 3;
       }
 
-      /* ==========================================================
-   MOBILE RESPONSIVE
-   ========================================================== */
+      /* ========================================================== MOBILE RESPONSIVE ========================================================== */
 
       /* ---------- Small phones (320-359px) ---------- */
       @media (max-width: 320px) and (max-width: 359px) {
         /* section:not(.hero-sky) {
-        padding: 70px 18px;
-      } */
+            padding: 70px 18px;
+          } */
 
         @media (max-width: 768px) {
           .nav-btn {
@@ -1440,63 +1427,35 @@
           bottom: 0;
         }
       }
+      /* ---------- Standard phones (760px) ---------- */
 
-      @media (max-width: 767px) {
-        .story-container {
-          display: flex;
-          align-items: flex-end;
-          justify-content: space-between;
-          gap: 18px;
-          min-height: auto;
-          margin-top: 40px;
+      @media (max-width: 768px) {
+        .story-bottom {
+          grid-template-columns: 58% 42%;
+          gap: 0;
         }
 
-        .story-left {
-          width: 58%;
-        }
-
-        .story-right {
-          position: absolute;
-          right: -170px;
-          bottom: 0;
-          width: 430px;
-          max-width: none;
-          display: flex;
-          justify-content: flex-end;
-          align-items: flex-end;
-          overflow: visible;
-        }
         .story-temple {
-          width: 100%;
-          max-width: none;
-          opacity: 1;
-          transform: none;
-          opacity: 0;
-          transform: translateX(120px) scale(0.96);
+          inset: 0; /* zoom trick only kicks in on mobile */
+          transform: scale(1.15) translateX(80px);
+          background-position: top left;
         }
 
-        .story-temple.show {
-          opacity: 1;
-          transform: translateX(0) scale(1);
-        }
-
-        .story-temple img {
-          width: 100%;
-          height: auto;
-          display: block;
+        .story-section.show .story-temple {
+          transform: scale(1.15) translateX(0); /* keep the same scale, just remove the slide */
         }
 
         .story-block {
-          margin-bottom: 40px;
+          margin-bottom: 20px;
         }
 
         .story-block p {
           font-size: 14px;
-          line-height: 1.8;
+          line-height: 1.6;
         }
 
         .story-block h3 {
-          font-size: 20px;
+          font-size: 10px;
         }
       }
 
@@ -1504,8 +1463,8 @@
 
       @media (min-width: 360px) and (max-width: 430px) {
         /* section:not(.hero-sky) {
-        padding: 80px 20px;
-      } */
+            padding: 80px 20px;
+          } */
 
         .hero-spacer {
           min-height: 70vh;
@@ -1570,8 +1529,8 @@
       /* ---------- Large phones / Foldables ---------- */
       @media (min-width: 431px) and (max-width: 767px) {
         /* section:not(.hero-sky) {
-        padding: 90px 24px;
-      } */
+            padding: 90px 24px;
+          } */
 
         .hero-name {
           font-size: 90px;
@@ -1599,8 +1558,8 @@
       }
 
       /* =====================================================
-   DESKTOP
-   ===================================================== */
+       DESKTOP
+       ===================================================== */
 
       @media (min-width: 768px) {
         section {
@@ -2436,19 +2395,21 @@
 
     <!-- ============ STORY ============ -->
     <section class="story-section" id="story">
-      <h2 class="story-title">Our Story</h2>
+      <div class="story-top">
+        <h2 class="story-title">Our Story</h2>
 
-      <div class="story-divider">
-        <span></span>
-        <img src="assets/icons/lotus.svg" alt="" />
-        <span></span>
+        <div class="story-divider">
+          <span></span>
+          <img src="assets/icons/lotus.svg" alt="" />
+          <span></span>
+        </div>
+
+        <p class="story-intro reveal">
+          Two strangers brought together by our families, never knowing they
+          would become each other's forever.
+        </p>
       </div>
-
-      <p class="story-intro reveal">
-        Two strangers brought together by our families, never knowing they would
-        become each other's forever.
-      </p>
-      <div class="story-container">
+      <div class="story-bottom">
         <div class="story-left">
           <div class="story-block reveal delay1">
             <h3>Where It Began</h3>
@@ -2466,7 +2427,8 @@
             <p>
               Two decades later, a casual "Hi" turned into endless
               conversations. As we got to know each other, we grew closer every
-              day. Before we knew it, an uncertain <strong>"maybe"</strong>
+              day. Before we knew it, an uncertain
+              <strong>"maybe"</strong>
               became the most certain
               <strong>"yes"</strong> of our lives.
             </p>
@@ -2484,12 +2446,11 @@
           </div>
         </div>
         <div class="story-right">
-          <div class="story-temple">
-            <img src="assets/story-temple.png" alt="" />
-          </div>
+          <div class="story-temple"></div>
         </div>
       </div>
     </section>
+
     <!-- ============ COUPLE MOMENT ============ -->
     <section class="moment-section">
       <div class="moment-illustration reveal">
@@ -2805,12 +2766,16 @@
 
     const storyObserver = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting) {
-          storySection.classList.add("show");
-        }
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            storySection.classList.add("show");
+          } else {
+            storySection.classList.remove("show");
+          }
+        });
       },
       {
-        threshold: 0.3,
+        threshold: 0.1,
       },
     );
 
