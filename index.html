@@ -1104,15 +1104,18 @@
 
         background: linear-gradient(
           90deg,
-          rgba(255, 255, 255, 1),
-          rgba(255, 255, 255, 0.7),
-          transparent
+          #fff6da 0%,
+          #f6de9a 15%,
+          #e7c27a 40%,
+          rgba(231, 194, 122, 0.45) 70%,
+          transparent 100%
         );
 
         opacity: 0;
         transform: translate(260px, 180px) rotate(-35deg);
 
-        filter: drop-shadow(0 0 8px white);
+        filter: drop-shadow(0 0 6px rgba(231, 194, 122, 0.8))
+          drop-shadow(0 0 12px rgba(231, 194, 122, 0.45));
       }
 
       .star1 {
@@ -1131,15 +1134,15 @@
       }
 
       .story-section.active .star1 {
-        animation: shooting 1.3s linear 0.2s infinite;
+        animation: shooting 1.7s linear 0.2s infinite;
       }
 
       .story-section.active .star2 {
-        animation: shooting 1.3s linear 1.8s infinite;
+        animation: shooting 1.7s linear 1.8s infinite;
       }
 
       .story-section.active .star3 {
-        animation: shooting 1.3s linear 3.2s infinite;
+        animation: shooting 1.7s linear 3.2s infinite;
       }
 
       @keyframes twinkle {
