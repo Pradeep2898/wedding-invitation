@@ -473,7 +473,13 @@
       /* ===================== COUNTDOWN ===================== */
       .countdown-section {
         padding: 0px 20px;
-        background: linear-gradient(180deg, #74145e 0%, #380036 100%);
+        background: linear-gradient(
+          180deg,
+          #2c084b 0%,
+          #2d0448 35%,
+          #2f0645 70%,
+          #1d012d 100%
+        );
         color: #fff;
         text-align: center;
         position: relative;
@@ -958,7 +964,12 @@
       /* =========================== STORY SECTION =========================== */
       .story-section {
         position: relative;
-        background: #f8f2e7;
+        background: linear-gradient(
+          180deg,
+          #120166 0%,
+          #0d0155 45%,
+          #08003d 100%
+        );
         overflow: hidden;
         padding: 20px 0px 24px 24px;
       }
@@ -1027,7 +1038,7 @@
         font-family: "Modernline", serif;
         font-size: clamp(42px, 6vw, 58px);
         font-weight: 600;
-        color: #8a2f00;
+        color: var(--gold);
         text-align: center;
         margin-bottom: 16px;
       }
@@ -1039,14 +1050,14 @@
         font-family: "Jost", sans-serif;
         font-size: 17px;
         line-height: 1.9;
-        color: #76675b;
+        color: #bdaea2;
       }
 
       .story-block h3 {
         font-family: "Modernline", sans-serif;
         font-size: 34px;
         font-weight: 600;
-        color: #a51501;
+        color: var(--gold);
         margin-bottom: 18px;
       }
 
@@ -1054,12 +1065,114 @@
         font-family: "Jost", sans-serif;
         font-size: 17px;
         line-height: 2;
-        color: #5f5b56;
+        color: #bdaea2;
       }
 
       .story-block strong {
         color: #a86a2a;
         font-weight: 600;
+      }
+
+      .stars {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        overflow: hidden;
+        z-index: 0;
+      }
+
+      .stars span {
+        position: absolute;
+        background: white;
+        border-radius: 50%;
+        box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+        animation: twinkle infinite ease-in-out;
+      }
+
+      .shooting-stars {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        overflow: hidden;
+        z-index: 1;
+      }
+
+      .shooting-star {
+        position: absolute;
+        width: 120px;
+        height: 2px;
+
+        background: linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 1),
+          rgba(255, 255, 255, 0.7),
+          transparent
+        );
+
+        opacity: 0;
+        transform: translate(260px, 180px) rotate(-35deg);
+
+        filter: drop-shadow(0 0 8px white);
+      }
+
+      .star1 {
+        top: 12%;
+        left: 20%;
+      }
+
+      .star2 {
+        top: 22%;
+        left: 68%;
+      }
+
+      .star3 {
+        top: 8%;
+        left: 82%;
+      }
+
+      .story-section.active .star1 {
+        animation: shooting 1.3s linear 0.2s infinite;
+      }
+
+      .story-section.active .star2 {
+        animation: shooting 1.3s linear 1.8s infinite;
+      }
+
+      .story-section.active .star3 {
+        animation: shooting 1.3s linear 3.2s infinite;
+      }
+
+      @keyframes twinkle {
+        0%,
+        100% {
+          opacity: 0.25;
+          transform: scale(0.8);
+        }
+
+        50% {
+          opacity: 1;
+          transform: scale(1.4);
+        }
+      }
+
+      @keyframes shooting {
+        0% {
+          opacity: 0;
+          transform: translate(0, 0) rotate(-35deg);
+        }
+
+        10% {
+          opacity: 1;
+        }
+
+        70% {
+          opacity: 1;
+        }
+
+        100% {
+          opacity: 0;
+          transform: translate(-260px, 180px) rotate(-35deg);
+        }
       }
 
       /* ===================== COUPLE MOMENT (illustrated silhouette) ===================== */
@@ -2395,6 +2508,45 @@
 
     <!-- ============ STORY ============ -->
     <section class="story-section" id="story">
+      <div class="stars">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <div class="shooting-stars">
+        <span class="shooting-star star1"></span>
+        <span class="shooting-star star2"></span>
+        <span class="shooting-star star3"></span>
+      </div>
+
       <div class="story-top">
         <h2 class="story-title">Our Story</h2>
 
@@ -2780,5 +2932,43 @@
     );
 
     storyObserver.observe(storySection);
+    const stars = document.querySelector(".stars");
+
+    for (let i = 0; i < 50; i++) {
+      const star = document.createElement("span");
+
+      // Mostly in top 50%
+      star.style.top = Math.random() * 50 + "%";
+
+      star.style.left = Math.random() * 100 + "%";
+
+      // Different sizes
+      const size = Math.random() * 2 + 1;
+      star.style.width = size + "px";
+      star.style.height = size + "px";
+
+      // Different animation timings
+      star.style.animationDelay = Math.random() * 5 + "s";
+      star.style.animationDuration = 3 + Math.random() * 4 + "s";
+
+      stars.appendChild(star);
+    }
+
+    const story = document.querySelector(".story-section");
+
+    const observer1 = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          story.classList.add("active");
+        } else {
+          story.classList.remove("active");
+        }
+      },
+      {
+        threshold: 0.35,
+      },
+    );
+
+    observer1.observe(story);
   </script>
 </html>
