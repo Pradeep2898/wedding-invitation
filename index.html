@@ -11,8 +11,8 @@
     />
     <style>
       :root {
-        --sky-top: #2f8fc2;
-        --sky-mid: #5fb9e3;
+        --sky-top: #057bbb;
+        --sky-mid: #29ace9;
         --sky-horizon: #cdeaf4;
         --cream: #fdf5e2;
         --cream-2: #f7ead0;
@@ -1057,7 +1057,7 @@
         font-family: "Modernline", sans-serif;
         font-size: 34px;
         font-weight: 600;
-        color: var(--gold);
+        color: var(--terracotta);
         margin-bottom: 18px;
       }
 
@@ -1073,28 +1073,105 @@
         font-weight: 600;
       }
 
+      .intro-divider {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 18px;
+
+        margin: 28px auto 0;
+        width: min(320px, 75%);
+      }
+
+      .intro-divider .line {
+        position: relative;
+        height: 1.5px;
+        flex: 1;
+
+        background: linear-gradient(
+          90deg,
+          #8a6a2f,
+          #c89a3c,
+          #f2d98a,
+          #c89a3c,
+          #8a6a2f
+        );
+
+        transform: scaleX(0);
+      }
+
+      .intro-divider .left {
+        transform-origin: right;
+      }
+
+      .intro-divider .right {
+        transform-origin: left;
+      }
+
+      .divider-lotus {
+        width: 28px;
+        height: 28px;
+
+        opacity: 0;
+        transform: scale(0.6);
+
+        filter: brightness(0) saturate(100%) invert(74%) sepia(34%)
+          saturate(641%) hue-rotate(5deg) brightness(102%) contrast(92%);
+      }
+
+      /* Grow animation */
+
+      .story-top.show .line {
+        animation: growLine 0.8s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+      }
+
+      .story-top.show .divider-lotus {
+        animation: lotusPop 0.5s ease 0.45s forwards;
+      }
+
+      @keyframes growLine {
+        to {
+          transform: scaleX(1);
+        }
+      }
+
+      @keyframes lotusPop {
+        0% {
+          opacity: 0;
+          transform: scale(0.6);
+        }
+
+        70% {
+          opacity: 1;
+          transform: scale(1.12);
+        }
+
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
       .stars {
         position: absolute;
         inset: 0;
         pointer-events: none;
         overflow: hidden;
-        z-index: 0;
-      }
-
-      .stars span {
-        position: absolute;
-        background: white;
-        border-radius: 50%;
-        box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
-        animation: twinkle infinite ease-in-out;
-      }
-
-      .shooting-stars {
-        position: absolute;
-        inset: 0;
-        pointer-events: none;
-        overflow: hidden;
         z-index: 1;
+      }
+
+      .star.bright {
+        filter: drop-shadow(0 0 6px rgba(255, 255, 255, 1))
+          drop-shadow(0 0 12px rgba(231, 194, 122, 1))
+          drop-shadow(0 0 24px rgba(231, 194, 122, 0.8));
+      }
+
+      .star {
+        position: absolute;
+        filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.9))
+          drop-shadow(0 0 8px rgba(231, 194, 122, 0.8))
+          drop-shadow(0 0 16px rgba(231, 194, 122, 0.45));
+        animation: twinkle ease-in-out infinite;
       }
 
       .shooting-star {
@@ -1118,6 +1195,21 @@
           drop-shadow(0 0 12px rgba(231, 194, 122, 0.45));
       }
 
+      .shooting-star::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: #fff8e6;
+        box-shadow:
+          0 0 8px #fff8e6,
+          0 0 18px #e7c27a;
+      }
+
       .star1 {
         top: 12%;
         left: 20%;
@@ -1133,28 +1225,28 @@
         left: 82%;
       }
 
-      .story-section.active .star1 {
+      .story-section.show .star1 {
         animation: shooting 1.7s linear 0.2s infinite;
       }
 
-      .story-section.active .star2 {
+      .story-section.show .star2 {
         animation: shooting 1.7s linear 1.8s infinite;
       }
 
-      .story-section.active .star3 {
+      .story-section.show .star3 {
         animation: shooting 1.7s linear 3.2s infinite;
       }
 
       @keyframes twinkle {
         0%,
         100% {
-          opacity: 0.25;
+          opacity: 0.35;
           transform: scale(0.8);
         }
 
         50% {
           opacity: 1;
-          transform: scale(1.4);
+          transform: scale(1.2);
         }
       }
 
@@ -1179,17 +1271,185 @@
       }
 
       /* ===================== COUPLE MOMENT (illustrated silhouette) ===================== */
-      .moment-section {
-        background: linear-gradient(
-          180deg,
-          var(--sky-horizon),
-          var(--cream) 70%
+      .moments-section {
+        position: relative;
+        overflow: hidden;
+        padding: 120px 20px 160px;
+        background: radial-gradient(
+          circle at top,
+          #191229 0%,
+          #0d0d27 45%,
+          #050b23 100%
         );
+        color: #fff;
       }
 
-      .moment-illustration {
-        max-width: 280px;
-        margin: 0 auto 30px;
+      .moments-bg {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          circle at 50% 20%,
+          rgba(255, 255, 255, 0.05),
+          transparent 55%
+        );
+        pointer-events: none;
+      }
+
+      .moments-container {
+        position: relative;
+        max-width: 1100px;
+        margin: auto;
+        z-index: 2;
+      }
+
+      .moments-header {
+        text-align: center;
+        margin-bottom: 80px;
+      }
+
+      .moments-title {
+        font-size: clamp(38px, 6vw, 62px);
+        font-family: "Cormorant Garamond", serif;
+        color: #f8e9c8;
+        margin-bottom: 14px;
+      }
+
+      .moments-subtitle {
+        max-width: 560px;
+        margin: auto;
+        line-height: 1.8;
+        color: rgba(255, 255, 255, 0.75);
+        font-size: 17px;
+      }
+
+      .moments-scene {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        min-height: 420px;
+      }
+
+      .person {
+        width: 40%;
+        display: flex;
+      }
+
+      .person-left,
+      .person-right {
+        transition: transform 1.6s cubic-bezier(0.22, 0.61, 0.36, 1);
+      }
+
+      .person-left {
+        justify-content: flex-start;
+        transform: translateX(-220px);
+      }
+
+      .person-right {
+        justify-content: flex-end;
+        transform: translateX(220px);
+      }
+
+      .person img {
+        width: 100%;
+        max-width: 360px;
+        display: block;
+        user-select: none;
+      }
+
+      .heart-wrapper {
+        position: absolute;
+        left: 50%;
+        bottom: 150px;
+        transform: translateX(-50%);
+        opacity: 0;
+        z-index: 5;
+      }
+
+      .heart {
+        width: 34px;
+        display: block;
+      }
+
+      .photo-stack {
+        position: absolute;
+        left: 50%;
+        bottom: 20px;
+        transform: translateX(-50%);
+        width: 340px;
+        height: 280px;
+      }
+
+      .photo-card {
+        position: absolute;
+        width: 220px;
+        height: 280px;
+        background: #fff;
+        padding: 8px;
+        border-radius: 12px;
+        overflow: hidden;
+        cursor: pointer;
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+      }
+
+      .photo-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 8px;
+        display: block;
+      }
+
+      .card1 {
+        transform: translate(-20px, 18px) rotate(-8deg);
+        z-index: 1;
+      }
+
+      .card2 {
+        transform: translate(22px, 8px) rotate(5deg);
+        z-index: 2;
+      }
+
+      .card3 {
+        transform: rotate(-2deg);
+        z-index: 3;
+      }
+
+      .card4 {
+        transform: translate(-10px, -12px) rotate(7deg);
+        z-index: 4;
+      }
+
+      .card5 {
+        transform: translate(24px, -22px) rotate(-5deg);
+        z-index: 5;
+      }
+
+      .gallery-modal {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.88);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 999;
+      }
+
+      .gallery-image img {
+        max-width: 90vw;
+        max-height: 82vh;
+        border-radius: 14px;
+      }
+
+      .gallery-prev,
+      .gallery-next,
+      .gallery-close {
+        position: absolute;
+        background: none;
+        border: none;
+        color: #fff;
+        cursor: pointer;
+        font-size: 34px;
       }
 
       /* ===================== GALLERY (arch photo frames) ===================== */
@@ -2511,38 +2771,7 @@
 
     <!-- ============ STORY ============ -->
     <section class="story-section" id="story">
-      <div class="stars">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
+      <div class="stars"></div>
 
       <div class="shooting-stars">
         <span class="shooting-star star1"></span>
@@ -2552,22 +2781,23 @@
 
       <div class="story-top">
         <h2 class="story-title">Our Story</h2>
-
-        <div class="story-divider">
-          <span></span>
-          <img src="assets/icons/lotus.svg" alt="" />
-          <span></span>
-        </div>
-
         <p class="story-intro reveal">
           Two strangers brought together by our families, never knowing they
           would become each other's forever.
         </p>
+
+        <div class="intro-divider reveal">
+          <span class="line left"></span>
+
+          <img src="assets/lotus.svg" alt="" class="divider-lotus" />
+
+          <span class="line right"></span>
+        </div>
       </div>
       <div class="story-bottom">
         <div class="story-left">
           <div class="story-block reveal delay1">
-            <h3>Where It Began</h3>
+            <h3>Where It &nbsp;Began</h3>
 
             <p>
               It all began when we were eight. Little did we know that fate had
@@ -2577,7 +2807,7 @@
           </div>
 
           <div class="story-block reveal delay2">
-            <h3>Where It Grew</h3>
+            <h3>Where It &nbsp;Grew</h3>
 
             <p>
               Two decades later, a casual "Hi" turned into endless
@@ -2590,7 +2820,7 @@
           </div>
 
           <div class="story-block reveal delay3">
-            <h3>Where It Leads</h3>
+            <h3>Where It &nbsp;Leads</h3>
 
             <p>
               And now, our story continues into a new chapter— one that began
@@ -2607,50 +2837,85 @@
     </section>
 
     <!-- ============ COUPLE MOMENT ============ -->
-    <section class="moment-section">
-      <div class="moment-illustration reveal">
-        <div class="pl-layer" data-speed="0.3">
-          <svg
-            viewBox="0 0 280 220"
-            xmlns="http://www.w3.org/2000/svg"
-            width="100%"
-          >
-            <rect width="280" height="220" rx="8" fill="#6fc3e6" />
-            <rect y="170" width="280" height="50" fill="#8fcbe0" />
-            <g fill="#c2543b">
-              <path d="M40,160 L60,60 L80,160 Z" />
-            </g>
-            <g fill="#13294f">
-              <path d="M200,160 L220,50 L240,160 Z" />
-            </g>
-            <!-- couple silhouettes -->
-            <g fill="#13294f">
-              <circle cx="120" cy="110" r="16" />
-              <path d="M104,130 q16,-10 32,0 l0,40 l-32,0 Z" />
-              <circle cx="160" cy="112" r="15" />
-              <path d="M146,130 q14,-8 28,0 l0,38 l-28,0 Z" />
-            </g>
-            <g fill="#c9962f">
-              <circle cx="140" cy="60" r="3" />
-            </g>
-          </svg>
+    <section class="moments-section" id="moments">
+      <!-- Background -->
+      <div class="moments-bg"></div>
+
+      <!-- Floating particles -->
+      <div class="moments-particles"></div>
+
+      <div class="moments-container">
+        <!-- Header -->
+        <div class="moments-header">
+          <h2 class="moments-title">Moments</h2>
+
+          <p class="moments-subtitle">
+            Every little memory became another reason to fall in love.
+          </p>
+
+          <div class="intro-divider">
+            <span class="line left"></span>
+
+            <img src="assets/lotus.svg" class="divider-lotus" alt="" />
+
+            <span class="line right"></span>
+          </div>
+        </div>
+
+        <!-- Cup Scene -->
+        <div class="moments-scene">
+          <!-- Left Person -->
+          <div class="person person-left">
+            <img src="assets/left-person.png" alt="" />
+          </div>
+
+          <!-- Heart -->
+          <div class="heart-wrapper">
+            <img src="assets/heart.svg" class="heart" alt="" />
+          </div>
+
+          <!-- Right Person -->
+          <div class="person person-right">
+            <img src="assets/right-person.png" alt="" />
+          </div>
+        </div>
+
+        <!-- Photo Stack -->
+        <div class="photo-stack">
+          <div class="photo-card card1">
+            <img src="assets/photos/1.jpg" />
+          </div>
+
+          <div class="photo-card card2">
+            <img src="assets/photos/2.jpg" />
+          </div>
+
+          <div class="photo-card card3">
+            <img src="assets/photos/3.jpg" />
+          </div>
+
+          <div class="photo-card card4">
+            <img src="assets/photos/4.jpg" />
+          </div>
+
+          <div class="photo-card card5">
+            <img src="assets/photos/5.jpg" />
+          </div>
         </div>
       </div>
-      <div class="divider reveal">
-        <span class="ln"></span><span class="diamond"></span
-        ><span class="ln"></span>
-      </div>
-      <h2 class="section-title reveal">Moments</h2>
-      <p class="section-lede reveal">
-        A few frames from along the way — replace with your own photos.
-      </p>
-      <div class="gallery reveal">
-        <div class="gal-frame">A</div>
-        <div class="gal-frame">♥</div>
-        <div class="gal-frame">K</div>
-        <div class="gal-frame">K</div>
-        <div class="gal-frame">♥</div>
-        <div class="gal-frame">A</div>
+
+      <!-- Fullscreen Gallery -->
+
+      <div class="gallery-modal">
+        <button class="gallery-close">✕</button>
+
+        <button class="gallery-prev">❮</button>
+
+        <div class="gallery-image">
+          <img src="" alt="" />
+        </div>
+
+        <button class="gallery-next">❯</button>
       </div>
     </section>
 
@@ -2918,60 +3183,164 @@
     setInterval(updateCountdown, 1000);
     // ---------------- STORY ----------------
     const storySection = document.querySelector(".story-section");
+    const storyTop = document.querySelector(".story-top");
 
     const storyObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             storySection.classList.add("show");
+            storyTop.classList.add("show");
           } else {
             storySection.classList.remove("show");
+            storyTop.classList.remove("show");
           }
         });
       },
       {
-        threshold: 0.1,
+        threshold: 0.3,
       },
     );
 
     storyObserver.observe(storySection);
     const stars = document.querySelector(".stars");
 
-    for (let i = 0; i < 50; i++) {
-      const star = document.createElement("span");
+    const isMobile = window.innerWidth <= 768;
 
-      // Mostly in top 50%
-      star.style.top = Math.random() * 50 + "%";
+    const starCount = isMobile ? 24 : 45;
+    for (let i = 0; i < starCount; i++) {
+      const star = document.createElement("img");
 
+      star.src = "assets/star.svg";
+      star.className = "star";
+
+      if (Math.random() < 0.2) {
+        star.classList.add("bright");
+      }
+      // Mostly in the upper half
+      star.style.top = Math.pow(Math.random(), 2) * 50 + "%";
       star.style.left = Math.random() * 100 + "%";
 
-      // Different sizes
-      const size = Math.random() * 2 + 1;
-      star.style.width = size + "px";
+      // Random size (6px - 14px)
+      const size = isMobile
+        ? Math.random() * 4 + 3 // 3-7px
+        : Math.random() * 5 + 4; // 4-9px      star.style.width = size + "px";
       star.style.height = size + "px";
 
-      // Different animation timings
+      // Random animation
       star.style.animationDelay = Math.random() * 5 + "s";
-      star.style.animationDuration = 3 + Math.random() * 4 + "s";
+      star.style.animationDuration = 3 + Math.random() * 3 + "s";
 
       stars.appendChild(star);
     }
 
-    const story = document.querySelector(".story-section");
+    // ---------------- MOMENTS ----------------
+    const momentsSection = document.querySelector(".moments-section");
 
-    const observer1 = new IntersectionObserver(
+    const leftPerson = document.querySelector(".person-left");
+    const rightPerson = document.querySelector(".person-right");
+
+    const heart = document.querySelector(".heart-wrapper");
+
+    const photoStack = document.querySelector(".photo-stack");
+
+    const momentsObserver = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting) {
-          story.classList.add("active");
-        } else {
-          story.classList.remove("active");
-        }
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            playMomentsAnimation();
+          } else {
+            resetMomentsAnimation();
+          }
+        });
       },
       {
         threshold: 0.35,
       },
     );
 
-    observer1.observe(story);
+    momentsObserver.observe(momentsSection);
+
+    function playMomentsAnimation() {
+      momentsSection.classList.add("show");
+
+      leftPerson.classList.add("show");
+      rightPerson.classList.add("show");
+
+      setTimeout(() => {
+        leftPerson.classList.add("clink");
+        rightPerson.classList.add("clink");
+      }, 800);
+
+      setTimeout(() => {
+        heart.classList.add("show");
+      }, 1050);
+
+      setTimeout(() => {
+        photoStack.classList.add("show");
+      }, 1500);
+    }
+
+    function resetMomentsAnimation() {
+      momentsSection.classList.remove("show");
+
+      leftPerson.classList.remove("show", "clink");
+
+      rightPerson.classList.remove("show", "clink");
+
+      heart.classList.remove("show");
+
+      photoStack.classList.remove("show");
+    }
+
+    const mCards = document.querySelectorAll(".photo-card");
+
+    const modal = document.querySelector(".gallery-modal");
+
+    const modalImage = document.querySelector(".gallery-image img");
+
+    const close = document.querySelector(".gallery-close");
+
+    const next = document.querySelector(".gallery-next");
+
+    const prev = document.querySelector(".gallery-prev");
+
+    let currentIndex = 0;
+
+    mCards.forEach((card, index) => {
+      card.addEventListener("click", () => {
+        currentIndex = index;
+
+        modal.style.display = "flex";
+
+        modalImage.src = card.querySelector("img").src;
+      });
+    });
+
+    close.addEventListener("click", () => {
+      modal.style.display = "none";
+    });
+
+    next.addEventListener("click", () => {
+      currentIndex++;
+      if (currentIndex >= mCards.length) {
+        currentIndex = 0;
+      }
+      modalImage.src = mCards[currentIndex].querySelector("img").src;
+    });
+
+    prev.addEventListener("click", () => {
+      currentIndex--;
+      if (currentIndex < 0) {
+        currentIndex = mCards.length - 1;
+      }
+      modalImage.src = mCards[currentIndex].querySelector("img").src;
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        modal.style.display = "none";
+      }
+    });
   </script>
 </html>
