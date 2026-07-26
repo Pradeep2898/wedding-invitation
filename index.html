@@ -3408,8 +3408,6 @@
       <!-- Gallery -->
 
       <div class="gallery-modal">
-        <button class="gallery-close">✕</button>
-
         <button class="gallery-prev">❮</button>
 
         <div class="gallery-image">
@@ -3844,8 +3842,6 @@
 
     const modalImage = document.querySelector(".gallery-image img");
 
-    const close = document.querySelector(".gallery-close");
-
     const next = document.querySelector(".gallery-next");
 
     const prev = document.querySelector(".gallery-prev");
@@ -3858,10 +3854,6 @@
         modal.style.display = "flex";
         modalImage.src = card.querySelector("img").src;
       });
-    });
-
-    close.addEventListener("click", () => {
-      modal.style.display = "none";
     });
 
     next.addEventListener("click", () => {
