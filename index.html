@@ -97,31 +97,651 @@
         width: 100%;
       }
 
-      .reveal {
-        opacity: 0;
-        transform: translateY(26px);
-      }
+      /* ========================================================== HERO SECTION ========================================================== */
 
-      .reveal.in {
-        opacity: 1;
-        transform: translateY(0);
-        transition:
-          opacity 0.85s ease,
-          transform 0.85s ease;
-      }
-
-      /* ===================== SKY BAND (hero + invite + names) ===================== */
-      .sky-band {
+      .hero-sky {
+        position: relative;
+        height: 300vh;
+        min-height: 300vh;
+        overflow: hidden;
         background: linear-gradient(
           180deg,
           var(--sky-top) 0%,
           var(--sky-mid) 55%,
           var(--sky-horizon) 100%
         );
-        background-attachment: fixed;
-        padding-top: 0;
+        padding: 0 !important;
       }
 
+      /* ===================== CLOUDS ===================== */
+
+      .hero-clouds {
+        position: absolute;
+        inset: 0;
+        z-index: 5;
+        pointer-events: none;
+        overflow: hidden;
+      }
+
+      .hero-cloud {
+        position: absolute;
+        width: auto;
+        max-width: none;
+        will-change: transform;
+      }
+
+      .hero-cloud.far {
+        width: 160%;
+        top: 2%;
+        right: -85%;
+        opacity: 0.75;
+      }
+
+      .hero-cloud.near {
+        width: 150%;
+        top: 28%;
+        left: -82%;
+        opacity: 0.95;
+      }
+
+      /* ==========================================================
+         WIND-BLOWN LEAVES
+         North-West → South-East
+         ========================================================== */
+
+      .hero-leaves {
+        position: absolute;
+        inset: 0;
+        height: 100%;
+        z-index: 25;
+        overflow: hidden;
+        pointer-events: none;
+      }
+
+      .wind-leaf {
+        position: absolute;
+
+        left: var(--start-x);
+        top: var(--start-y);
+
+        width: var(--size);
+        height: auto;
+
+        pointer-events: none;
+        will-change: transform;
+
+        opacity: var(--opacity);
+
+        animation: wind-gust var(--duration) linear infinite;
+        animation-delay: var(--delay);
+      }
+
+      @keyframes wind-gust {
+        0% {
+          transform: translate3d(-20vw, -8vh, 0) rotate(0deg);
+        }
+
+        15% {
+          transform: translate3d(5vw, 2vh, 0) rotate(130deg);
+        }
+
+        32% {
+          transform: translate3d(35vw, 9vh, 0) rotate(280deg);
+        }
+
+        48% {
+          transform: translate3d(62vw, 19vh, 0) rotate(430deg);
+        }
+
+        65% {
+          transform: translate3d(90vw, 27vh, 0) rotate(590deg);
+        }
+
+        82% {
+          transform: translate3d(118vw, 37vh, 0) rotate(760deg);
+        }
+
+        100% {
+          transform: translate3d(150vw, 48vh, 0) rotate(930deg);
+        }
+      }
+
+      /* ==========================================================
+   DISTANT PETALS / LEAVES
+   spread throughout entire 300vh HERO
+   ========================================================== */
+
+      /* ---------- FIRST 100VH ---------- */
+
+      .l1 {
+        --start-x: 7%;
+        --start-y: 5%;
+        --size: 4px;
+        --duration: 15s;
+        --delay: -3s;
+        --opacity: 0.55;
+      }
+      .l2 {
+        --start-x: 22%;
+        --start-y: 11%;
+        --size: 6px;
+        --duration: 18s;
+        --delay: -8s;
+        --opacity: 0.65;
+      }
+      .l3 {
+        --start-x: 46%;
+        --start-y: 6%;
+        --size: 3px;
+        --duration: 17s;
+        --delay: -12s;
+        --opacity: 0.45;
+      }
+      .l4 {
+        --start-x: 68%;
+        --start-y: 15%;
+        --size: 5px;
+        --duration: 20s;
+        --delay: -5s;
+        --opacity: 0.6;
+      }
+      .l5 {
+        --start-x: 13%;
+        --start-y: 23%;
+        --size: 7px;
+        --duration: 16s;
+        --delay: -9s;
+        --opacity: 0.7;
+      }
+      .l6 {
+        --start-x: 37%;
+        --start-y: 27%;
+        --size: 4px;
+        --duration: 19s;
+        --delay: -2s;
+        --opacity: 0.55;
+      }
+      .l7 {
+        --start-x: 59%;
+        --start-y: 20%;
+        --size: 5px;
+        --duration: 17s;
+        --delay: -14s;
+        --opacity: 0.5;
+      }
+      .l8 {
+        --start-x: 78%;
+        --start-y: 29%;
+        --size: 3px;
+        --duration: 21s;
+        --delay: -7s;
+        --opacity: 0.4;
+      }
+
+      /* ---------- SECOND 100VH ---------- */
+
+      .l9 {
+        --start-x: 4%;
+        --start-y: 35%;
+        --size: 5px;
+        --duration: 18s;
+        --delay: -11s;
+        --opacity: 0.55;
+      }
+      .l10 {
+        --start-x: 27%;
+        --start-y: 39%;
+        --size: 3px;
+        --duration: 20s;
+        --delay: -4s;
+        --opacity: 0.4;
+      }
+      .l11 {
+        --start-x: 48%;
+        --start-y: 34%;
+        --size: 7px;
+        --duration: 16s;
+        --delay: -13s;
+        --opacity: 0.7;
+      }
+      .l12 {
+        --start-x: 71%;
+        --start-y: 42%;
+        --size: 4px;
+        --duration: 19s;
+        --delay: -6s;
+        --opacity: 0.5;
+      }
+
+      .l13 {
+        --start-x: 10%;
+        --start-y: 48%;
+        --size: 6px;
+        --duration: 17s;
+        --delay: -9s;
+        --opacity: 0.65;
+      }
+      .l14 {
+        --start-x: 33%;
+        --start-y: 52%;
+        --size: 4px;
+        --duration: 21s;
+        --delay: -15s;
+        --opacity: 0.45;
+      }
+      .l15 {
+        --start-x: 57%;
+        --start-y: 47%;
+        --size: 3px;
+        --duration: 18s;
+        --delay: -5s;
+        --opacity: 0.4;
+      }
+      .l16 {
+        --start-x: 81%;
+        --start-y: 55%;
+        --size: 8px;
+        --duration: 16s;
+        --delay: -12s;
+        --opacity: 0.7;
+      }
+
+      /* ---------- THIRD 100VH ---------- */
+
+      .l17 {
+        --start-x: 2%;
+        --start-y: 61%;
+        --size: 4px;
+        --duration: 20s;
+        --delay: -3s;
+        --opacity: 0.5;
+      }
+      .l18 {
+        --start-x: 20%;
+        --start-y: 65%;
+        --size: 6px;
+        --duration: 17s;
+        --delay: -10s;
+        --opacity: 0.6;
+      }
+      .l19 {
+        --start-x: 43%;
+        --start-y: 60%;
+        --size: 3px;
+        --duration: 22s;
+        --delay: -16s;
+        --opacity: 0.4;
+      }
+      .l20 {
+        --start-x: 66%;
+        --start-y: 68%;
+        --size: 5px;
+        --duration: 18s;
+        --delay: -7s;
+        --opacity: 0.55;
+      }
+
+      .l21 {
+        --start-x: 11%;
+        --start-y: 72%;
+        --size: 7px;
+        --duration: 16s;
+        --delay: -14s;
+        --opacity: 0.65;
+      }
+      .l22 {
+        --start-x: 31%;
+        --start-y: 78%;
+        --size: 4px;
+        --duration: 20s;
+        --delay: -5s;
+        --opacity: 0.45;
+      }
+      .l23 {
+        --start-x: 53%;
+        --start-y: 73%;
+        --size: 5px;
+        --duration: 19s;
+        --delay: -11s;
+        --opacity: 0.55;
+      }
+      .l24 {
+        --start-x: 76%;
+        --start-y: 80%;
+        --size: 3px;
+        --duration: 22s;
+        --delay: -8s;
+        --opacity: 0.4;
+      }
+
+      .l25 {
+        --start-x: 5%;
+        --start-y: 84%;
+        --size: 4px;
+        --duration: 18s;
+        --delay: -13s;
+        --opacity: 0.5;
+      }
+      .l26 {
+        --start-x: 24%;
+        --start-y: 89%;
+        --size: 8px;
+        --duration: 16s;
+        --delay: -4s;
+        --opacity: 0.7;
+      }
+      .l27 {
+        --start-x: 45%;
+        --start-y: 86%;
+        --size: 3px;
+        --duration: 21s;
+        --delay: -17s;
+        --opacity: 0.4;
+      }
+      .l28 {
+        --start-x: 69%;
+        --start-y: 91%;
+        --size: 5px;
+        --duration: 19s;
+        --delay: -9s;
+        --opacity: 0.55;
+      }
+
+      /* ---------- FEW SLIGHTLY CLOSER PETALS ---------- */
+
+      .l29 {
+        --start-x: 18%;
+        --start-y: 18%;
+        --size: 9px;
+        --duration: 15s;
+        --delay: -6s;
+        --opacity: 0.75;
+      }
+      .l30 {
+        --start-x: 74%;
+        --start-y: 32%;
+        --size: 10px;
+        --duration: 17s;
+        --delay: -12s;
+        --opacity: 0.7;
+      }
+
+      .l31 {
+        --start-x: 8%;
+        --start-y: 44%;
+        --size: 9px;
+        --duration: 16s;
+        --delay: -3s;
+        --opacity: 0.7;
+      }
+      .l32 {
+        --start-x: 62%;
+        --start-y: 57%;
+        --size: 11px;
+        --duration: 18s;
+        --delay: -10s;
+        --opacity: 0.75;
+      }
+
+      .l33 {
+        --start-x: 15%;
+        --start-y: 70%;
+        --size: 9px;
+        --duration: 17s;
+        --delay: -7s;
+        --opacity: 0.7;
+      }
+      .l34 {
+        --start-x: 72%;
+        --start-y: 82%;
+        --size: 10px;
+        --duration: 16s;
+        --delay: -13s;
+        --opacity: 0.75;
+      }
+
+      .l35 {
+        --start-x: 39%;
+        --start-y: 13%;
+        --size: 5px;
+        --duration: 23s;
+        --delay: -15s;
+        --opacity: 0.45;
+      }
+      .l36 {
+        --start-x: 52%;
+        --start-y: 38%;
+        --size: 4px;
+        --duration: 21s;
+        --delay: -8s;
+        --opacity: 0.45;
+      }
+      .l37 {
+        --start-x: 35%;
+        --start-y: 64%;
+        --size: 6px;
+        --duration: 20s;
+        --delay: -2s;
+        --opacity: 0.55;
+      }
+      .l38 {
+        --start-x: 58%;
+        --start-y: 88%;
+        --size: 4px;
+        --duration: 22s;
+        --delay: -14s;
+        --opacity: 0.45;
+      }
+
+      .l1,
+      .l7,
+      .l13,
+      .l19,
+      .l25,
+      .l31,
+      .l37 {
+        --duration: 8.5s;
+      }
+
+      .l2,
+      .l8,
+      .l14,
+      .l20,
+      .l26,
+      .l32,
+      .l38 {
+        --duration: 10s;
+      }
+
+      .l3,
+      .l9,
+      .l15,
+      .l21,
+      .l27,
+      .l33 {
+        --duration: 9s;
+      }
+
+      .l4,
+      .l10,
+      .l16,
+      .l22,
+      .l28,
+      .l34 {
+        --duration: 11s;
+      }
+
+      .l5,
+      .l11,
+      .l17,
+      .l23,
+      .l29,
+      .l35 {
+        --duration: 9.5s;
+      }
+
+      .l6,
+      .l12,
+      .l18,
+      .l24,
+      .l30,
+      .l36 {
+        --duration: 10.5s;
+      }
+
+      /* ===================== HERO SCENE ===================== */
+
+      .hero-scene {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        z-index: 10;
+      }
+
+      /* Temple / Couple artwork */
+
+      .hero-scene-img {
+        position: absolute;
+        left: 50%;
+        bottom: -55%;
+        width: 100%;
+        height: auto;
+        transform: translateX(-50%);
+        will-change: transform;
+      }
+
+      /* Stone Arch */
+
+      .hero-arch {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh; /* ← was height: 100% (= 270vh). Now locked to exactly one screen. */
+        object-fit: cover;
+        z-index: 15;
+        pointer-events: none;
+        will-change: transform; /* add — needed for the parallax motion below */
+      }
+
+      .arch-photo-wrap {
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        width: 100%;
+        transform: translateX(-50%);
+        z-index: 35;
+        pointer-events: none;
+      }
+
+      .temple-photo {
+        display: block;
+        width: 100%;
+        height: auto;
+        max-width: none;
+      }
+
+      /* ===================== NAMES ===================== */
+
+      .hero-stage {
+        position: sticky;
+        top: 0;
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 30;
+        pointer-events: none;
+        padding-top: 50vh;
+        will-change: transform, opacity;
+      }
+
+      .hero-stage .hero-name {
+        position: relative;
+        width: 100%;
+        text-align: center;
+      }
+
+      .hero-stage .hero-name.top {
+        margin-bottom: 28px;
+      }
+
+      .hero-stage .hero-name.weds {
+        margin: 0;
+      }
+
+      .hero-stage .hero-name.bottom {
+        margin-top: 28px;
+      }
+
+      .hero-name {
+        font-family: "Lumitra", "Yatra One", serif;
+        color: #e8c76a;
+        font-size: clamp(58px, 18vw, 108px);
+        line-height: 0.5;
+        letter-spacing: 0.06em;
+        text-shadow:
+          0 4px 12px rgba(0, 0, 0, 0.35),
+          0 0 26px rgba(0, 0, 0, 0.25);
+      }
+
+      /* ===================== HERO ARCH ===================== */
+
+      .hero-frame {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 40;
+        pointer-events: none;
+        overflow: visible;
+      }
+
+      .hero-arch-frame {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 100vw;
+        max-width: none;
+        height: auto;
+        transform: translateX(-50%);
+        display: block;
+      }
+
+      .hero-top {
+        margin-bottom: 28px;
+      }
+
+      .hero-bottom {
+        margin-top: 28px;
+      }
+
+      .hero-weds {
+        margin: 0;
+        font-family: "Jost", sans-serif;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.42em;
+        color: #e8c76a;
+      }
+
+      /* ===================== SCROLL CUE ===================== */
+
+      .scroll-cue {
+        position: absolute;
+        bottom: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 1px;
+        height: 42px;
+        background: linear-gradient(#fff, transparent);
+        z-index: 40;
+      }
+
+      /* ===================== INVITE TEXT CARD ===================== */
       .invite-band {
         position: relative;
         padding: 90px 15px;
@@ -194,249 +814,6 @@
         );
       }
 
-      .sky-band .eyebrow {
-        color: var(--cream);
-        text-align: center;
-      }
-
-      .hero-sky {
-        overflow: hidden;
-        padding-left: 0 !important;
-        padding-right: 0 !important;
-      }
-
-      .hero-spacer {
-        min-height: calc(75vh - 166px);
-      }
-
-      .hero-clouds {
-        position: absolute;
-        inset: 0;
-        z-index: 0;
-        overflow: hidden;
-        pointer-events: none;
-      }
-
-      .hero-cloud {
-        position: absolute;
-        display: block;
-        width: auto;
-        max-width: none;
-        pointer-events: none;
-      }
-
-      .hero-cloud.far {
-        width: 165%;
-        top: 4%;
-        right: -88%;
-        opacity: 0.8;
-      }
-
-      .hero-cloud.near {
-        width: 155%;
-        top: 30%;
-        left: -84%;
-        /* opacity: 0.90; */
-      }
-
-      /* floating cloud strip decoration at top of sky sections */
-      .cloud-row {
-        display: flex;
-        justify-content: center;
-        gap: -10px;
-        margin-bottom: -6px;
-        position: relative;
-        z-index: 2;
-      }
-
-      /* ===================== ARCH ILLUSTRATION ===================== */
-      .arch-wrap {
-        position: relative;
-        width: 100%;
-        max-width: 340px;
-        margin: 0 auto;
-        filter: drop-shadow(0 18px 30px rgba(19, 42, 82, 0.25));
-      }
-
-      .arch-wrap svg {
-        display: block;
-        width: 100%;
-        height: auto;
-      }
-
-      .arch-scene {
-        position: relative;
-        z-index: 1;
-      }
-
-      .arch-border {
-        position: absolute;
-        inset: 0;
-        z-index: 2;
-        pointer-events: none;
-      }
-
-      .cloud-name-tag {
-        position: absolute;
-        top: 14%;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 3;
-        text-align: center;
-        width: 78%;
-      }
-
-      .cloud-name-tag .names {
-        font-family: "Playfair Display", serif;
-        font-weight: 700;
-        font-size: 22px;
-        color: var(--gold-deep);
-        letter-spacing: 0.02em;
-        text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
-      }
-
-      .cloud-name-tag .weds {
-        font-family: "Jost", sans-serif;
-        font-size: 9px;
-        letter-spacing: 0.35em;
-        color: var(--gold-deep);
-        display: block;
-        margin: 2px 0;
-      }
-
-      .hero-title {
-        text-align: center;
-        padding: 46px 20px 6px;
-      }
-
-      .hero-title .amp-names {
-        font-family: "Playfair Display", serif;
-        font-weight: 700;
-        font-size: 15vw;
-        color: var(--cream);
-        line-height: 1;
-        text-shadow: 0 2px 14px rgba(19, 42, 82, 0.35);
-      }
-
-      @media (min-width: 520px) {
-        .hero-title .amp-names {
-          font-size: 56px;
-        }
-      }
-
-      .hero-title .script-amp {
-        font-family: "Alex Brush", cursive;
-        color: var(--gold);
-        font-size: 1.5em;
-        display: inline-block;
-        margin: 0 6px;
-      }
-
-      .hero-title .date-line {
-        font-family: "Jost", sans-serif;
-        letter-spacing: 0.28em;
-        font-size: 12.5px;
-        color: var(--cream);
-        text-transform: uppercase;
-        margin-top: 14px;
-        display: block;
-      }
-
-      .scroll-cue {
-        margin: 26px auto 0;
-        width: 1px;
-        height: 40px;
-        background: linear-gradient(var(--cream), transparent);
-        animation: cue 2.2s ease-in-out infinite;
-      }
-
-      @keyframes cue {
-        0%,
-        100% {
-          opacity: 0.5;
-        }
-
-        50% {
-          opacity: 1;
-        }
-      }
-
-      /* ===================== HERO v2: name faded behind temple photo ===================== */
-      .hero-stage {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding-top: 6px;
-      }
-
-      .hero-name {
-        font-family: "Lumitra", "Yatra One", "Cormorant Garamond", serif;
-        font-weight: 500;
-        text-transform: none;
-        font-size: clamp(56px, 19vw, 110px);
-        /* color: #D8B15A; */
-        color: #e8c76a;
-        letter-spacing: 0.06em;
-        line-height: 0.86;
-        text-align: center;
-        opacity: 1;
-        text-shadow:
-          0 3px 10px rgba(0, 0, 0, 0.35),
-          0 0 30px rgba(0, 0, 0, 0.25);
-        position: absolute;
-        width: 100%;
-      }
-
-      .hero-name.top {
-        z-index: 1;
-        top: -205px;
-        margin: 0;
-      }
-
-      .hero-name.bottom {
-        z-index: 1;
-        top: -52px;
-        margin: 0;
-      }
-
-      .hero-name.weds {
-        z-index: 1;
-        top: -116px;
-        margin: 0;
-        font-family: "Jost", sans-serif;
-        font-size: 10px;
-        font-weight: 900;
-        letter-spacing: 0.34em;
-        line-height: 1;
-        text-transform: uppercase;
-        text-shadow: 0 1px 8px rgba(19, 42, 82, 0.72);
-      }
-
-      .arch-photo-wrap {
-        width: 100%;
-        margin: 70px -22px 0;
-        aspect-ratio: 700/980;
-      }
-
-      .arch-photo-wrap .temple-photo {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-
-      .arch-photo-wrap .frame-overlay {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: fill;
-        pointer-events: none;
-      }
-
-      /* ===================== INVITE TEXT CARD ===================== */
       .invite-card {
         text-align: center;
         width: 100%;
@@ -1420,11 +1797,11 @@
       }
 
       /* .heart-wrapper.show {
-        opacity: 1;
-        transition:
-          opacity 0.6s ease,
-          transform 0.6s ease;
-      } */
+              opacity: 1;
+              transition:
+                opacity 0.6s ease,
+                transform 0.6s ease;
+            } */
 
       .heart-wrapper.show .heart {
         animation: heartbeat 1.4s ease-in-out infinite;
@@ -1793,8 +2170,8 @@
       }
       /* ===================== RSVP (navy Rajasthani pattern) ===================== */
       /*==============================
-        RSVP SECTION
-===============================*/
+              RSVP SECTION
+      ===============================*/
 
       .rsvp-section {
         position: relative;
@@ -1820,8 +2197,8 @@
       }
 
       /*==============================
-        DIVIDER
-===============================*/
+              DIVIDER
+      ===============================*/
 
       .rsvp-section .divider {
         display: flex;
@@ -1854,8 +2231,8 @@
       }
 
       /*==============================
-        TAG
-===============================*/
+              TAG
+      ===============================*/
 
       .rsvp-section .section-tag {
         display: inline-block;
@@ -1874,8 +2251,8 @@
       }
 
       /*==============================
-        TITLE
-===============================*/
+              TITLE
+      ===============================*/
 
       .rsvp-section .section-title {
         font-family: "Modernline", serif;
@@ -1890,8 +2267,8 @@
       }
 
       /*==============================
-        SUBTITLE
-===============================*/
+              SUBTITLE
+      ===============================*/
 
       .rsvp-section .section-lede {
         font-family: "Jost", sans-serif;
@@ -1912,8 +2289,8 @@
       }
 
       /*==============================
-        CARD
-===============================*/
+              CARD
+      ===============================*/
 
       .rsvp-card {
         padding: 38px;
@@ -1930,8 +2307,8 @@
       }
 
       /*==============================
-        FIELDS
-===============================*/
+              FIELDS
+      ===============================*/
 
       .field {
         margin-bottom: 22px;
@@ -1996,8 +2373,8 @@
       }
 
       /*==============================
-        BUTTON
-===============================*/
+              BUTTON
+      ===============================*/
 
       .rsvp-btn {
         width: 100%;
@@ -2034,8 +2411,8 @@
       }
 
       /*==============================
-        MOBILE
-===============================*/
+              MOBILE
+      ===============================*/
 
       @media (max-width: 480px) {
         .rsvp-card {
@@ -2186,9 +2563,9 @@
         position: absolute;
         inset: 0;
         /* background:
-            radial-gradient(circle at 20% 100%, #ecc1cd 0 20%, transparent 21%),
-            radial-gradient(circle at 60% 100%, #e9bcc9 0 24%, transparent 25%),
-            radial-gradient(circle at 95% 100%, #efc8d3 0 20%, transparent 21%); */
+                  radial-gradient(circle at 20% 100%, #ecc1cd 0 20%, transparent 21%),
+                  radial-gradient(circle at 60% 100%, #e9bcc9 0 24%, transparent 25%),
+                  radial-gradient(circle at 95% 100%, #efc8d3 0 20%, transparent 21%); */
         opacity: 0.55;
         z-index: 0;
       }
@@ -2214,8 +2591,8 @@
       /* ---------- Small phones (320-359px) ---------- */
       @media (max-width: 320px) and (max-width: 359px) {
         /* section:not(.hero-sky) {
-            padding: 70px 18px;
-          } */
+                  padding: 70px 18px;
+                } */
 
         @media (max-width: 768px) {
           .nav-btn {
@@ -2242,12 +2619,6 @@
 
         .hero-name {
           font-size: 62px;
-        }
-
-        .arch-photo-wrap {
-          width: 112%;
-          margin-left: -6%;
-          margin-top: 55px;
         }
 
         .hero-cloud.far {
@@ -2335,8 +2706,8 @@
 
       @media (min-width: 360px) and (max-width: 430px) {
         /* section:not(.hero-sky) {
-            padding: 80px 20px;
-          } */
+                  padding: 80px 20px;
+                } */
 
         .hero-spacer {
           min-height: 70vh;
@@ -2352,11 +2723,6 @@
 
         .hero-name.bottom {
           top: -45px;
-        }
-
-        .arch-photo-wrap {
-          width: 108%;
-          margin-left: -4%;
         }
 
         .hero-cloud.far {
@@ -2401,15 +2767,11 @@
       /* ---------- Large phones / Foldables ---------- */
       @media (min-width: 431px) and (max-width: 767px) {
         /* section:not(.hero-sky) {
-            padding: 90px 24px;
-          } */
+                  padding: 90px 24px;
+                } */
 
         .hero-name {
           font-size: 90px;
-        }
-
-        .arch-photo-wrap {
-          width: 104%;
         }
 
         .hero-cloud.far {
@@ -2437,8 +2799,8 @@
       }
 
       /* =====================================================
-       DESKTOP
-       ===================================================== */
+             DESKTOP
+             ===================================================== */
 
       @media (min-width: 768px) {
         section {
@@ -2447,35 +2809,10 @@
           padding: 100px 0;
         }
 
-        .hero-sky {
-          min-height: 100vh;
-        }
-
         .hero-inner {
           max-width: 720px;
           margin: auto;
           position: relative;
-        }
-
-        .arch-photo-wrap {
-          width: min(120vw, 1700px);
-          margin: 80px auto 0;
-        }
-
-        .hero-name {
-          font-size: 108px;
-        }
-
-        .hero-name.top {
-          top: -245px;
-        }
-
-        .hero-name.weds {
-          top: -135px;
-        }
-
-        .hero-name.bottom {
-          top: -60px;
         }
 
         .invite-card,
@@ -2485,6 +2822,106 @@
         .rsvp-strip {
           max-width: 720px;
           margin: auto;
+        }
+      }
+
+      /* ==========================================================
+   HERO MOBILE
+   ========================================================== */
+
+      @media (max-width: 767px) {
+        /* Much shorter scroll journey */
+        .hero-sky {
+          height: 185svh;
+          min-height: 185svh;
+        }
+
+        /* ---------- ARCH ---------- */
+
+        .hero-frame {
+          height: 100svh;
+        }
+
+        .hero-arch-frame {
+          top: 0;
+          left: 50%;
+
+          width: 100vw;
+          height: 100svh;
+
+          object-fit: fill;
+          object-position: center top;
+
+          transform: translateX(-50%);
+          max-width: none;
+        }
+
+        /* ---------- NAMES ---------- */
+
+        .hero-stage {
+          position: sticky;
+          top: 0;
+
+          width: 100%;
+          height: 100svh;
+
+          padding-top: 18svh;
+
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .hero-name {
+          font-size: clamp(50px, 15vw, 68px);
+          line-height: 0.58;
+        }
+
+        .hero-stage .hero-name.top {
+          margin-bottom: 20px;
+        }
+
+        .hero-stage .hero-name.weds {
+          margin: 0;
+          font-size: 9px;
+          letter-spacing: 0.35em;
+        }
+
+        .hero-stage .hero-name.bottom {
+          margin-top: 20px;
+        }
+
+        /* ---------- COUPLE ---------- */
+
+        .arch-photo-wrap {
+          position: absolute;
+
+          left: 50%;
+          bottom: 0;
+
+          width: 135vw;
+          max-width: none;
+
+          margin: 0;
+
+          transform: translateX(-50%);
+        }
+
+        .temple-photo {
+          display: block;
+          width: 100%;
+          height: auto;
+          max-width: none;
+        }
+
+        /* ---------- CLOUDS ---------- */
+
+        .hero-cloud.far {
+          width: 175vw;
+        }
+
+        .hero-cloud.near {
+          width: 170vw;
         }
       }
     </style>
@@ -2512,19 +2949,25 @@
         <img class="hero-cloud far" src="assets/cloud.png" alt="" />
         <img class="hero-cloud near" src="assets/cloud.png" alt="" />
       </div>
+
+      <div class="hero-leaves" id="heroLeaves" aria-hidden="true"></div>
+      <!-- NEW: dedicated frame layer, always exactly one screen tall -->
+      <div class="hero-frame">
+        <img class="hero-arch-frame" src="assets/arch-3.png" alt="" />
+      </div>
+
       <div class="hero-spacer"></div>
       <div class="hero-stage reveal in" style="margin-top: 0">
         <div class="hero-name top">Pradeep</div>
         <div class="hero-name weds">Weds</div>
         <div class="hero-name bottom">Niveditha</div>
-        <div class="arch-photo-wrap">
-          <img
-            class="temple-photo"
-            src="assets/temple.png"
-            alt="Temple riverside illustration"
-          />
-          <!-- <img class="frame-overlay" src="arch.svg" alt=""> -->
-        </div>
+      </div>
+      <div class="arch-photo-wrap">
+        <img
+          class="temple-photo"
+          src="assets/couple.png"
+          alt="Temple riverside illustration"
+        />
       </div>
       <div class="scroll-cue"></div>
     </section>
@@ -3590,10 +4033,15 @@
 
     observer.observe(section);
     // ---- Scroll-linked parallax for hero illustration layers ----
+    // ============================================================
+    // HERO SCROLL / PARALLAX
+    // ============================================================
+
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
-    const heroNames = document.querySelectorAll(".hero-name");
+    const hero = document.querySelector(".hero-sky");
+    const heroStage = document.querySelector(".hero-stage");
     const heroTemple = document.querySelector(".arch-photo-wrap");
     const heroClouds = Array.from(document.querySelectorAll(".hero-cloud")).map(
       (el) => ({
@@ -3603,59 +4051,109 @@
     );
     let ticking = false;
     function applyParallax() {
-      const y = window.scrollY;
-      // ---------------- HERO (UNCHANGED) ----------------
-      if (heroTemple) {
-        heroTemple.style.transform = `translate3d(0, ${y * 0.42}px, 0)`;
+      if (!hero) {
+        ticking = false;
+        return;
       }
-      heroNames.forEach((name) => {
-        name.style.transform = `translate3d(0, ${y * 0.7}px, 0)`;
-        if (heroTemple) {
-          const nameRect = name.getBoundingClientRect();
-          const templeTop = heroTemple.getBoundingClientRect().top;
-          const fadeDistance = Math.max(nameRect.height * 3, 190);
-          const coverProgress = Math.min(
-            1,
-            Math.max(0, (nameRect.top - templeTop) / fadeDistance),
-          );
-          name.style.opacity = (1 - coverProgress).toFixed(3);
-        }
-      });
 
-      const hero = document.querySelector(".hero-sky");
-      const heroHeight = hero.offsetHeight;
-      const cloudFadeStart = heroHeight * 0.65;
-      const cloudFadeEnd = heroHeight * 0.95;
-      const cloudOffset = y * 0.7;
-      const t = Math.min(
+      const heroRect = hero.getBoundingClientRect();
+      const heroScrolled = Math.max(0, -heroRect.top);
+      const scrollDistance = hero.offsetHeight - window.innerHeight;
+      const heroProgress = Math.min(
         1,
-        Math.max(0, (y - cloudFadeStart) / (cloudFadeEnd - cloudFadeStart)),
+        Math.max(0, heroScrolled / scrollDistance),
       );
 
-      const cloudFade = 1 - t;
-      heroClouds.forEach(({ el, opacity }) => {
-        el.style.transform = `translate3d(0, ${cloudOffset}px, 0)`;
-        el.style.opacity = (opacity * cloudFade).toFixed(3);
-      });
-      // ---------------- INVITATION ----------------
-      const invite = document.querySelector(".invite-band");
-      if (invite) {
-        const rect = invite.getBoundingClientRect();
-        const progress = Math.max(
-          0,
-          Math.min(window.innerHeight, window.innerHeight - rect.top),
+      /* =========================================
+     NAMES
+     ========================================= */
+
+      if (heroStage) {
+        /*
+         * Names move WITH scrolling,
+         * but remain around the viewport long enough
+         * for temple to catch them.
+         */
+        const nameMove = heroScrolled * 0.72;
+
+        heroStage.style.transform = `translate3d(0, ${nameMove}px, 0)`;
+
+        /*
+         * Start fading only near the end,
+         * when temple is naturally entering.
+         */
+
+        const fadeStart = 0.68;
+        const fadeEnd = 0.88;
+
+        const fadeProgress = Math.min(
+          1,
+          Math.max(0, (heroProgress - fadeStart) / (fadeEnd - fadeStart)),
         );
+
+        heroStage.style.opacity = (1 - fadeProgress).toFixed(3);
       }
+
+      /* =========================================
+     TEMPLE
+
+     DO ABSOLUTELY NOTHING.
+
+     It is sitting at bottom:0 in CSS.
+     Normal document scrolling reveals it.
+     ========================================= */
+
+      /* =========================================
+     CLOUD PARALLAX
+     ========================================= */
+
+      heroClouds.forEach(({ el, opacity }, index) => {
+        const speed = index === 0 ? 0.2 : 0.32;
+
+        el.style.transform = `translate3d(
+        0,
+        ${heroScrolled * speed}px,
+        0
+      )`;
+
+        /*
+         * Clouds slowly disappear near bottom
+         * of hero.
+         */
+
+        const cloudFadeStart = 0.7;
+        const cloudFadeEnd = 0.95;
+        const cloudFadeProgress = Math.min(
+          1,
+          Math.max(
+            0,
+            (heroProgress - cloudFadeStart) / (cloudFadeEnd - cloudFadeStart),
+          ),
+        );
+        el.style.opacity = (opacity * (1 - cloudFadeProgress)).toFixed(3);
+      });
+
+      const heroLeaves = document.querySelectorAll(".hero-leaves .leaf");
+
+      heroLeaves.forEach((leaf, index) => {
+        const speed = 0.04 + (index % 3) * 0.025;
+
+        leaf.style.setProperty("--leaf-scroll", `${heroScrolled * speed}px`);
+      });
+
       ticking = false;
     }
+
     function onScroll() {
       if (!ticking) {
         requestAnimationFrame(applyParallax);
         ticking = true;
       }
     }
+
     if (!prefersReducedMotion) {
       window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("resize", applyParallax);
       applyParallax();
     }
 
@@ -3837,15 +4335,10 @@
     }
 
     const mCards = document.querySelectorAll(".photo-card");
-
     const modal = document.querySelector(".gallery-modal");
-
     const modalImage = document.querySelector(".gallery-image img");
-
     const next = document.querySelector(".gallery-next");
-
     const prev = document.querySelector(".gallery-prev");
-
     let currentIndex = 0;
 
     mCards.forEach((card, index) => {
@@ -3883,5 +4376,47 @@
         modal.style.display = "none";
       }
     });
+    const leavesContainer = document.getElementById("heroLeaves");
+
+    const TOTAL_LEAVES = 100;
+
+    for (let i = 0; i < TOTAL_LEAVES; i++) {
+      const leaf = document.createElement("img");
+
+      // 75% pink, 25% yellow
+      if (Math.random() < 0.75) {
+        leaf.src = "assets/leaf-pink.png";
+      } else {
+        leaf.src = "assets/leaf-yellow.png";
+      }
+
+      leaf.className = "wind-leaf";
+
+      // Spread throughout entire 300vh hero
+      const startX = Math.random() * 100;
+      const startY = Math.random() * 96;
+
+      // Different sizes = depth
+      const size = 12 + Math.random() * 20;
+
+      // Strong wind but slightly different speeds
+      const duration = 6 + Math.random() * 5;
+
+      // Negative delay means the animation is ALREADY running
+      // when the page opens.
+      const delay = -(Math.random() * duration);
+
+      // Distant leaves lighter, closer ones stronger
+      const opacity = 0.4 + Math.random() * 0.5;
+
+      leaf.style.setProperty("--start-x", `${startX}%`);
+      leaf.style.setProperty("--start-y", `${startY}%`);
+      leaf.style.setProperty("--size", `${size}px`);
+      leaf.style.setProperty("--duration", `${duration}s`);
+      leaf.style.setProperty("--delay", `${delay}s`);
+      leaf.style.setProperty("--opacity", opacity);
+
+      leavesContainer.appendChild(leaf);
+    }
   </script>
 </html>
