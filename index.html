@@ -761,112 +761,573 @@
         z-index: 40;
       }
 
-      /* ===================== INVITE TEXT CARD ===================== */
-      .invite-band {
+      /* ==========================================================
+   INVITATION SECTION
+========================================================== */
+
+      .invite-section {
         position: relative;
-        padding: 90px 15px;
-        padding-bottom: 0;
+        width: 100%;
+        min-height: 150vh;
         overflow: hidden;
-        background: linear-gradient(
-          180deg,
-          #f5d4dc 0%,
-          #f8e5e9 55%,
-          #fff5f7 100%
-        );
+        display: flex;
+        justify-content: center;
+        padding: 120px 20px 140px;
+        background:
+          radial-gradient(
+            circle at 50% 55%,
+            rgba(39, 68, 108, 0.28) 0%,
+            transparent 45%
+          ),
+          linear-gradient(
+            180deg,
+            #020611 0%,
+            #071329 32%,
+            #0c1f3d 68%,
+            #102a49 100%
+          );
+
+        isolation: isolate;
       }
 
-      .invite-scene {
-        position: relative;
-        height: 350px;
-        overflow: hidden;
-        width: 100vw;
-        left: 50%;
-        transform: translateX(-50%);
-      }
+      /* ==========================================================
+   STARS
+========================================================== */
 
-      .invite-temple.scene-visible {
-        opacity: 1;
-        transform: translate(-50%, 0) scale(1);
-      }
-
-      .invite-temple {
+      .invite-stars,
+      .invite-shooting-stars {
         position: absolute;
-        left: 50%;
-        width: 120%;
-        bottom: 0;
-        transform: translate(-50%, 60px) scale(0.96);
-        opacity: 0;
-        transition:
-          opacity 1.8s ease,
-          transform 1.8s cubic-bezier(0.22, 0.61, 0.36, 1);
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+      }
+
+      .invite-stars {
         z-index: 1;
       }
 
-      .invite-mountains.scene-visible {
-        opacity: 0.6;
-        transform: translate(-50%, 0) scale(1);
+      .invite-shooting-stars {
+        z-index: 2;
       }
 
-      .invite-mountains {
+      /* ==========================================================
+   MOON CONTAINER
+========================================================== */
+
+      .invite-moon-wrap {
         position: absolute;
         left: 50%;
-        bottom: 0;
-        width: 140%;
-        transform: translate(-50%, 60px) scale(0.96);
+        top: 50%;
+        width: min(720px, 82vw);
+        aspect-ratio: 1 / 1;
+        transform: translate(-50%, 55%) scale(0.92);
         opacity: 0;
+        z-index: 3;
+        pointer-events: none;
+        will-change: transform, opacity;
         transition:
-          opacity 1.2s ease,
-          transform 1.2s cubic-bezier(0.22, 0.61, 0.36, 1);
-        z-index: 0;
-
-        mask-image: linear-gradient(
-          to top,
-          transparent 0%,
-          black 18%,
-          black 100%
-        );
-
-        -webkit-mask-image: linear-gradient(
-          to top,
-          transparent 0%,
-          black 18%,
-          black 100%
-        );
+          transform 2.2s cubic-bezier(0.16, 1, 0.3, 1),
+          opacity 1.5s ease;
       }
 
-      .invite-card {
-        text-align: center;
+      /*
+  Add this class through IntersectionObserver
+  when the section becomes visible.
+*/
+
+      .invite-section.scene-visible .invite-moon-wrap {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+      }
+
+      /* ==========================================================
+   MOON IMAGE
+========================================================== */
+
+      .invite-moon {
+        position: absolute;
+        inset: 0;
         width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+        z-index: 2;
+        filter: drop-shadow(0 0 18px rgba(255, 225, 155, 0.22))
+          drop-shadow(0 0 45px rgba(255, 208, 120, 0.14));
+      }
+
+      /* ==========================================================
+   MOON GLOW
+========================================================== */
+
+      .invite-moon-glow {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 118%;
+        height: 118%;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(255, 224, 158, 0.25) 0%,
+          rgba(255, 210, 130, 0.12) 38%,
+          rgba(255, 205, 120, 0.04) 58%,
+          transparent 72%
+        );
+        filter: blur(16px);
+        z-index: 1;
+        animation: inviteMoonGlow 6s ease-in-out infinite;
+      }
+
+      @keyframes inviteMoonGlow {
+        0%,
+        100% {
+          opacity: 0.65;
+          transform: translate(-50%, -50%) scale(0.96);
+        }
+
+        50% {
+          opacity: 1;
+          transform: translate(-50%, -50%) scale(1.04);
+        }
+      }
+
+      /* ==========================================================
+   INVITATION CONTENT
+========================================================== */
+
+      .invite-content {
+        position: relative;
+        width: min(100%, 680px);
+        margin: auto;
+        z-index: 10;
+        text-align: center;
+        color: #fff2d2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 100px 0;
+      }
+
+      /* ==========================================================
+   GENERAL TEXT REVEAL
+========================================================== */
+
+      .invite-reveal {
+        opacity: 0;
+        transform: translateY(24px);
+        transition:
+          opacity 1.15s ease,
+          transform 1.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+      }
+
+      /* reveal sequentially */
+
+      .invite-section.scene-visible .invite-reveal {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .invite-section.scene-visible .invite-reveal:nth-child(1) {
+        transition-delay: 0.7s;
+      }
+
+      .invite-section.scene-visible .invite-reveal:nth-child(2) {
+        transition-delay: 1s;
+      }
+
+      .invite-section.scene-visible .invite-reveal:nth-child(3) {
+        transition-delay: 1.25s;
+      }
+
+      .invite-section.scene-visible .invite-reveal:nth-child(4) {
+        transition-delay: 1.55s;
+      }
+
+      .invite-section.scene-visible .invite-reveal:nth-child(5) {
+        transition-delay: 1.85s;
+      }
+
+      .invite-section.scene-visible .invite-reveal:nth-child(6) {
+        transition-delay: 2.15s;
+      }
+
+      .invite-section.scene-visible .invite-reveal:nth-child(7) {
+        transition-delay: 2.4s;
+      }
+
+      /* ==========================================================
+   INTRO TEXT
+========================================================== */
+
+      .invite-intro {
+        max-width: 540px;
+        font-family: "Cormorant Garamond", serif;
+        font-size: 19px;
+        font-weight: 400;
+        line-height: 1.65;
+        letter-spacing: 0.015em;
+        color: #f1e8d6;
+      }
+
+      .invite-intro p {
+        margin: 0 0 16px;
+      }
+
+      /* ==========================================================
+   ORNAMENT
+========================================================== */
+
+      .invite-ornament {
+        width: 180px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        margin: 30px auto;
+        color: #d7ad5c;
+      }
+
+      .invite-ornament > span:not(.ornament-diamond) {
+        display: block;
+        width: 52px;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(215, 173, 92, 0.75)
+        );
+      }
+
+      .invite-ornament > span:last-child {
+        transform: rotate(180deg);
+      }
+
+      .ornament-diamond {
+        font-size: 7px;
+        color: #e7c875;
+      }
+
+      /* ==========================================================
+   INVITE HEADING
+========================================================== */
+
+      .invite-heading {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 18px;
+        margin: 5px 0 32px;
+      }
+
+      .invite-heading h2 {
         margin: 0;
-      }
-
-      .flourish {
-        width: 34px;
-        height: 34px;
-        margin: 0 auto 18px;
-        color: var(--cream);
-      }
-
-      .invite-card .blessing {
-        font-size: 14.5px;
-        color: #6b5876;
-        line-height: 1.9;
         font-family: "Jost", sans-serif;
-        font-weight: 300;
-        letter-spacing: 0.02em;
-        max-width: 280px;
-        margin: 0 auto 22px;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.55em;
+        padding-left: 0.55em;
+        color: #17233b;
       }
 
-      .invite-card .invite-word {
-        font-family: "Playfair Display", serif;
-        font-size: 38px;
-        color: var(--gold);
-        font-weight: 700;
+      .invite-heading-decoration {
+        color: #17233b;
+        font-size: 8px;
+        opacity: 0.85;
+      }
+
+      /* ==========================================================
+   FAMILY / PARENTS
+========================================================== */
+
+      .invite-family {
+        width: 100%;
+      }
+
+      .invite-parent-names {
+        margin: 0;
+        font-family: "Cormorant Garamond", serif;
+        font-size: 22px;
+        font-weight: 600;
+        line-height: 1.4;
+        color: #d5a95b;
+      }
+
+      .invite-and {
+        display: inline-block;
+        margin: 0 5px;
+        font-family: "Cormorant Garamond", serif;
+        font-style: italic;
+        color: #d5a95b;
+      }
+
+      .invite-request {
+        margin: 22px 0 0;
+        font-family: "Cormorant Garamond", serif;
+        font-size: 17px;
+        line-height: 1.6;
+        color: #263247;
+      }
+
+      /* ==========================================================
+   COUPLE NAMES
+========================================================== */
+
+      .invite-couple {
+        margin: 42px 0 38px;
+        width: 100%;
+      }
+
+      .invite-name {
+        margin: 0;
+        font-family: "Lumitra", "Yatra One", "Cormorant Garamond", serif;
+        font-size: clamp(44px, 8vw, 72px);
+        line-height: 1;
         letter-spacing: 0.06em;
-        text-shadow: 0 2px 10px rgba(19, 42, 82, 0.3);
+        color: #101d35;
+        text-shadow:
+          0 1px 0 rgba(255, 255, 255, 0.25),
+          0 3px 8px rgba(0, 0, 0, 0.18);
+        font-weight: 600;
       }
 
+      /* ==========================================================
+   AMPERSAND
+========================================================== */
+
+      .invite-ampersand {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 14px;
+        margin: 13px auto;
+      }
+
+      .amp-symbol {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 25px;
+        font-style: italic;
+        color: #02034b;
+      }
+
+      .amp-line {
+        width: 42px;
+        height: 1px;
+        background: #02034b;
+      }
+
+      /* ==========================================================
+   BRIDE FAMILY
+========================================================== */
+
+      .invite-bride-family {
+        width: 100%;
+        color: #e8c76a;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+      }
+
+      .beloved-daughter {
+        margin: 0 0 10px;
+        font-family: "Cormorant Garamond", serif;
+        font-size: 16px;
+        font-style: italic;
+        color: rgba(255, 244, 220, 0.72);
+      }
+
+      /* =========================================
+   INVITE — TWINKLING STARS
+========================================= */
+
+      .invite-star {
+        position: absolute;
+        width: var(--star-size);
+        height: var(--star-size);
+        border-radius: 50%;
+
+        background: #fff4cf;
+
+        opacity: var(--star-opacity);
+
+        box-shadow:
+          0 0 4px rgba(255, 244, 207, 0.9),
+          0 0 9px rgba(231, 194, 122, 0.55);
+
+        animation: inviteTwinkle var(--twinkle-speed) ease-in-out infinite
+          alternate;
+
+        animation-delay: var(--twinkle-delay);
+      }
+
+      @keyframes inviteTwinkle {
+        0% {
+          opacity: 0.18;
+          transform: scale(0.65);
+        }
+
+        50% {
+          opacity: 0.9;
+          transform: scale(1.25);
+        }
+
+        100% {
+          opacity: 0.35;
+          transform: scale(0.85);
+        }
+      }
+
+      /* ==========================================================
+   MOBILE
+========================================================== */
+
+      @media (max-width: 767px) {
+        .invite-section {
+          min-height: 135svh;
+          padding: 80px 22px 100px;
+        }
+
+        /* Bigger moon on phone */
+
+        .invite-moon-wrap {
+          width: 125vw;
+          top: 52%;
+          transform: translate(-50%, 50%) scale(0.92);
+        }
+
+        .invite-section.scene-visible .invite-moon-wrap {
+          transform: translate(-50%, -50%) scale(1);
+        }
+
+        .invite-content {
+          width: 100%;
+          padding: 80px 0 70px;
+        }
+
+        /* intro */
+
+        .invite-intro {
+          font-size: 15px;
+          line-height: 1.65;
+          max-width: 330px;
+        }
+
+        .invite-intro p {
+          margin-bottom: 14px;
+        }
+
+        /* divider */
+
+        .invite-ornament {
+          margin: 24px auto;
+          width: 145px;
+        }
+
+        .invite-ornament > span:not(.ornament-diamond) {
+          width: 42px;
+        }
+
+        /* INVITE */
+
+        .invite-heading {
+          margin-bottom: 28px;
+          gap: 12px;
+        }
+
+        .invite-heading h2 {
+          font-size: 11px;
+          letter-spacing: 0.5em;
+          padding-left: 0.5em;
+        }
+
+        /* parents */
+
+        .invite-parent-names {
+          font-size: 18px;
+          line-height: 1.45;
+        }
+
+        .invite-parent-names .invite-and {
+          margin: 0 3px;
+        }
+
+        .invite-request {
+          font-size: 14px;
+          line-height: 1.65;
+          max-width: 320px;
+          margin: 18px auto 0;
+        }
+
+        /* names */
+
+        .invite-couple {
+          margin: 35px 0 32px;
+        }
+
+        .invite-name {
+          font-size: clamp(42px, 14vw, 58px);
+
+          letter-spacing: 0.025em;
+        }
+
+        .invite-ampersand {
+          margin: 10px auto;
+        }
+
+        .amp-symbol {
+          font-size: 22px;
+        }
+
+        .amp-line {
+          width: 34px;
+        }
+
+        .beloved-daughter {
+          font-size: 14px;
+        }
+      }
+
+      /* ==========================================================
+   SMALL MOBILE
+========================================================== */
+
+      @media (max-width: 380px) {
+        .invite-section {
+          padding-left: 16px;
+          padding-right: 16px;
+        }
+
+        .invite-content {
+          padding-top: 65px;
+        }
+
+        .invite-intro {
+          font-size: 14px;
+        }
+
+        .invite-parent-names {
+          font-size: 17px;
+        }
+
+        .invite-name {
+          font-size: 43px;
+        }
+      }
+
+      /* ==========================================================
+   REDUCED MOTION
+========================================================== */
+
+      @media (prefers-reduced-motion: reduce) {
+        .invite-moon-wrap,
+        .invite-reveal {
+          transition: none;
+        }
+
+        .invite-moon-glow {
+          animation: none;
+        }
+      }
       /* ===================== COUNTDOWN ===================== */
       .countdown-section {
         padding: 0px 20px;
@@ -2189,7 +2650,6 @@
       .map-btn:hover span {
         transform: translateX(6px);
       }
-      /* ===================== RSVP (navy Rajasthani pattern) ===================== */
       /*==============================
                  RSVP SECTION
          ===============================*/
@@ -2211,9 +2671,7 @@
 
       .rsvp-content {
         max-width: 520px;
-
         margin: auto;
-
         text-align: center;
       }
 
@@ -2223,31 +2681,22 @@
 
       .rsvp-section .divider {
         display: flex;
-
         align-items: center;
-
         justify-content: center;
-
         gap: 14px;
-
         margin-bottom: 22px;
       }
 
       .rsvp-section .ln {
         width: 70px;
-
         height: 1px;
-
         background: rgba(216, 180, 106, 0.35);
       }
 
       .rsvp-section .diamond {
         width: 8px;
-
         height: 8px;
-
         background: #d8b46a;
-
         transform: rotate(45deg);
       }
 
@@ -2257,17 +2706,11 @@
 
       .rsvp-section .section-tag {
         display: inline-block;
-
         margin-bottom: 16px;
-
         font-family: "Jost", sans-serif;
-
         font-size: 11px;
-
         letter-spacing: 0.35em;
-
         text-transform: uppercase;
-
         color: rgba(233, 216, 181, 0.72);
       }
 
@@ -2277,13 +2720,9 @@
 
       .rsvp-section .section-title {
         font-family: "Modernline", serif;
-
         font-size: clamp(58px, 9vw, 74px);
-
         font-weight: 400;
-
         color: #f6e7c7;
-
         margin-bottom: 18px;
       }
 
@@ -2293,19 +2732,14 @@
 
       .rsvp-section .section-lede {
         font-family: "Jost", sans-serif;
-
         font-size: 16px;
-
         line-height: 1.9;
-
         color: rgba(255, 255, 255, 0.72);
-
         margin: 0 auto 48px;
       }
 
       .rsvp-section .section-lede strong {
         color: #f6e7c7;
-
         font-weight: 500;
       }
 
@@ -3250,50 +3684,105 @@
       </div>
       <div class="scroll-cue"></div>
     </section>
-    <!-- ============ INVITATION ============ -->
-    <section class="invite-band invite-card">
-      <!-- Vinayagar -->
-      <img
-        class="ganesha reveal"
-        src="assets/vinayaga.png"
-        alt="Lord Ganesha"
-      />
+    <!-- =========================================================
+     INVITATION SECTION
+========================================================= -->
+    <section class="invite-section" id="invite">
+      <!-- STAR BACKGROUND -->
+      <!-- We can reuse your Story section star animation here -->
+      <div class="invite-stars" aria-hidden="true"></div>
+      <!-- SHOOTING STARS -->
+      <div class="invite-shooting-stars" aria-hidden="true"></div>
+      <!-- =====================================================
+       MOON
+       Starts below the viewport and rises when section enters
+  ====================================================== -->
+      <div class="invite-moon-wrap" aria-hidden="true">
+        <div class="invite-moon-glow"></div>
 
-      <p class="blessing reveal">
-        With the divine blessings of Lord Ganesha<br />
-        and the love of our beloved parents,<br />
-        we warmly invite you to join us<br />
-        as we begin a beautiful journey of togetherness.
-      </p>
-
-      <h1 class="invite-title reveal">INVITE</h1>
-
-      <div class="parents reveal">
-        <p class="parents-name">Mr.S A Subramaniam & Mrs.S Suchitra</p>
-        <p class="invite-text">
-          request the honour of your gracious presence<br />
-          at the wedding ceremony of their beloved son
-        </p>
-        <h2 class="couple-name">PRADEEP</h2>
-        <div class="amp">&</div>
-        <h2 class="couple-name">NIVEDITHA</h2>
-        <p class="invite-text">beloved daughter of</p>
-        <p class="parents-name">Mr.N Amaran & Mrs.K Jothi</p>
+        <img src="assets/moon.png" class="invite-moon" alt="" />
       </div>
+      <!-- =====================================================
+       INVITATION CONTENT
+  ====================================================== -->
+      <div class="invite-content">
+        <!-- INTRO MESSAGE -->
+        <div class="invite-intro invite-reveal">
+          <p>
+            With the divine blessings of Lord Ganesha<br />
+            and the love of our beloved parents,
+          </p>
 
-      <div class="invite-scene">
-        <img
-          src="assets/mountain.svg"
-          class="invite-mountains"
-          data-speed="0.03"
-          alt=""
-        />
-        <img
-          src="assets/output-onlinepngtools.png"
-          class="invite-temple"
-          data-speed="0.08"
-          alt=""
-        />
+          <p>
+            we warmly invite you to join us<br />
+            as we begin a beautiful journey of togetherness.
+          </p>
+        </div>
+
+        <!-- ORNAMENT -->
+
+        <div class="invite-ornament invite-reveal" aria-hidden="true">
+          <span></span>
+          <span class="ornament-diamond">◆</span>
+          <span></span>
+        </div>
+
+        <!-- INVITE -->
+
+        <div class="invite-heading invite-reveal">
+          <span class="invite-heading-decoration">✦</span>
+
+          <h2>INVITE</h2>
+
+          <span class="invite-heading-decoration">✦</span>
+        </div>
+
+        <!-- GROOM'S PARENTS -->
+
+        <div class="invite-family invite-reveal">
+          <p class="invite-parent-names">
+            Mr. S A Subramaniam
+            <span class="invite-and">&amp;</span>
+            Mrs. S Suchitra
+          </p>
+
+          <p class="invite-request">
+            request the honour of your gracious presence<br />
+            at the wedding ceremony of their beloved son
+          </p>
+        </div>
+
+        <!-- COUPLE -->
+
+        <div class="invite-couple invite-reveal">
+          <h3 class="invite-name">PRADEEP</h3>
+          <div class="invite-ampersand">
+            <span class="amp-line"></span>
+            <span class="amp-symbol">&amp;</span>
+            <span class="amp-line"></span>
+          </div>
+
+          <h3 class="invite-name">NIVEDITHA</h3>
+        </div>
+
+        <!-- BRIDE FAMILY -->
+
+        <div class="invite-bride-family invite-reveal">
+          <p class="beloved-daughter">beloved daughter of</p>
+          <p class="invite-parent-names">
+            Mr. N Amaran
+            <span class="invite-and">&amp;</span>
+            Mrs. K Jothi
+          </p>
+        </div>
+
+        <!-- FINAL ORNAMENT -->
+
+        <div class="invite-ornament invite-reveal" aria-hidden="true">
+          <span></span>
+          <span class="ornament-diamond">◆</span>
+          <span></span>
+        </div>
       </div>
     </section>
 
@@ -4507,27 +4996,51 @@
     );
     revealEls.forEach((el) => io.observe(el));
 
-    const inviteSection = document.querySelector(".invite-band");
-    const temple = document.querySelector(".invite-temple");
-    const mountains = document.querySelector(".invite-mountains");
-    const sceneObserver = new IntersectionObserver(
+    // ---------------- INVITATION ----------------
+    const inviteSection = document.querySelector(".invite-section");
+    const inviteObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            temple.classList.add("scene-visible");
-            mountains.classList.add("scene-visible");
-          } else {
-            temple.classList.remove("scene-visible");
-            mountains.classList.remove("scene-visible");
+            inviteSection.classList.add("scene-visible");
           }
         });
       },
       {
-        threshold: 0.35,
+        threshold: 0.18,
       },
     );
 
-    sceneObserver.observe(temple);
+    inviteObserver.observe(inviteSection);
+
+    const inviteStars = document.querySelector(".invite-stars");
+
+    if (inviteStars) {
+      const STAR_COUNT = window.innerWidth <= 767 ? 55 : 85;
+
+      for (let i = 0; i < STAR_COUNT; i++) {
+        const star = document.createElement("span");
+
+        star.className = "invite-star";
+
+        const size = 1 + Math.random() * 2.2;
+        const opacity = 0.3 + Math.random() * 0.6;
+        const speed = 1.8 + Math.random() * 3;
+        const delay = -(Math.random() * speed);
+
+        star.style.left = `${Math.random() * 100}%`;
+        star.style.top = `${Math.random() * 100}%`;
+
+        star.style.setProperty("--star-size", `${size}px`);
+        star.style.setProperty("--star-opacity", opacity);
+        star.style.setProperty("--twinkle-speed", `${speed}s`);
+        star.style.setProperty("--twinkle-delay", `${delay}s`);
+
+        inviteStars.appendChild(star);
+      }
+    }
+
+    // ---------------- COUNTDOWN ----------------
 
     const weddingDate = new Date("2026-09-13T09:00:00");
     function updateCountdown() {
@@ -4773,9 +5286,7 @@
 
     function updateMusicButton() {
       const playing = !bgMusic.paused;
-
       musicToggle.classList.toggle("muted", !playing);
-
       musicToggle.setAttribute(
         "aria-label",
         playing ? "Mute music" : "Play music",
@@ -4791,15 +5302,11 @@
 
       try {
         await bgMusic.play();
-
         musicStarted = true;
-
         updateMusicButton();
-
         return true;
       } catch (error) {
         updateMusicButton();
-
         return false;
       }
     }
@@ -4817,9 +5324,6 @@
    ========================================= */
 
     async function unlockMusic(event) {
-      /* IMPORTANT:
-     Don't interfere with music button itself
-  */
       if (
         event &&
         event.target.closest &&
@@ -4827,11 +5331,8 @@
       ) {
         return;
       }
-
       if (userMuted || musicStarted) return;
-
       const played = await playMusic();
-
       if (played) {
         removeUnlockListeners();
       }
@@ -4844,9 +5345,7 @@
     }
 
     document.addEventListener("pointerdown", unlockMusic, { passive: true });
-
     document.addEventListener("touchstart", unlockMusic, { passive: true });
-
     document.addEventListener("scroll", unlockMusic, { passive: true });
 
     /* =========================================
@@ -4856,26 +5355,18 @@
     musicToggle.addEventListener("click", async (event) => {
       event.preventDefault();
       event.stopPropagation();
-
       /* CLICK ANIMATION */
-
       musicToggle.classList.remove("clicked");
-
       void musicToggle.offsetWidth;
-
       musicToggle.classList.add("clicked");
-
       /* =====================================
      MUSIC CURRENTLY PLAYING → MUTE
      ===================================== */
 
       if (!bgMusic.paused) {
         userMuted = true;
-
         bgMusic.pause();
-
         updateMusicButton();
-
         return;
       }
 
@@ -4887,15 +5378,11 @@
 
       try {
         await bgMusic.play();
-
         musicStarted = true;
-
         updateMusicButton();
-
         removeUnlockListeners();
       } catch (error) {
         console.log("Unable to play music:", error);
-
         updateMusicButton();
       }
     });
