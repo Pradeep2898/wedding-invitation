@@ -106,9 +106,12 @@
         overflow: hidden;
         background: linear-gradient(
           180deg,
-          var(--sky-top) 0%,
-          var(--sky-mid) 55%,
-          var(--sky-horizon) 100%
+          #010611 0%,
+          #05142a 24%,
+          #092747 50%,
+          #124665 74%,
+          #397486 90%,
+          #718f91 100%
         );
         padding: 0 !important;
       }
@@ -142,6 +145,14 @@
         top: 28%;
         left: -82%;
         opacity: 0.95;
+      }
+
+      .hero-cloud.lower {
+        width: 135%;
+        top: 60%;
+        left: auto;
+        right: -66%;
+        opacity: 0.68;
       }
 
       /* ==========================================================
@@ -669,6 +680,13 @@
       }
 
       .hero-stage .hero-name.weds {
+        font-family: "Jost", sans-serif;
+        font-size: 12px;
+        font-weight: 800;
+        color: var(--terracotta);
+        text-transform: uppercase;
+        letter-spacing: 0.4em;
+        text-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
         margin: 0;
       }
 
@@ -678,13 +696,15 @@
 
       .hero-name {
         font-family: "Lumitra", "Yatra One", serif;
-        color: #e8c76a;
+        color: #d9a62e;
+        text-shadow:
+          0 1px 0 #f8df91,
+          0 2px 0 #bd7f18,
+          0 4px 5px rgba(65, 38, 12, 0.38),
+          0 8px 18px rgba(35, 22, 8, 0.22);
         font-size: clamp(58px, 18vw, 108px);
         line-height: 0.5;
         letter-spacing: 0.06em;
-        text-shadow:
-          0 4px 12px rgba(0, 0, 0, 0.35),
-          0 0 26px rgba(0, 0, 0, 0.25);
       }
 
       /* ===================== HERO ARCH ===================== */
@@ -1098,9 +1118,10 @@
         z-index: 1;
         background: linear-gradient(
           180deg,
-          #f6b067 0%,
-          #f8c988 35%,
-          #f9e0ba 100%
+          #15090d 0%,
+          #2a0d18 30%,
+          #481527 62%,
+          #742b40 100%
         );
       }
 
@@ -2829,49 +2850,98 @@
       HERO MOBILE
       ========================================================== */
 
+      /* mobile assets hidden on desktop */
+      .hero-arch-mobile,
+      .hero-pillars-mobile {
+        display: none;
+      }
+
       @media (max-width: 767px) {
-        /* Much shorter scroll journey */
+        /* =========================
+     HERO
+     ========================= */
+
         .hero-sky {
-          height: 90svh;
-          min-height: 90svh;
+          position: relative;
+          height: 120svh;
+          min-height: 120svh;
+          overflow: hidden;
         }
 
-        /* ---------- ARCH ---------- */
+        /* =========================
+     DESKTOP ARCH OFF
+     ========================= */
+
+        .hero-arch-desktop {
+          display: none;
+        }
 
         .hero-frame {
-          height: 100svh;
-        }
-
-        .hero-arch-frame {
+          position: absolute;
           top: 0;
-          left: 50%;
-
-          width: 100vw;
-          height: 100svh;
-
-          object-fit: fill;
-          object-position: center top;
-
-          transform: translateX(-50%);
-          max-width: none;
+          left: 0;
+          width: 100%;
+          height: 220svh;
+          z-index: 40;
+          pointer-events: none;
+          display: flex;
+          flex-direction: column;
+          align-items: stretch;
+          overflow: hidden;
         }
 
-        /* ---------- NAMES ---------- */
+        .hero-arch-mobile {
+          display: block;
+          position: relative;
+          top: auto;
+          left: auto;
+          width: 100vw;
+          height: auto;
+          max-width: none;
+          flex: 0 0 auto;
+          z-index: 2;
+        }
+
+        .hero-pillars-mobile {
+          display: block;
+          position: relative;
+          top: auto;
+          left: auto;
+          bottom: auto;
+          width: 100vw;
+          height: auto;
+          /* min-height: 120svh; */
+          max-width: none;
+          object-fit: fill;
+          /* tiny overlap removes seam */
+          margin-top: -2px;
+          flex: none;
+          z-index: 1;
+        }
+
+        /* =========================
+     NAMES
+     ========================= */
 
         .hero-stage {
           position: sticky;
           top: 0;
           width: 100%;
           height: 100svh;
-          padding-top: 0svh;
           display: flex;
+          flex-direction: column;
           justify-content: center;
           align-items: center;
+          padding-top: 0;
+          z-index: 30;
+          pointer-events: none;
         }
 
         .hero-name {
+          width: 100%;
           font-size: clamp(50px, 15vw, 68px);
           line-height: 0.58;
+          text-align: center;
         }
 
         .hero-stage .hero-name.top {
@@ -2880,9 +2950,9 @@
 
         .hero-stage .hero-name.weds {
           margin: 0;
+          font-family: "Jost", sans-serif;
           font-size: 12px;
           font-weight: 800;
-          font-family: "Jost", sans-serif;
           color: var(--terracotta);
           text-transform: uppercase;
           letter-spacing: 0.4em;
@@ -2893,20 +2963,20 @@
           margin-top: 20px;
         }
 
-        /* ---------- COUPLE ---------- */
+        /* =========================
+     COUPLE
+     ========================= */
 
         .arch-photo-wrap {
           position: absolute;
-
           left: 50%;
+          /* top: 105svh; */
           bottom: 0;
-
           width: 135vw;
           max-width: none;
-
           margin: 0;
-
-          transform: translateX(-50%);
+          transform: translateX(-50%, -22 svh) !important;
+          z-index: 20;
         }
 
         .temple-photo {
@@ -2916,7 +2986,9 @@
           max-width: none;
         }
 
-        /* ---------- CLOUDS ---------- */
+        /* =========================
+     CLOUDS
+     ========================= */
 
         .hero-cloud.far {
           width: 175vw;
@@ -2924,6 +2996,196 @@
 
         .hero-cloud.near {
           width: 170vw;
+        }
+      }
+
+      /* =========================
+     MUSICS
+     ========================= */
+      .music-toggle {
+        position: fixed;
+
+        right: 20px;
+        bottom: 22px;
+
+        width: 46px;
+        height: 46px;
+
+        padding: 0;
+        border-radius: 50%;
+
+        border: 1px solid rgba(255, 224, 155, 0.45);
+
+        background: rgba(7, 18, 38, 0.58);
+
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+
+        color: #f2d584;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        z-index: 9999;
+
+        cursor: pointer;
+
+        box-shadow:
+          0 4px 15px rgba(0, 0, 0, 0.25),
+          inset 0 0 12px rgba(255, 220, 145, 0.07);
+
+        transition:
+          transform 0.25s ease,
+          background 0.3s ease,
+          box-shadow 0.3s ease;
+
+        overflow: hidden;
+      }
+
+      /* actual speaker */
+
+      .music-svg {
+        position: absolute;
+
+        width: 21px;
+        height: 21px;
+
+        z-index: 2;
+
+        transition:
+          opacity 0.25s ease,
+          transform 0.3s ease;
+      }
+
+      .icon-sound {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      .icon-muted {
+        opacity: 0;
+        transform: scale(0.6);
+      }
+
+      /* =========================
+   MUTED STATE
+   ========================= */
+
+      .music-toggle.muted .icon-sound {
+        opacity: 0;
+        transform: scale(0.6);
+      }
+
+      .music-toggle.muted .icon-muted {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      .music-toggle.muted {
+        color: rgba(255, 255, 255, 0.65);
+
+        background: rgba(7, 18, 38, 0.42);
+      }
+
+      /* =========================
+   MUSIC PLAYING GLOW
+   ========================= */
+
+      .music-toggle:not(.muted) {
+        animation: musicGlow 3s ease-in-out infinite;
+      }
+
+      @keyframes musicGlow {
+        0%,
+        100% {
+          box-shadow:
+            0 4px 15px rgba(0, 0, 0, 0.25),
+            0 0 0 rgba(242, 213, 132, 0);
+        }
+
+        50% {
+          box-shadow:
+            0 4px 15px rgba(0, 0, 0, 0.25),
+            0 0 16px rgba(242, 213, 132, 0.25);
+        }
+      }
+
+      /* =========================
+   CLICK ANIMATION
+   ========================= */
+
+      .music-toggle.clicked {
+        animation: musicClick 0.42s ease;
+      }
+
+      @keyframes musicClick {
+        0% {
+          transform: scale(1);
+        }
+
+        35% {
+          transform: scale(0.82) rotate(-8deg);
+        }
+
+        70% {
+          transform: scale(1.12) rotate(5deg);
+        }
+
+        100% {
+          transform: scale(1) rotate(0);
+        }
+      }
+
+      /* little expanding ring */
+
+      .music-ripple {
+        position: absolute;
+
+        width: 100%;
+        height: 100%;
+
+        border-radius: 50%;
+
+        border: 1px solid rgba(242, 213, 132, 0.65);
+
+        opacity: 0;
+
+        pointer-events: none;
+      }
+
+      .music-toggle.clicked .music-ripple {
+        animation: musicRipple 0.55s ease-out;
+      }
+
+      @keyframes musicRipple {
+        0% {
+          transform: scale(0.65);
+          opacity: 0.7;
+        }
+
+        100% {
+          transform: scale(1.5);
+          opacity: 0;
+        }
+      }
+
+      /* MOBILE */
+
+      @media (max-width: 767px) {
+        .music-toggle {
+          right: 15px;
+
+          /* safer on iPhones with bottom inset */
+          bottom: calc(18px + env(safe-area-inset-bottom));
+
+          width: 43px;
+          height: 43px;
+        }
+
+        .music-svg {
+          width: 20px;
+          height: 20px;
         }
       }
     </style>
@@ -2950,12 +3212,27 @@
       <div class="hero-clouds" aria-hidden="true">
         <img class="hero-cloud far" src="assets/cloud.png" alt="" />
         <img class="hero-cloud near" src="assets/cloud.png" alt="" />
+        <img class="hero-cloud lower" src="assets/cloud.png" alt="" />
       </div>
 
       <div class="hero-leaves" id="heroLeaves" aria-hidden="true"></div>
-      <!-- NEW: dedicated frame layer, always exactly one screen tall -->
-      <div class="hero-frame">
-        <img class="hero-arch-frame" src="assets/arch-3.png" alt="" />
+      <div class="hero-frame" aria-hidden="true">
+        <!-- Desktop arch -->
+        <img
+          class="hero-arch-frame hero-arch-desktop"
+          src="assets/arch-3.png"
+          alt=""
+        />
+
+        <!-- Mobile top arch -->
+        <img class="hero-arch-mobile" src="assets/arch-3-mobile.png" alt="" />
+
+        <!-- Mobile continuation -->
+        <img
+          class="hero-pillars-mobile"
+          src="assets/arch-pillars-mobile.png"
+          alt=""
+        />
       </div>
 
       <div class="hero-spacer"></div>
@@ -2967,7 +3244,7 @@
       <div class="arch-photo-wrap">
         <img
           class="temple-photo"
-          src="assets/couple.png"
+          src="assets/couple-1.png"
           alt="Temple riverside illustration"
         />
       </div>
@@ -3996,6 +4273,49 @@
       <div class="monogram reveal">Pradeep &amp; Niveditha</div>
       <p class="reveal">With love &amp; gratitude</p>
     </footer>
+    <audio id="bgMusic" loop preload="auto">
+      <source src="assets/Aga Naga.mp3" type="audio/mpeg" />
+    </audio>
+
+    <button
+      id="musicToggle"
+      class="music-toggle"
+      type="button"
+      aria-label="Mute music"
+    >
+      <span class="music-ripple"></span>
+
+      <!-- Playing -->
+      <svg class="music-svg icon-sound" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor" />
+        <path
+          d="M16 8.5c1.3 1.8 1.3 5.2 0 7"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.7"
+          stroke-linecap="round"
+        />
+        <path
+          d="M18.7 6.2c2.5 3.2 2.5 8.4 0 11.6"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.7"
+          stroke-linecap="round"
+        />
+      </svg>
+
+      <!-- Muted -->
+      <svg class="music-svg icon-muted" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor" />
+        <path
+          d="M16 9l5 6M21 9l-5 6"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+        />
+      </svg>
+    </button>
   </body>
 
   <script>
@@ -4094,59 +4414,56 @@
 
         heroStage.style.transform = `translate3d(0, ${nameMove}px, 0)`;
 
-        /*
-         * Start fading only near the end,
-         * when temple is naturally entering.
-         */
+        const coupleImg = heroTemple.querySelector(".temple-photo");
+        const coupleRect = coupleImg.getBoundingClientRect();
 
-        const fadeStart = 0.68;
-        const fadeEnd = 0.88;
+        /*
+         * Approximate where visible couple artwork actually starts
+         * inside the PNG.
+         */
+        const artworkOffset = coupleRect.height * 0.18;
+
+        const visibleCoupleTop = coupleRect.top + artworkOffset;
+
+        const fadeStartY = window.innerHeight * 0.72;
+        const fadeEndY = window.innerHeight * 0.5;
 
         const fadeProgress = Math.min(
           1,
-          Math.max(0, (heroProgress - fadeStart) / (fadeEnd - fadeStart)),
+          Math.max(
+            0,
+            (fadeStartY - visibleCoupleTop) / (fadeStartY - fadeEndY),
+          ),
         );
 
         heroStage.style.opacity = (1 - fadeProgress).toFixed(3);
       }
 
       /* =========================================
-     TEMPLE
-
-     DO ABSOLUTELY NOTHING.
-
-     It is sitting at bottom:0 in CSS.
-     Normal document scrolling reveals it.
-     ========================================= */
-
-      /* =========================================
      CLOUD PARALLAX
      ========================================= */
 
       heroClouds.forEach(({ el, opacity }, index) => {
-        const speed = index === 0 ? 0.2 : 0.32;
+        let speed;
 
-        el.style.transform = `translate3d(
-        0,
-        ${heroScrolled * speed}px,
-        0
-      )`;
+        if (el.classList.contains("far")) {
+          speed = 0.18;
+        } else if (el.classList.contains("near")) {
+          speed = 0.3;
+        } else {
+          speed = 0.23;
+        }
 
-        /*
-         * Clouds slowly disappear near bottom
-         * of hero.
-         */
+        const cloudMove = heroScrolled * speed;
 
-        const cloudFadeStart = 0.7;
-        const cloudFadeEnd = 0.95;
-        const cloudFadeProgress = Math.min(
-          1,
-          Math.max(
-            0,
-            (heroProgress - cloudFadeStart) / (cloudFadeEnd - cloudFadeStart),
-          ),
-        );
-        el.style.opacity = (opacity * (1 - cloudFadeProgress)).toFixed(3);
+        if (el.classList.contains("lower")) {
+          // Flip the third cloud so it doesn't look duplicated
+          el.style.transform = `translate3d(0, -${cloudMove}px, 0) scaleX(-1)`;
+        } else {
+          el.style.transform = `translate3d(0, -${cloudMove}px, 0)`;
+        }
+
+        el.style.opacity = opacity;
       });
 
       const heroLeaves = document.querySelectorAll(".hero-leaves .leaf");
@@ -4441,5 +4758,153 @@
 
       leavesContainer.appendChild(leaf);
     }
+
+    const bgMusic = document.getElementById("bgMusic");
+    const musicToggle = document.getElementById("musicToggle");
+
+    bgMusic.volume = 0.22;
+
+    let userMuted = false;
+    let musicStarted = false;
+
+    /* =========================================
+   UPDATE BUTTON
+   ========================================= */
+
+    function updateMusicButton() {
+      const playing = !bgMusic.paused;
+
+      musicToggle.classList.toggle("muted", !playing);
+
+      musicToggle.setAttribute(
+        "aria-label",
+        playing ? "Mute music" : "Play music",
+      );
+    }
+
+    /* =========================================
+   PLAY MUSIC
+   ========================================= */
+
+    async function playMusic() {
+      if (userMuted) return false;
+
+      try {
+        await bgMusic.play();
+
+        musicStarted = true;
+
+        updateMusicButton();
+
+        return true;
+      } catch (error) {
+        updateMusicButton();
+
+        return false;
+      }
+    }
+
+    /* =========================================
+   TRY AUTOPLAY ON LOAD
+   ========================================= */
+
+    window.addEventListener("load", () => {
+      playMusic();
+    });
+
+    /* =========================================
+   AUTOPLAY FALLBACK
+   ========================================= */
+
+    async function unlockMusic(event) {
+      /* IMPORTANT:
+     Don't interfere with music button itself
+  */
+      if (
+        event &&
+        event.target.closest &&
+        event.target.closest("#musicToggle")
+      ) {
+        return;
+      }
+
+      if (userMuted || musicStarted) return;
+
+      const played = await playMusic();
+
+      if (played) {
+        removeUnlockListeners();
+      }
+    }
+
+    function removeUnlockListeners() {
+      document.removeEventListener("pointerdown", unlockMusic);
+      document.removeEventListener("touchstart", unlockMusic);
+      document.removeEventListener("scroll", unlockMusic);
+    }
+
+    document.addEventListener("pointerdown", unlockMusic, { passive: true });
+
+    document.addEventListener("touchstart", unlockMusic, { passive: true });
+
+    document.addEventListener("scroll", unlockMusic, { passive: true });
+
+    /* =========================================
+   MUSIC BUTTON
+   ========================================= */
+
+    musicToggle.addEventListener("click", async (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+
+      /* CLICK ANIMATION */
+
+      musicToggle.classList.remove("clicked");
+
+      void musicToggle.offsetWidth;
+
+      musicToggle.classList.add("clicked");
+
+      /* =====================================
+     MUSIC CURRENTLY PLAYING → MUTE
+     ===================================== */
+
+      if (!bgMusic.paused) {
+        userMuted = true;
+
+        bgMusic.pause();
+
+        updateMusicButton();
+
+        return;
+      }
+
+      /* =====================================
+     MUSIC CURRENTLY PAUSED → PLAY
+     ===================================== */
+
+      userMuted = false;
+
+      try {
+        await bgMusic.play();
+
+        musicStarted = true;
+
+        updateMusicButton();
+
+        removeUnlockListeners();
+      } catch (error) {
+        console.log("Unable to play music:", error);
+
+        updateMusicButton();
+      }
+    });
+
+    /* =========================================
+   KEEP UI SYNCHRONIZED
+   ========================================= */
+
+    bgMusic.addEventListener("play", updateMusicButton);
+    bgMusic.addEventListener("pause", updateMusicButton);
   </script>
 </html>
