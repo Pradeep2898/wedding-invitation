@@ -1510,6 +1510,68 @@
         font-size: 12px;
         color: rgba(255, 255, 255, 0.8);
       }
+      .countdown-finale {
+        display: none;
+        text-align: center;
+        opacity: 0;
+        transform: translateY(20px) scale(0.96);
+      }
+      /* When countdown has finished */
+      .countdown-section.countdown-finished .countdown {
+        display: none;
+      }
+      .countdown-section.countdown-finished .countdown-finale {
+        display: block;
+        animation: finaleReveal 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+      }
+      .finale-small {
+        display: block;
+        margin-bottom: 12px;
+        font-family: "Cormorant Garamond", serif;
+        font-size: 15px;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        opacity: 0.7;
+      }
+      .finale-title {
+        margin: 0;
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(38px, 6vw, 64px);
+        font-weight: 500;
+        letter-spacing: 0.08em;
+        color: var(--terracotta);
+      }
+      .finale-heart {
+        margin: 14px 0 8px;
+        font-size: 28px;
+        animation: finaleHeart 1.8s ease-in-out infinite;
+      }
+      .finale-names {
+        margin: 0;
+        font-family: "Cormorant Garamond", serif;
+        font-size: 21px;
+        font-style: italic;
+        letter-spacing: 0.05em;
+      }
+      @keyframes finaleReveal {
+        from {
+          opacity: 0;
+          transform: translateY(20px) scale(0.96);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+      @keyframes finaleHeart {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.15);
+        }
+      }
       /* ===================== EVENTS (polaroid card on illustrated strip) ===================== */
       .events-strip {
         background: linear-gradient(180deg, var(--sky-mid), var(--sky-horizon));
@@ -2209,46 +2271,6 @@
         display: block;
         user-select: none;
       }
-      .heart-wrapper {
-        position: absolute;
-        top: 0;
-        left: 50%;
-        bottom: 20px;
-        transform: translateX(-50%);
-        opacity: 0;
-        z-index: 4;
-      }
-      /* .heart-wrapper.show {
-                 opacity: 1;
-                 transition:
-                   opacity 0.6s ease,
-                   transform 0.6s ease;
-               } */
-      .heart-wrapper.show .heart {
-        animation: heartbeat 1.4s ease-in-out infinite;
-      }
-      .heart {
-        width: 64px;
-        display: block;
-      }
-      @keyframes heartbeat {
-        0%,
-        100% {
-          transform: scale(1);
-        }
-        15% {
-          transform: scale(1.18);
-        }
-        30% {
-          transform: scale(1);
-        }
-        45% {
-          transform: scale(1.12);
-        }
-        60% {
-          transform: scale(1);
-        }
-      }
       .photo-stack {
         position: absolute;
         left: 50%;
@@ -2259,8 +2281,8 @@
         opacity: 0;
         pointer-events: none;
         transition:
-          opacity 2.8s ease,
-          transform 1.9s cubic-bezier(0.22, 0.61, 0.36, 1);
+          opacity 1s ease,
+          transform 1.5s cubic-bezier(0.22, 0.61, 0.36, 1);
         z-index: 6;
       }
       .photo-stack.show {
@@ -4137,6 +4159,12 @@
           <span class="lbl">Seconds</span>
         </div>
       </div>
+      <div class="countdown-finale" id="countdownFinale">
+        <span class="finale-small" id="finaleSmall"></span>
+        <h2 class="finale-title" id="finaleTitle"></h2>
+        <div class="finale-heart">♡</div>
+        <p class="finale-names">Pradeep & Niveditha</p>
+      </div>
       <div class="countdown-icon reveal">
         <img src="assets/weddingfloral.svg" alt="" />
       </div>
@@ -4445,23 +4473,20 @@
     const section = document.querySelector(".functions-section");
     const birds = document.querySelector(".birds");
     const functionContent = document.querySelector(".function-content");
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const entry = entries[0];
+    const functionObserver = new IntersectionObserver(
+      ([entry]) => {
         if (entry.isIntersecting) {
           functionContent.classList.add("show");
-          birds.classList.add("show");
-        }
-        if (entry.intersectionRatio === 0) {
+        } else {
           functionContent.classList.remove("show");
-          birds.classList.remove("show");
         }
       },
       {
         threshold: 0,
+        rootMargin: "0px 0px -18% 0px",
       },
     );
-    observer.observe(section);
+    functionObserver.observe(functionContent);
     // ---- Scroll-linked parallax for hero illustration layers ----
     // ============================================================
     // HERO SCROLL / PARALLAX
@@ -4572,7 +4597,8 @@
         });
       },
       {
-        threshold: 0.15,
+        threshold: 0,
+        rootMargin: "0px 0px -22% 0px",
       },
     );
     revealEls.forEach((el) => io.observe(el));
@@ -4582,12 +4608,17 @@
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
+            // ENTERING → play animation
             inviteSection.classList.add("scene-visible");
+          } else {
+            // LEFT SECTION → reset animation
+            inviteSection.classList.remove("scene-visible");
           }
         });
       },
       {
-        threshold: 0.18,
+        threshold: 0,
+        rootMargin: "0px 0px -20% 0px",
       },
     );
     inviteObserver.observe(inviteSection);
@@ -4617,32 +4648,84 @@
     }
     // ---------------- COUNTDOWN ----------------
     const weddingDate = new Date("2026-09-13T09:00:00");
+    /* Wedding-day celebration starts at 4 AM */
+    const weddingDayStart = new Date("2026-09-13T04:00:00");
+    /*
+  Keep "THE DAY IS HERE" until the Sep 13 10:30 am.
+*/
+    const weddingDayEnd = new Date("2026-09-13T10:30:00");
+    const countdownTitle = document.querySelector(".countdown-title");
+    const countdownSubtitle = document.querySelector(".countdown-subtitle");
+    const daysEl = document.getElementById("cd-days");
+    const hoursEl = document.getElementById("cd-hours");
+    const minsEl = document.getElementById("cd-mins");
+    const secsEl = document.getElementById("cd-secs");
+    function setCounter(diff) {
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+      /*
+    Don't force days to only 2 digits.
+    After 100 days it can naturally show 100, 365, etc.
+  */
+      daysEl.textContent =
+        days < 100 ? String(days).padStart(2, "0") : String(days);
+      hoursEl.textContent = String(hours).padStart(2, "0");
+      minsEl.textContent = String(minutes).padStart(2, "0");
+      secsEl.textContent = String(seconds).padStart(2, "0");
+    }
     function updateCountdown() {
       const now = new Date();
-      let diff = weddingDate - now;
-      if (diff < 0) diff = 0;
-      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const m = Math.floor((diff / (1000 * 60)) % 60);
-      const s = Math.floor((diff / 1000) % 60);
-      document.getElementById("cd-days").textContent = String(d).padStart(
-        2,
-        "0",
-      );
-      document.getElementById("cd-hours").textContent = String(h).padStart(
-        2,
-        "0",
-      );
-      document.getElementById("cd-mins").textContent = String(m).padStart(
-        2,
-        "0",
-      );
-      document.getElementById("cd-secs").textContent = String(s).padStart(
-        2,
-        "0",
-      );
+      /* =====================================================
+     1. BEFORE WEDDING DAY — before Sep 13, 4 AM
+  ===================================================== */
+      if (now < weddingDayStart) {
+        const diff = weddingDate - now;
+        setCounter(diff);
+        countdownTitle.textContent = "Until Forever";
+        countdownSubtitle.textContent =
+          "Every sunrise brings us one step closer...";
+        return;
+      }
+      /* =====================================================
+     2. WEDDING MORNING — 4 AM until Muhurtham at 9 AM
+     Change the heading to "THE DAY IS HERE"
+     BUT KEEP COUNTING DOWN TO 9 AM
+  ===================================================== */
+      if (now < weddingDate) {
+        const diff = weddingDate - now;
+        setCounter(diff);
+        countdownTitle.textContent = "The Day Is Here";
+        countdownSubtitle.textContent =
+          "Just a few moments until our forever begins ♡";
+        return;
+      }
+      /* =====================================================
+     3. WEDDING DAY — after Muhurtham
+     Sep 13, 9 AM until midnight
+  ===================================================== */
+      if (now < weddingDayEnd) {
+        daysEl.textContent = "00";
+        hoursEl.textContent = "00";
+        minsEl.textContent = "00";
+        secsEl.textContent = "00";
+        countdownTitle.textContent = "Our Forever Begins";
+        countdownSubtitle.textContent =
+          "Bound by tradition, blessed for a lifetime ♡";
+        return;
+      }
+      /* =====================================================
+     4. AFTER WEDDING — count upward
+  ===================================================== */
+      const diff = now - weddingDate;
+      setCounter(diff);
+      countdownTitle.textContent = "Our Forever, So Far";
+      countdownSubtitle.textContent = "Since the sacred knot bound us as one ♡";
     }
+    /* Run immediately */
     updateCountdown();
+    /* Update every second */
     setInterval(updateCountdown, 1000);
     // ---------------- STORY ----------------
     const storySection = document.querySelector(".story-section");
@@ -4660,10 +4743,12 @@
         });
       },
       {
-        threshold: 0.3,
+        threshold: 0,
+        rootMargin: "0px 0px -20% 0px",
       },
     );
-    storyObserver.observe(storySection);
+
+    storyObserver.observe(storyTop);
     const stars = document.querySelector(".stars");
     const isMobile = window.innerWidth <= 768;
     const starCount = isMobile ? 24 : 45;
@@ -4704,10 +4789,11 @@
         });
       },
       {
-        threshold: 0.35,
+        threshold: 0,
+        rootMargin: "0px 0px -18% 0px",
       },
     );
-    momentsObserver.observe(momentsSection);
+    momentsObserver.observe(document.querySelector(".moments-scene"));
     function playMomentsAnimation() {
       leftPerson.classList.add("show");
       rightPerson.classList.add("show");
