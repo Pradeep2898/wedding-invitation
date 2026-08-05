@@ -3116,30 +3116,45 @@
      ========================= */
       .music-toggle {
         position: fixed;
-        right: 20px;
+        right: 18px;
         bottom: 22px;
-        width: 46px;
-        height: 46px;
-        padding: 0;
-        border-radius: 50%;
-        border: 1px solid rgba(255, 224, 155, 0.45);
-        background: rgba(7, 18, 38, 0.58);
-        -webkit-backdrop-filter: blur(10px);
-        backdrop-filter: blur(10px);
-        color: #f2d584;
+
+        width: 48px;
+        height: 48px;
+
         display: flex;
-        justify-content: center;
         align-items: center;
-        z-index: 9999;
-        cursor: pointer;
+        justify-content: center;
+
+        border-radius: 14px;
+
+        background: rgba(255, 255, 255, 0.78);
+
+        border: 1px solid rgba(255, 255, 255, 0.75);
+
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+
         box-shadow:
-          0 4px 15px rgba(0, 0, 0, 0.25),
-          inset 0 0 12px rgba(255, 220, 145, 0.07);
+          0 4px 14px rgba(0, 0, 0, 0.16),
+          inset 0 1px 0 rgba(255, 255, 255, 0.75);
+
+        cursor: pointer;
+        z-index: 9999;
+
         transition:
-          transform 0.25s ease,
-          background 0.3s ease,
-          box-shadow 0.3s ease;
-        overflow: hidden;
+          transform 0.2s ease,
+          background 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+
+      .music-toggle:hover {
+        background: rgba(255, 255, 255, 0.9);
+        transform: translateY(-2px);
+      }
+
+      .music-toggle:active {
+        transform: scale(0.9);
       }
       /* actual speaker */
       .music-svg {
