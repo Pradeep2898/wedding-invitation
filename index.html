@@ -3523,9 +3523,9 @@
       </div>
       <div class="hero-spacer"></div>
       <div class="hero-stage reveal in" style="margin-top: 0">
-        <div class="hero-name top">Pradeep</div>
+        <div id="heroName1" class="hero-name top">Pradeep</div>
         <div class="hero-name weds">Weds</div>
-        <div class="hero-name bottom">Niveditha</div>
+        <div id="heroName2" class="hero-name bottom">Niveditha</div>
       </div>
       <div class="arch-photo-wrap">
         <img
@@ -3586,12 +3586,12 @@
          GROOM'S PARENTS
     ====================================================== -->
         <div class="invite-family invite-reveal">
-          <p class="invite-parent-names">
+          <p class="invite-parent-names" id="invitePrimaryParents">
             Mr. S A Subramaniam
             <span class="invite-and">&amp;</span>
             Mrs. S Suchitra
           </p>
-          <p class="invite-request">
+          <p class="invite-request" id="inviteRequest">
             request the honour of your gracious presence<br />
             at the wedding ceremony of their beloved son
           </p>
@@ -3600,20 +3600,22 @@
          COUPLE
     ====================================================== -->
         <div class="invite-couple invite-reveal">
-          <h3 class="invite-name">PRADEEP</h3>
+          <h3 class="invite-name" id="inviteName1">PRADEEP</h3>
           <div class="invite-ampersand">
             <span class="amp-line"></span>
             <span class="amp-symbol">&amp;</span>
             <span class="amp-line"></span>
           </div>
-          <h3 class="invite-name">NIVEDITHA</h3>
+          <h3 class="invite-name" id="inviteName2">NIVEDITHA</h3>
         </div>
         <!-- =====================================================
          BRIDE'S PARENTS
     ====================================================== -->
         <div class="invite-bride-family invite-reveal">
-          <p class="beloved-daughter">beloved daughter of</p>
-          <p class="invite-parent-names">
+          <p class="beloved-daughter" id="inviteSecondaryRelation">
+            beloved daughter of
+          </p>
+          <p class="invite-parent-names" id="inviteSecondaryParents">
             Mr. N Amaran
             <span class="invite-and">&amp;</span>
             Mrs. K Jothi
@@ -5048,6 +5050,9 @@
     const bgMusic = document.getElementById("bgMusic");
     const musicToggle = document.getElementById("musicToggle");
     bgMusic.volume = 0.22;
+    /* Select music based on groom/bride link */
+    // bgMusic.src = currentInvite.music;
+    // bgMusic.load();
     let userMuted = false;
     let musicStarted = false;
     /* =========================================
@@ -5326,6 +5331,96 @@
           rsvpForm.style.transform = "translateY(0)";
         });
       }, 350);
+    }
+    /* =========================================================
+   GROOM / BRIDE SIDE INVITATION
+========================================================= */
+    const params = new URLSearchParams(window.location.search);
+    const inviteSide = params.get("side") || "groom";
+    const inviteData = {
+      groom: {
+        heroName1: "Pradeep",
+        heroName2: "Niveditha",
+        primaryParents: "Mr. S A Subramaniam & Mrs. S Suchitra",
+        relation:
+          "request the honour of your gracious presence<br>" +
+          "at the wedding ceremony of their beloved son",
+        name1: "PRADEEP",
+        name2: "NIVEDITHA",
+        secondaryRelation: "beloved daughter of",
+        secondaryParents: "Mr. N Amaran & Mrs. K Jothi",
+        music: "assets/perfect.mp3",
+      },
+
+      bride: {
+        heroName1: "Niveditha",
+        heroName2: "Pradeep",
+        primaryParents: "Mr. N Amaran & Mrs. K Jothi",
+        relation:
+          "request the honour of your gracious presence<br>" +
+          "at the wedding ceremony of their beloved daughter",
+        name1: "NIVEDITHA",
+        name2: "PRADEEP",
+        secondaryRelation: "beloved son of",
+        secondaryParents: "Mr. S A Subramaniam & Mrs. S Suchitra",
+        music: "assets/Aga Naga.mp3",
+      },
+    };
+
+    const currentInvite = inviteData[inviteSide] || inviteData.groom;
+    /* =========================================================
+   APPLY GROOM / BRIDE INVITATION
+========================================================= */
+
+    /* HERO */
+    const heroName1 = document.getElementById("heroName1");
+    const heroName2 = document.getElementById("heroName2");
+
+    if (heroName1) {
+      heroName1.textContent = currentInvite.heroName1;
+    }
+
+    if (heroName2) {
+      heroName2.textContent = currentInvite.heroName2;
+    }
+
+    /* INVITATION */
+    const primaryParents = document.getElementById("invitePrimaryParents");
+
+    const inviteRequest = document.getElementById("inviteRequest");
+
+    const inviteName1 = document.getElementById("inviteName1");
+
+    const inviteName2 = document.getElementById("inviteName2");
+
+    const secondaryRelation = document.getElementById(
+      "inviteSecondaryRelation",
+    );
+
+    const secondaryParents = document.getElementById("inviteSecondaryParents");
+
+    if (primaryParents) {
+      primaryParents.textContent = currentInvite.primaryParents;
+    }
+
+    if (inviteRequest) {
+      inviteRequest.innerHTML = currentInvite.relation;
+    }
+
+    if (inviteName1) {
+      inviteName1.textContent = currentInvite.name1;
+    }
+
+    if (inviteName2) {
+      inviteName2.textContent = currentInvite.name2;
+    }
+
+    if (secondaryRelation) {
+      secondaryRelation.textContent = currentInvite.secondaryRelation;
+    }
+
+    if (secondaryParents) {
+      secondaryParents.textContent = currentInvite.secondaryParents;
     }
   </script>
 </html>
