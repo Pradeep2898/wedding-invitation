@@ -254,12 +254,11 @@
         overflow: hidden;
         background: linear-gradient(
           180deg,
-          #010611 0%,
-          #05142a 24%,
-          #092747 50%,
-          #124665 74%,
-          #397486 90%,
-          #718f91 100%
+          #176ac5 0%,
+          #2b91df 30%,
+          #58b4ec 55%,
+          #91d0ee 78%,
+          #e1c29a 100%
         );
         padding: 0 !important;
       }
@@ -1718,11 +1717,11 @@
         z-index: 1;
         background: linear-gradient(
           180deg,
-          #28150d 0%,
-          #402317 28%,
-          #60351f 55%,
-          #884a28 78%,
-          #b76635 100%
+          #e25e12 0%,
+          #cd793e 28%,
+          #dfa36d 52%,
+          #e9b87e 75%,
+          #f2ca97 100%
         );
       }
       .functions-bg::after {
@@ -1976,7 +1975,7 @@
         width: 10px;
         height: 10px;
         border-radius: 50%;
-        background: #e7c27a;
+        background: #664d1c;
         opacity: 0.4;
         transition: all 0.3s ease;
         cursor: pointer;
@@ -5049,10 +5048,15 @@
     }
     const bgMusic = document.getElementById("bgMusic");
     const musicToggle = document.getElementById("musicToggle");
+    const musicSide =
+      new URLSearchParams(window.location.search).get("side") || "groom";
+    const musicFiles = {
+      bride: "assets/Aga Naga.mp3",
+      groom: "assets/perfect.mp3",
+    };
+    bgMusic.src = musicFiles[musicSide] || musicFiles.groom;
+    bgMusic.load();
     bgMusic.volume = 0.22;
-    /* Select music based on groom/bride link */
-    // bgMusic.src = currentInvite.music;
-    // bgMusic.load();
     let userMuted = false;
     let musicStarted = false;
     /* =========================================
@@ -5171,105 +5175,103 @@
       );
     }
     async function startWebsite() {
-      const TEST_LOADER = false;
-      if (TEST_LOADER) {
+      const startTime = Date.now();
+      /*
+       * First visit:
+       * preload important images.
+       */
+      if (!hasVisited) {
         await preloadImages(heroImages);
-        setTimeout(() => {
-          loader.classList.add("loaded");
-        }, 4000);
-        return;
       }
       /*
-       * Returning visitor:
-       * assets should normally already be browser cached.
-       * Don't unnecessarily hold them on loader.
+       * Make sure loader stays visible
+       * for AT LEAST 2 seconds.
        */
-      if (hasVisited) {
-        loader.classList.add("loaded");
-        return;
+      const elapsed = Date.now() - startTime;
+      const remaining = Math.max(0, 2000 - elapsed);
+      if (remaining > 0) {
+        await new Promise((resolve) => {
+          setTimeout(resolve, remaining);
+        });
       }
       /*
-       * FIRST VISIT
+       * Now everything important is ready
+       * AND minimum 2 seconds have passed.
        */
-      await preloadImages(heroImages);
-      /*
-       * Keep loader for a tiny minimum duration
-       * so it doesn't flash for 100ms on fast connections.
-       */
-      setTimeout(() => {
-        loader.classList.add("loaded");
-        localStorage.setItem("weddingSiteVisited", "true");
-      }, 1000);
+      loader.classList.add("loaded");
+      localStorage.setItem("weddingSiteVisited", "true");
     }
     startWebsite();
     /* =========================================================
-   RSVP → GOOGLE FORM
-   ========================================================= */
-    /*
-     * REPLACE THESE 4 VALUES WITH YOUR GOOGLE FORM DETAILS
-     */
-    const GOOGLE_FORM_URL =
-      "https://docs.google.com/forms/d/e/1FAIpQLSehS67oF--cE4Znpl5Fz1pEnn5fLsmezGQ-TIJtr8g6yJu95Q/formResponse";
-    const NAME_ENTRY = "entry.1512671952";
-    const EMAIL_ENTRY = "entry.210387705";
-    const ATTENDANCE_ENTRY = "entry.877086558";
-    /* =========================================================
-   RSVP FORM
-   ========================================================= */
+   RSVP → GOOGLE APPS SCRIPT
+========================================================= */
+
+    const RSVP_API_URL =
+      "https://script.google.com/macros/s/AKfycbxGpAXnBYKOzRWldXVTkrROV7rGx3N-OpwEBQGUlpRs3X6ZZYWC5gtK2OPx8heNJKuM/exec";
     const rsvpForm = document.getElementById("rsvpForm");
     if (rsvpForm) {
       rsvpForm.addEventListener("submit", async function (event) {
         event.preventDefault();
-        /* -------------------------------------------------------
-       GET VALUES
-       ------------------------------------------------------- */
+        /* ----------------------------- GET VALUES ----------------------------- */
         const guestName = document.getElementById("guestName").value.trim();
         const guestEmail = document.getElementById("guestEmail").value.trim();
         const attendance = document.getElementById("attendance").value;
         const submitButton = rsvpForm.querySelector(".rsvp-btn");
-        /* -------------------------------------------------------
-       VALIDATION
-       ------------------------------------------------------- */
+        /* ----------------------------- VALIDATION ----------------------------- */
         if (!guestName || !guestEmail || !attendance) {
           rsvpForm.reportValidity();
           return;
         }
-        /* -------------------------------------------------------
-       PREVENT DOUBLE CLICK
-       ------------------------------------------------------- */
+        /* ----------------------------- BUTTON ----------------------------- */
         submitButton.disabled = true;
         submitButton.textContent = "Sending...";
-        /* -------------------------------------------------------
-       CREATE GOOGLE FORM DATA
-       ------------------------------------------------------- */
         try {
           const formData = new URLSearchParams();
-          formData.append("entry.1512671952", guestName);
-          formData.append("entry.210387705", guestEmail);
-          formData.append("entry.877086558", attendance);
-          await fetch(
-            "https://docs.google.com/forms/d/e/1FAIpQLSehS67oF--cE4Znpl5Fz1pEnn5fLsmezGQ-TIJtr8g6yJu95Q/formResponse",
-            {
-              method: "POST",
-              mode: "no-cors",
-              body: formData,
-            },
-          );
-          showRsvpSuccess(attendance);
+          formData.append("name", guestName);
+          formData.append("email", guestEmail);
+          formData.append("attendance", attendance);
+
+          console.log("RSVP: sending to Apps Script");
+
+          /*
+           * no-cors is intentional here.
+           *
+           * Apps Script receives the POST,
+           * but the browser cannot read the
+           * cross-origin response.
+           */
+
+          await fetch(RSVP_API_URL, {
+            method: "POST",
+            mode: "no-cors",
+            body: formData,
+          });
+          console.log("RSVP: request sent");
+          /*
+           * Give Apps Script a moment to write
+           * the row to Google Sheets.
+           */
+          setTimeout(() => {
+            showRsvpSuccess(attendance);
+          }, 1200);
         } catch (error) {
           console.error("RSVP submission error:", error);
           submitButton.disabled = false;
           submitButton.textContent = "Confirm Attendance";
           alert(
-            "We couldn't send your RSVP. Please check your connection and try again.",
+            "We couldn't send your RSVP. " +
+              "Please check your connection and try again.",
           );
         }
       });
     }
-    /* =========================================================
-   SUCCESS SCREEN
-   ========================================================= */
+    /* ========================================================= SUCCESS SCREEN ========================================================= */
     function showRsvpSuccess(attendance) {
+      console.log("RSVP SUCCESS SCREEN:", attendance);
+      if (!rsvpForm) {
+        console.error("RSVP form not found");
+        return;
+      }
       const isAttending = attendance === "Joyfully Accepts";
       let message;
       if (isAttending) {
@@ -5349,7 +5351,6 @@
         name2: "NIVEDITHA",
         secondaryRelation: "beloved daughter of",
         secondaryParents: "Mr. N Amaran & Mrs. K Jothi",
-        music: "assets/perfect.mp3",
       },
 
       bride: {
@@ -5363,7 +5364,6 @@
         name2: "PRADEEP",
         secondaryRelation: "beloved son of",
         secondaryParents: "Mr. S A Subramaniam & Mrs. S Suchitra",
-        music: "assets/Aga Naga.mp3",
       },
     };
 
