@@ -4430,19 +4430,39 @@
             <!-- Photo Stack -->
             <div class="photo-stack">
               <div class="photo-card card1">
-                <img src="assets/photos/photo (1).png" />
+                <img
+                  loading="lazy"
+                  decoding="async"
+                  src="assets/photos/photo (1).png"
+                />
               </div>
               <div class="photo-card card2">
-                <img src="assets/photos/photo (2).png" />
+                <img
+                  loading="lazy"
+                  decoding="async"
+                  src="assets/photos/photo (2).png"
+                />
               </div>
               <div class="photo-card card3">
-                <img src="assets/photos/photo (3).png" />
+                <img
+                  loading="lazy"
+                  decoding="async"
+                  src="assets/photos/photo (3).png"
+                />
               </div>
               <div class="photo-card card4">
-                <img src="assets/photos/photo (4).png" />
+                <img
+                  loading="lazy"
+                  decoding="async"
+                  src="assets/photos/photo (4).png"
+                />
               </div>
               <div class="photo-card card5">
-                <img src="assets/photos/photo (5).png" />
+                <img
+                  loading="lazy"
+                  decoding="async"
+                  src="assets/photos/photo (5).png"
+                />
               </div>
             </div>
           </div>
@@ -5066,9 +5086,13 @@
       bride: "assets/Aga Naga.mp3",
       groom: "assets/perfect.mp3",
     };
+    const musicVolumes = {
+      bride: 0.42,
+      groom: 0.72,
+    };
     bgMusic.src = musicFiles[musicSide] || musicFiles.groom;
     bgMusic.load();
-    bgMusic.volume = 0.22;
+    bgMusic.volume = musicVolumes[musicSide] ?? musicVolumes.groom;
     let userMuted = false;
     let musicStarted = false;
     /* =========================================
@@ -5166,52 +5190,155 @@
    ========================================= */
     bgMusic.addEventListener("play", updateMusicButton);
     bgMusic.addEventListener("pause", updateMusicButton);
+    /* =========================================================
+   WEBSITE LOADER
+   Wait for page images + music + minimum 2 seconds
+========================================================= */
     const loader = document.getElementById("site-loader");
-    const heroImages = [
-      "images/arch.png",
-      "images/cloud1.png",
-      "images/cloud2.png",
-      "images/couple.png",
-    ];
-    const hasVisited = localStorage.getItem("weddingSiteVisited");
-    function preloadImages(images) {
+    const loadStartTime = Date.now();
+    /* ---------------------------------------------------------
+   LOAD ALL IMAGES PRESENT IN THE HTML
+--------------------------------------------------------- */
+    function preloadPageImages() {
+      const imageElements = Array.from(document.querySelectorAll("img[src]"));
+      const imageSources = imageElements
+        .map((img) => img.currentSrc || img.src)
+        .filter(Boolean);
+      const uniqueSources = [...new Set(imageSources)];
       return Promise.all(
-        images.map((src) => {
+        uniqueSources.map((src) => {
           return new Promise((resolve) => {
             const img = new Image();
-            img.onload = resolve;
-            img.onerror = resolve;
+            let finished = false;
+            const finish = () => {
+              if (finished) return;
+              finished = true;
+              resolve();
+            };
+            img.onload = finish;
+            /*
+             * Don't leave the visitor trapped forever
+             * because of one broken/blocked image.
+             *
+             * We still log it so you can identify it.
+             */
+            img.onerror = () => {
+              console.warn("Loader: image failed to load:", src);
+              finish();
+            };
             img.src = src;
+            /*
+             * Image may already be cached.
+             */
+            if (img.complete) {
+              finish();
+            }
           });
         }),
       );
     }
+    /* ---------------------------------------------------------
+   WAIT FOR MUSIC FILE
+--------------------------------------------------------- */
+    function waitForMusic() {
+      return new Promise((resolve) => {
+        /*
+         * Audio may not exist in some situations.
+         */
+        if (!bgMusic) {
+          resolve();
+          return;
+        }
+        /*
+         * Already sufficiently buffered.
+         *
+         * readyState:
+         * 0 = nothing
+         * 1 = metadata
+         * 2 = current data
+         * 3 = future data
+         * 4 = enough data
+         */
+        if (bgMusic.readyState >= 3) {
+          resolve();
+          return;
+        }
+        let finished = false;
+        const finish = () => {
+          if (finished) return;
+          finished = true;
+          bgMusic.removeEventListener("canplay", finish);
+          bgMusic.removeEventListener("canplaythrough", finish);
+          bgMusic.removeEventListener("loadeddata", finish);
+          bgMusic.removeEventListener("error", handleError);
+          resolve();
+        };
+
+        const handleError = () => {
+          console.warn(
+            "Loader: music failed to load:",
+            bgMusic.currentSrc || bgMusic.src,
+          );
+
+          /*
+           * Don't permanently trap the visitor
+           * because autoplay/audio loading was blocked.
+           */
+          finish();
+        };
+        bgMusic.addEventListener("canplay", finish);
+        bgMusic.addEventListener("canplaythrough", finish);
+        bgMusic.addEventListener("loadeddata", finish);
+        bgMusic.addEventListener("error", handleError);
+        /*
+         * Make sure the selected side-specific
+         * music is actually requested.
+         */
+        bgMusic.load();
+      });
+    }
+
+    /* ---------------------------------------------------------
+   START WEBSITE
+--------------------------------------------------------- */
     async function startWebsite() {
-      const startTime = Date.now();
-      /*
-       * First visit:
-       * preload important images.
-       */
-      if (!hasVisited) {
-        await preloadImages(heroImages);
+      try {
+        /*
+         * Load EVERYTHING we know about.
+         *
+         * This runs for both first-time and
+         * returning visitors.
+         */
+        await Promise.all([preloadPageImages(), waitForMusic()]);
+        /*
+         * Minimum loader duration = 2 seconds.
+         *
+         * If assets take 5 seconds:
+         *     loader stays for 5 seconds.
+         *
+         * If assets take 500ms:
+         *     loader stays for 2 seconds.
+         */
+        const elapsed = Date.now() - loadStartTime;
+        const remaining = Math.max(0, 2000 - elapsed);
+        if (remaining > 0) {
+          await new Promise((resolve) => {
+            setTimeout(resolve, remaining);
+          });
+        }
+        /*
+         * Everything is ready.
+         */
+        loader.classList.add("loaded");
+        localStorage.setItem("weddingSiteVisited", "true");
+      } catch (error) {
+        console.error("Loader error:", error);
+        /*
+         * Fail-safe:
+         * don't permanently trap the visitor.
+         */
+        loader.classList.add("loaded");
       }
-      /*
-       * Make sure loader stays visible
-       * for AT LEAST 2 seconds.
-       */
-      const elapsed = Date.now() - startTime;
-      const remaining = Math.max(0, 2000 - elapsed);
-      if (remaining > 0) {
-        await new Promise((resolve) => {
-          setTimeout(resolve, remaining);
-        });
-      }
-      /*
-       * Now everything important is ready
-       * AND minimum 2 seconds have passed.
-       */
-      loader.classList.add("loaded");
-      localStorage.setItem("weddingSiteVisited", "true");
     }
     startWebsite();
     /* =========================================================
