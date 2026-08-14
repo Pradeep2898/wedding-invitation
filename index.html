@@ -2960,6 +2960,15 @@
         color: rgba(255, 255, 255, 0.5);
         line-height: 1.8;
       }
+      .footer-date {
+        margin-top: 12px;
+        font-family: "Jost", serif;
+        font-size: 14px;
+        letter-spacing: 2px;
+        opacity: 0.85;
+        text-transform: uppercase;
+        color: #f6e7c7;
+      }
       .ganesha {
         display: block;
         width: 90px;
@@ -4558,8 +4567,11 @@
       </div>
     </section>
     <footer>
-      <div class="monogram reveal">Pradeep &amp; Niveditha</div>
+      <div class="monogram reveal" id="footerCoupleNames">
+        Pradeep &amp; Niveditha
+      </div>
       <p class="reveal">With love &amp; gratitude</p>
+      <div class="footer-date">13th September 2026</div>
     </footer>
     <audio id="bgMusic" loop preload="auto">
       <source src="assets/Aga Naga.mp3" type="audio/mpeg" />
@@ -5368,6 +5380,12 @@
     };
 
     const currentInvite = inviteData[inviteSide] || inviteData.groom;
+
+    const footerCoupleNames = document.getElementById("footerCoupleNames");
+
+    if (footerCoupleNames) {
+      footerCoupleNames.textContent = `${currentInvite.heroName1} & ${currentInvite.heroName2}`;
+    }
     /* =========================================================
    APPLY GROOM / BRIDE INVITATION
 ========================================================= */
