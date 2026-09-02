@@ -66,6 +66,14 @@ export default async (request, context) => {
     `<meta property="og:description" content="${description}">`
   );
 
+    /*
+   * Replace OG image
+   */
+
+  html = html.replace(
+    /<meta\s+property=["']og:image["'][^>]*>/i,
+    `<meta property="og:image" content="https://niveditha-pradeep-wedding.netlify.app/assets/wedding-preview.png">`
+  );
 
   /*
    * Also update Twitter/X metadata if present
